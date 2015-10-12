@@ -5,23 +5,48 @@
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
+		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 		
 		<title>Trading Fever</title>
 	</head>
 	<body>
-		<h1>Trading Fever!</h1>
-		
 		<script>
 			netWorth = 0;
 			rage = 0;
 			
 			numStockOwned = 0;
 			avgStockPrice = 0;
-			
 		</script>
 		
+		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget"><ul id="gameTabs" class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a></li>
+				<li role="presentation" class=""><a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Stock</a></li>
+				<li role="presentation" class=""><a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Investments</a></li>
+		</ul><div id="myTabContent" class="tab-content">
+				<div role="tabpanel" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
+					<p>Content for home page goes here</p>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
+					<p>Content for stock page goes here</p>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab">
+					<p>Content for investment page goes here</p>
+				</div>
+		</div></div>
 		
+		<script>
+			$(document).ready(function(){
+				document.getElementById("gameTabWidget").style.height = "" + $(window).height() + "px";
+				$(window).resize(function(){
+					var currentWindowHeight = $(window).height();
+					var currentWindowWidth = $(window).width();
+					
+					// resize gameTabWidget
+					document.getElementById("gameTabWidget").style.height = "" + currentWindowHeight + "px";
+				})
+			});
+		</script>
 	</body>
 </html>
