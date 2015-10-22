@@ -8,33 +8,56 @@
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
+
+		<script src="js/modal.js"></script>
+		<link rel="stylesheet" href="css/index.css">
 		
 		<title>Trading Fever</title>
 	</head>
 	<body>
 		<script>
-			netWorth = 0;
+			netWorth = 2000;
 			rage = 0;
 			
 			numStockOwned = 0;
 			avgStockPrice = 0;
 		</script>
 		
-		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget"><ul id="gameTabs" class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a></li>
-				<li role="presentation" class=""><a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Stock</a></li>
-				<li role="presentation" class=""><a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Investments</a></li>
-		</ul><div id="myTabContent" class="tab-content">
+		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget">
+			<ul id="gameTabs" class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+				</li>
+				<li role="presentation" class="">
+					<a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Stock</a>
+				</li>
+				<li role="presentation" class="">
+					<a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Investments</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
 				<div role="tabpanel" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
 					<p>Content for home page goes here</p>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>Content for stock page goes here</p>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab">
-					<p>Content for investment page goes here</p>
+				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments">
+					<button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button>
 				</div>
-		</div></div>
+			</div>
+		</div>
+
+		<div id="investment1" class="overlay">
+		    <div>
+		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
+		        <script>
+		        	document.write("Your Net Worth: $" + netWorth);
+		        </script>
+		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
+				<button class="option floated" href="" onclick='overlay()'>close</button>
+		     </div>
+		</div>
 		
 		<script>
 			$(document).ready(function(){
