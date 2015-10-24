@@ -3,7 +3,6 @@
 	<head>
 		<!-- Loading Libraries-->
 		<script src="externalLibrary/jquery.min.js"></script>
-		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		
@@ -11,6 +10,10 @@
 
 		<script src="js/modal.js"></script>
 		<link rel="stylesheet" href="css/index.css">
+		
+		<script src="class/Avatar.js"></script>
+		<script src="class/Investment.js"></script>
+		<script src="class/StartUp.js"></script>
 		
 		<title>Trading Fever</title>
 	</head>
@@ -21,6 +24,8 @@
 			
 			numStockOwned = 0;
 			avgStockPrice = 0;
+			
+			theAvatar = new Avatar("Daniel");
 		</script>
 		
 		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget">
