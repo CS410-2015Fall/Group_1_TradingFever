@@ -50,11 +50,21 @@
 
 		<div id="investment1" class="overlay">
 		    <div>
-		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
 		        <script>
-		        	document.write("Your Net Worth: $" + netWorth);
+					price = 2000;
+					document.write("Daniel has a startup idea and needs you to invest $" + price + ".")
+		        	document.write("<br>Your Net Worth: $" + netWorth);
 		        </script>
-		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
+		        <button class="option floated" href="#invested" onclick='overlay()' style="width:160px">invest $2000</button>
+				<button class="option floated" href="" onclick='overlay()'>close</button>
+		     </div>
+		</div>
+
+		<div id="invested" class="overlay">
+		    <div>
+		        <script>
+		        	document.write("<br>Your net worth is now: $" + (netWorth - price);
+		        </script>
 				<button class="option floated" href="" onclick='overlay()'>close</button>
 		     </div>
 		</div>
