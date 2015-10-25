@@ -1,0 +1,4 @@
+listOfPossibleInvestments = {"investments":[
+    {"id":001, "type":"Startup", "name":"Daniel Inc.", "description":"Daniel has a tech startup and need your investment.", "cost":1000, "profitPercentage":0.05,"duration":4},
+    {"id":002, "type":"Real Estate", "name":"Ocean View Condo", "description":"Buy a condo and lease it.", "cost":2000, "profitPercentage":0.10,"duration":8}
+]}

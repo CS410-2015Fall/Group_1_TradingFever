@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<!-- Loading Libraries-->
+		<script src="externalLibrary/jquery.min.js"></script>
+		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
+		<script src="externalLibrary/resizer/jquery.resize.js"></script>
+		
+		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
+
+		<script src="js/modal.js"></script>
+		<link rel="stylesheet" href="css/index.css">
+		
+		<script src="class/Avatar.js"></script>
+		<script src="class/Investment.js"></script>
+		<script src="class/StartUp.js"></script>
+		<script src="json/listofInvestments.json"></script>
+		
+		<title>Test</title>
+	</head>
+	<body>
+		<script>
+			theAvatar = new Avatar("Daniel");
+			console.log(theAvatar.getName());
+			
+			theAvatar.setCashAmount(10000);
+			console.log(theAvatar.getCashAmount());
+			
+			console.log(theAvatar.getListOfInvestment());
+			
+			console.log(theAvatar.toString());
+
+			theAvatar.createInvestment(001);
+			theAvatar.makeInvestment(001);
+			theAvatar.createInvestment(002);
+			theAvatar.makeInvestment(002);
+			console.log(theAvatar.getListOfInvestment());
+		</script>
+	</body>
+</html>

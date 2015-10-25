@@ -1,24 +1,62 @@
-function Investment(name, type){
-	// name (String): name of the investment
-	// type (String): type of investment.
-	//		accepted type strings:
-	//			"Startup"
+function Investment(investID){
 	
-	this.name = name;
-	this.type = type;
-	
+	this.id = investID;
+	this.type = "";
+	this.name = "";
 	this.description = "";
-	this.prototype = {};
-	this.prototype.setDescription = function(newDescription){
-		this.description = newDescription;
+	this.cost = 0;
+	this.profitPercentage = 0;
+	this.duration = 0;
+
+	this.startTime = 0;
+}
+
+Investment.prototype.setInvestment = function(){
+	var jsonData = listOfPossibleInvestments;
+	var investment = "";
+	for(var i = 0; i < jsonData.investments.length; i++) {
+		if (jsonData.investments[i].id == this.id) {
+			investment = jsonData.investments[i];
+		}
 	}
-	this.prototype.getDescription = function(){
-		return this.description;
-	}
+	this.type = investment.type;
+	this.name = investment.name;
+	this.description = investment.description;
+	this.cost = investment.cost;
+	this.profitPercentage = investment.profitPercentage;
+	this.duration = investment.duration;
+}
+
+Investment.prototype.invest = function(){
+	var cash = theAvatar.getCashAmount();
+	if (cash >= this.cost) {
+		cash = cash - this.cost;
+	} 
+	else return null;
+
+	var date = new Date();
+	var timeNow = date.getTime();
+	this.startTime = timeNow;
+	return cash;
+}
+
+Investment.prototype.track = function(){
+	var date = new Date();
+	var timeNow = date.getTime();
+	var timePassed = timeNow - this.startTime;
 	
-	this.detailInfo = {};
+	var seconds = 1000
+	var minutes = seconds * 60;
+	var hours = minutes * 60;
+	var hoursPassed = timePassed / hours;
 	
-	this.invest = function(){
-		throw new Error("Investment class is an abstract class, so do not call this method");
+	if (hoursPassed >= this.duration){
+		this.startTime = timeNow;
+		this.update();
 	}
+}
+
+Investment.prototype.update = function(){
+	var profit = this.cost * this.profitPercentage;
+	theAvatar.setCashAmount(theAvatar.getCashAmount() + profit);
 }
