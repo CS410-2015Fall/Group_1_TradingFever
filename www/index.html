@@ -14,19 +14,35 @@
 		<script src="class/Avatar.js"></script>
 		<script src="class/Investment.js"></script>
 		<script src="class/StartUp.js"></script>
-		
+		<script src="js/UIControl/index.js"></script>
 		<title>Trading Fever</title>
 	</head>
-	<body>
+	<body style="font-size:5vmin;">
 		<script>
-			netWorth = 2000;
-			rage = 0;
-			
-			numStockOwned = 0;
-			avgStockPrice = 0;
-			
 			theAvatar = new Avatar("Daniel");
+			theAvatar.setCashAmount(2000);
+			theAvatar.setRage(100);
 		</script>
+		
+		<div id="statusBar" style="height:10vh; background-color:black">
+			<table style="width:100%; height:100%"><tr>
+				<td id="avatarInfo" style="height:100%">
+					<div id="avatarName_display" style="color:white;">
+						(Name)
+					</div>
+				</td>
+				<td id="avatarRage_display" style="height:100%; color:white">
+					(Rage)
+				</td>
+				<td id="avatarNetWorth_display" style="height:100%; color:white; text-align:right">
+					(Net Worth)
+				</td>
+				<td id="avatarCash_display" style="height:100%; color:white; text-align:right">
+					(Cash Amount)
+				</td>
+				
+			</tr></table>
+		</div>
 		
 		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget">
 			<ul id="gameTabs" class="nav nav-tabs" role="tablist">
@@ -53,18 +69,10 @@
 			</div>
 		</div>
 
-		<div id="investment1" class="overlay">
-		    <div>
-		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
-		        <script>
-		        	document.write("Your Net Worth: $" + netWorth);
-		        </script>
-		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
-				<button class="option floated" href="" onclick='overlay()'>close</button>
-		     </div>
-		</div>
+		
 		
 		<script>
+		/*
 			$(document).ready(function(){
 				document.getElementById("gameTabWidget").style.height = "" + $(window).height() + "px";
 				$(window).resize(function(){
@@ -75,6 +83,27 @@
 					document.getElementById("gameTabWidget").style.height = "" + currentWindowHeight + "px";
 				})
 			});
+		*/
+		
+		
+		
+		/*
+		<div id="investment1" class="overlay">
+		    <div>
+		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
+		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
+				<button class="option floated" href="" onclick='overlay()'>close</button>
+		     </div>
+		</div>
+		*/
+		</script>
+		
+		<script>
+			function callRefreshStatusBar(){
+				refreshStatusBar(theAvatar);
+			}
+			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
+			
 		</script>
 	</body>
 </html>

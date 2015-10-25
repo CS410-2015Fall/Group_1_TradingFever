@@ -20,19 +20,14 @@
 	<body>
 		<script>
 			theAvatar = new Avatar("Daniel");
-			theAvatar.cash = 123;
+			console.log(theAvatar.getName());
 			
-			document.write('Avatar Name: ' + theAvatar.name + '<br />');
-			document.write('Avatar Cash: ' + theAvatar.cash + '<br />');
+			theAvatar.setCashAmount(2000);
+			console.log(theAvatar.getCashAmount());
 			
-			document.write('<br />');
+			console.log(theAvatar.getListOfInvestment());
 			
-			/* Startup example*/
-			var aStartupInvestment = new StartUp("Daniel Inc.");
-			document.write(aStartupInvestment.name + '<br />');
-			aStartupInvestment.invest();
-			
-			
+			console.log(theAvatar.toString());
 		</script>
 	</body>
 </html>
