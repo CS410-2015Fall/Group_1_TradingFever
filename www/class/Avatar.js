@@ -44,4 +44,19 @@ function Avatar(name){
 		
 		return JSON.stringify(theObject);
 	}
+
+	this.createInvestment = function(id){
+		var investment = new Investment(id);
+		investment.setInvestment();
+		listOfInvestments.push(investment);
+	}
+
+	this.makeInvestment = function(id){
+		var i;
+		for(i = 0; i < listOfInvestments.length; i++) {
+			if (listofInvestments[i].id == id) {
+				listofInvestments[i].prototype.invest();
+			}
+		}
+	}
 }

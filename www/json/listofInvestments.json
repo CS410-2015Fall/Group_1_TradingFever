@@ -1,3 +1,3 @@
-{"investments":[
+listOfPossibleInvestments = {"investments":[
     {"id":001, "type":"Startup", "name":"Daniel Inc.", "description":"Daniel has a tech startup and need your investment.", "cost":2000, "profitPercentage":0.05,"duration":4}
 ]}
