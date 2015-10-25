@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<!-- Loading Libraries-->
+		<script src="externalLibrary/jquery.min.js"></script>
+		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
+		<script src="externalLibrary/resizer/jquery.resize.js"></script>
+		
+		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
+
+		<script src="js/modal.js"></script>
+		<link rel="stylesheet" href="css/index.css">
+		
+		<script src="class/Avatar.js"></script>
+		<script src="class/Investment.js"></script>
+		<script src="class/StartUp.js"></script>
+		
+		<title>Test</title>
+	</head>
+	<body>
+		<script>
+			theAvatar = new Avatar("Daniel");
+			theAvatar.cash = 123;
+			
+			document.write('Avatar Name: ' + theAvatar.name + '<br />');
+			document.write('Avatar Cash: ' + theAvatar.cash + '<br />');
+			
+			document.write('<br />');
+			
+			/* Startup example*/
+			var aStartupInvestment = new StartUp("Daniel Inc.");
+			document.write(aStartupInvestment.name + '<br />');
+			aStartupInvestment.invest();
+			
+			
+		</script>
+	</body>
+</html>

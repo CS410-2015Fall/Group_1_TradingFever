@@ -33,6 +33,12 @@ function Avatar(name){
 	this.getListOfInvestment = function(){
 		return listOfInvestments;
 	}
+	this.setListOfInvestment = function(newListOfInvestment){
+		listOfInvestments = newListOfInvestment;
+	}
+	this.addInvestment = function(investmentInstance){
+		listOfInvestments.push(investmentInstance);
+	}
 	
 	// Object IO
 	this.toString = function(){

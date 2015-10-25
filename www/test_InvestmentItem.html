@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<!-- Loading Libraries-->
+		<script src="externalLibrary/jquery.min.js"></script>
+		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
+		<script src="externalLibrary/resizer/jquery.resize.js"></script>
+		
+		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
+
+		<script src="js/modal.js"></script>
+		<link rel="stylesheet" href="css/index.css">
+		
+		<script src="class/Avatar.js"></script>
+		<script src="class/Investment.js"></script>
+		<script src="class/StartUp.js"></script>
+		
+		<script src="js/UIComponent/investmentItemDisplay.js"></script>
+		
+		<title>Test</title>
+	</head>
+	<body>
+		<script>
+			document.write('<br />');
+			
+			var investmentItem = new InvestmentItemDisplay('anItem');
+			document.write(investmentItem.mkHTML());
+			investmentItem.title.setTitle('lol investment');
+			investmentItem.setFontSize('2em');
+			investmentItem.detail.setHTML("some detail");
+			investmentItem.title.css('background-color','purple');
+			
+			var anotherInvestmentItem = new InvestmentItemDisplay('anotherItem');
+			document.write(anotherInvestmentItem.mkHTML());
+			anotherInvestmentItem.title.setTitle('my investment');
+			anotherInvestmentItem.setFontSize('2em');
+			anotherInvestmentItem.detail.setHTML("details here");
+			anotherInvestmentItem.detail.css('background-color','yellow');
+		</script>
+	</body>
+</html>
