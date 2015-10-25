@@ -23,7 +23,7 @@
 			theAvatar = new Avatar("Daniel");
 			console.log(theAvatar.getName());
 			
-			theAvatar.setCashAmount(2000);
+			theAvatar.setCashAmount(10000);
 			console.log(theAvatar.getCashAmount());
 			
 			console.log(theAvatar.getListOfInvestment());
@@ -31,8 +31,10 @@
 			console.log(theAvatar.toString());
 
 			theAvatar.createInvestment(001);
+			theAvatar.makeInvestment(001);
+			theAvatar.createInvestment(002);
+			theAvatar.makeInvestment(002);
 			console.log(theAvatar.getListOfInvestment());
-
 		</script>
 	</body>
 </html>

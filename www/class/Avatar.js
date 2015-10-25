@@ -45,17 +45,29 @@ function Avatar(name){
 		return JSON.stringify(theObject);
 	}
 
+	// create a new investment that is available for avatar to invest
 	this.createInvestment = function(id){
 		var investment = new Investment(id);
 		investment.setInvestment();
 		listOfInvestments.push(investment);
 	}
 
+	// invest in a selected investment
 	this.makeInvestment = function(id){
-		var i;
-		for(i = 0; i < listOfInvestments.length; i++) {
-			if (listofInvestments[i].id == id) {
-				listofInvestments[i].prototype.invest();
+		for(var i = 0; i < listOfInvestments.length; i++) {
+			if (listOfInvestments[i].id == id) {
+				var remaining = listOfInvestments[i].invest();
+				if (remaining) {
+					cash = remaining;
+					window.setInterval(
+						function() {
+							listOfInvestments[i].track();
+						}, 1000); // currently set to tick every 1 second
+					return null;
+				}
+				else {
+					console.log("you don't have enough cash");
+				}
 			}
 		}
 	}

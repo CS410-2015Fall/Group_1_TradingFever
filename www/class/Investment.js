@@ -1,8 +1,4 @@
 function Investment(investID){
-	// name (String): name of the investment
-	// type (String): type of investment.
-	//		accepted type strings:
-	//			"Startup"
 	
 	this.id = investID;
 	this.type = "";
@@ -14,8 +10,8 @@ function Investment(investID){
 
 	this.startTime = 0;
 }
-	
-Investment.prototype.setInvestment = function() {
+
+Investment.prototype.setInvestment = function(){
 	var jsonData = listOfPossibleInvestments;
 	var investment = "";
 	for(var i = 0; i < jsonData.investments.length; i++) {
@@ -31,33 +27,36 @@ Investment.prototype.setInvestment = function() {
 	this.duration = investment.duration;
 }
 
-Investment.prototype.invest = function() {
+Investment.prototype.invest = function(){
 	var cash = theAvatar.getCashAmount();
-	if (cash >= cost) {
-		cash = cash - cost;
+	if (cash >= this.cost) {
+		cash = cash - this.cost;
 	} 
-	else {
-		return null;
-	}
+	else return null;
+
 	var date = new Date();
 	var timeNow = date.getTime();
-	startTime = timeNow;
+	this.startTime = timeNow;
 	return cash;
 }
 
-Investment.prototype.track = function() {
+Investment.prototype.track = function(){
 	var date = new Date();
 	var timeNow = date.getTime();
-	var timePassed = timeNow - startTime;
-	var minutes = 1000 * 60;
+	var timePassed = timeNow - this.startTime;
+	
+	var seconds = 1000
+	var minutes = seconds * 60;
 	var hours = minutes * 60;
 	var hoursPassed = timePassed / hours;
-	if (hoursPassed >= duration) {
-		update();
+	
+	if (hoursPassed >= this.duration){
+		this.startTime = timeNow;
+		this.update();
 	}
 }
 
-Investment.prototype.update = function() {
-	var profit = cost * profitPercentage;
-	return profit;
+Investment.prototype.update = function(){
+	var profit = this.cost * this.profitPercentage;
+	theAvatar.setCashAmount(theAvatar.getCashAmount() + profit);
 }
