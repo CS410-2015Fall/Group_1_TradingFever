@@ -15,6 +15,9 @@
 		<script src="class/Investment.js"></script>
 		<script src="class/StartUp.js"></script>
 		<script src="js/UIControl/index.js"></script>
+		<script src="json/listofInvestments.json"></script>
+		<script src="js/UIControl/InvestmentPage.js"></script>
+		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 		<title>Trading Fever</title>
 	</head>
 	<body style="font-size:5vmin;">
@@ -23,7 +26,7 @@
 			theAvatar.setCashAmount(2000);
 			theAvatar.setRage(100);
 			
-			
+			investmentViewItems = [];
 		</script>
 		
 		<div id="statusBar" style="height:10vh; background-color:black">
@@ -65,15 +68,10 @@
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>Content for stock page goes here</p>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments">
-					<script>
-						
-					</script>
-					<button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button>
-				</div>
+				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
 		</div>
-
+			<!--button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button-->
 		
 		
 		<script>
@@ -101,6 +99,11 @@
 		     </div>
 		</div>
 		*/
+		</script>
+		
+		<script>
+			// make UI
+			mkInvestmentPage();
 		</script>
 		
 		<script>

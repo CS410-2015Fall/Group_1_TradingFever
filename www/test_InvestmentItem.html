@@ -16,11 +16,13 @@
 		<script src="class/StartUp.js"></script>
 		
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
+		<script src="json/listofInvestments.json"></script>
 		
 		<title>Test</title>
 	</head>
 	<body>
 		<script>
+			/*
 			document.write('<br />');
 			
 			var investmentItem = new InvestmentItemDisplay('anItem');
@@ -36,6 +38,28 @@
 			anotherInvestmentItem.setFontSize('2em');
 			anotherInvestmentItem.detail.setHTML("details here");
 			anotherInvestmentItem.detail.css('background-color','yellow');
+			*/
+			
+			investmentViewItems = [];
+			
+			console.log(listOfPossibleInvestments);
+			for(var ind=0; ind < listOfPossibleInvestments.investments.length; ind++){
+				var investmentName = listOfPossibleInvestments.investments[ind].name;
+				var anInvestmentViewItem = new InvestmentItemDisplay(listOfPossibleInvestments.investments[ind].id);
+				document.write(anInvestmentViewItem.mkHTML());
+				anInvestmentViewItem.title.setTitle(investmentName);
+				anInvestmentViewItem.detail.setHTML(listOfPossibleInvestments.investments[ind].description);
+				
+				// set colour
+				console.log(ind%2);
+				if(ind%2 == 0){
+					anInvestmentViewItem.title.css("background-color","#1111ff");
+					anInvestmentViewItem.detail.css("background-color","#9999ff");
+				} else {
+					anInvestmentViewItem.title.css("background-color","#00ff00");
+					anInvestmentViewItem.detail.css("background-color","#99ff99");
+				}
+			}
 		</script>
 	</body>
 </html>

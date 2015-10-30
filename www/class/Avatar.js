@@ -50,6 +50,12 @@ function Avatar(name){
 		
 		return JSON.stringify(theObject);
 	}
+	this.loadFromString = function(theJSONString){
+		var theObject = JSON.parse(theJSONString);
+		name = theObject.name;
+		cash = theObject.cash;
+		listOfInvestments =  theObject.investments;
+	}
 
 	// create a new investment that is available for avatar to invest
 	this.createInvestment = function(id){
