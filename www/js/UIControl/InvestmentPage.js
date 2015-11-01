@@ -1,12 +1,16 @@
+investmentViewItems = [];
 function mkInvestmentPage(){
 	var toReturn = '';
+	var theList = theAvatar.getListOfInvestment();
+	console.log(theList);
 	
-	for(var ind=0; ind < listOfPossibleInvestments.investments.length; ind++){
-		var investmentName = listOfPossibleInvestments.investments[ind].name;
-		var anInvestmentViewItem = new InvestmentItemDisplay(listOfPossibleInvestments.investments[ind].id);
+	for(var ind=0; ind < theList.length; ind++){
+		var investmentName = theList[ind].name;
+		var anInvestmentViewItem = new InvestmentItemDisplay(theList[ind].id);
+		investmentViewItems.push(anInvestmentViewItem);
 		$("#investmentPage").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
-		anInvestmentViewItem.detail.setHTML(listOfPossibleInvestments.investments[ind].description);
+		anInvestmentViewItem.detail.setHTML(theList[ind].description);
 				
 		// set colour
 		console.log(ind%2);
@@ -18,6 +22,6 @@ function mkInvestmentPage(){
 			anInvestmentViewItem.detail.css("background-color","#99ff99");
 		}
 	}
-	
+	console.log(investmentViewItems);
 	//$("#investmentPage").html(toReturn);
 }

@@ -3,9 +3,16 @@ function InvestmentItemDisplay(itemID){
 	ID = itemID;
 	
 	this.mkHTML = function(){
-		
+		// this makes the display HTML on the investment menu list
 		var toReturn = '';
 		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
+		
+		toReturn += '<table style="width:100%"><tr>';
+		toReturn += '<td style="width:20%">'; // picture
+		
+		toReturn += '</td>';
+		
+		toReturn += '<td>';
 		toReturn += '<table style="width:100%">';
 	
 		// Investment title
@@ -16,7 +23,10 @@ function InvestmentItemDisplay(itemID){
 		// Investment detail
 		toReturn += '<tr id="displayInvestmentDetail_'+ID+'" style="width:100%; background-color:#5555ff"></tr>';
 	
-		toReturn += '</table>';
+		toReturn += '</table></td>';
+		
+		
+		toReturn += '</tr></table>';
 		toReturn += '</div>';
 		
 		return toReturn;

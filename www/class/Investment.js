@@ -7,7 +7,7 @@ function Investment(investID){
 	this.cost = 0;
 	this.profitPercentage = 0;
 	this.duration = 0;
-
+	this.level = 0;
 	this.startTime = 0;
 }
 
@@ -46,9 +46,9 @@ Investment.prototype.track = function(){
 	var timePassed = timeNow - this.startTime;
 	
 	var seconds = 1000
-	var minutes = seconds * 60;
-	var hours = minutes * 60;
-	var hoursPassed = timePassed / hours;
+	//var minutes = seconds * 60;
+	//var hours = minutes * 60;
+	var hoursPassed = timePassed / seconds;
 	
 	if (hoursPassed >= this.duration){
 		this.startTime = timeNow;
