@@ -4,6 +4,7 @@ function overlay() {
 }
 
 function invest() {
-	var node = document.getElementById('invested');
+	location.reload();
+	var node = document.getElementById('investmentPage');
 	node.innerHTML('<p>some dynamic htmllllllllll</p>');
 }

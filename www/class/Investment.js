@@ -7,7 +7,7 @@ function Investment(investID){
 	this.cost = 0;
 	this.profitPercentage = 0;
 	this.duration = 0;
-
+	this.level = 0;
 	this.startTime = 0;
 	this.level = 0;
 }
