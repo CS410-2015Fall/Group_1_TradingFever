@@ -60,8 +60,9 @@ function tick() {
   securitiesGPV = shares * stockPrice;
   netLiquidation = securitiesGPV + cash;
   leverage = securitiesGPV/netLiquidation;
+  availableFunds = maxLeverage*netLiquidation;
 
-  //blowup scenario
+  // blowup scenarios
   if (netLiquidation < 0){
     alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
     securitiesGPV = 0;
@@ -70,13 +71,17 @@ function tick() {
     cash = 20000;
     availableFunds = 20000;
     netLiquidation = cash;
+    availableFunds = maxLeverage*netLiquidation;
   }else if (leverage > maxLeverage){
     alert('You exceeded the maximum leverage of ' + maxLeverage + "! The broker won't allow you to borrow more and you were forced to sell off.")
     stockPrice = data[data.length-1];
     securitiesGPV = shares * stockPrice;
     cash = cash + securitiesGPV;
+    netLiquidation = cash;
+    shares = 0;
     securitiesGPV = 0;
     netLiquidation = securitiesGPV + cash;
+    availableFunds = maxLeverage*netLiquidation;
     leverage = securitiesGPV/netLiquidation;
   }
 
