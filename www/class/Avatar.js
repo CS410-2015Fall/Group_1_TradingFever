@@ -4,7 +4,6 @@ function Avatar(name){
 	var cash = null;
 	var listOfInvestments = [];
 	
-	
 	// Name
 	this.getName = function(){
 		return name;
@@ -57,28 +56,84 @@ function Avatar(name){
 		listOfInvestments =  theObject.investments;
 	}
 
-	// create a new investment that is available for avatar to invest
-	this.createInvestment = function(id){
-		var investment = new Investment(id);
-		investment.setInvestment();
+	// create a new startup investment that is available for avatar to invest
+	this.createStartUp = function(id){
+		var investment = new StartUp(id);
+		investment.prototype.setInvestment();
 		listOfInvestments.push(investment);
 	}
 
-	// invest in a selected investment
-	this.makeInvestment = function(id){
+	// create a new real estate investment that is available for avatar to invest
+	this.createRealEstate = function(id){
+		var investment = new RealEstate(id);
+		investment.prototype.setInvestment();
+		listOfInvestments.push(investment);
+	}
+
+	// create a new scam (random) investment that is available for avatar to invest
+	this.createScam = function(id){
+		var investment = new Scam(id);
+		investment.prototype.setInvestment();
+		listOfInvestments.push(investment);
+	}
+
+	// make an one-time investment
+	this.makeTemporaryInvestment = function(id){
 		for(var i = 0; i < listOfInvestments.length; i++) {
-			if (listOfInvestments[i].id == id) {
-				var remaining = listOfInvestments[i].invest();
+			if (listOfInvestments[i].prototype.id == id) {
+				var remaining = listOfInvestments[i].prototype.invest();
+				if (remaining) {
+					cash = remaining;
+					var tempInvestment = window.setInterval(
+						function() {
+							if (listOfInvestments[i].prototype.track()){
+								listOfInvestments[i].update();
+								clearInterval(tempInvestment);
+							}
+							console.log(cash);
+						}, 1000);
+					return null;
+				}
+				else {
+					console.log("Oh-no! You don't have enough cash to make this investment.");
+				}
+			}
+		}
+	}
+
+	// make a continuous investment
+	this.makeContinuousInvestment = function(id){
+		for(var i = 0; i < listOfInvestments.length; i++) {
+			if (listOfInvestments[i].prototype.id == id) {
+				var remaining = listOfInvestments[i].prototype.invest();
 				if (remaining) {
 					cash = remaining;
 					window.setInterval(
 						function() {
-							listOfInvestments[i].track();
-						}, 1000); // currently set to tick every 1 second
+							if (listOfInvestments[i].prototype.track()){
+								listOfInvestments[i].prototype.update();
+							}
+							console.log(cash);
+						}, 1000); 
 					return null;
 				}
 				else {
-					console.log("you don't have enough cash");
+					console.log("Oh-no! You don't have enough cash to make this investment.");
+				}
+			}
+		}
+	}
+
+	// upgrade a continuous investment
+	this.upgradeRealEstate = function(id){
+		for(var i = 0; i < listOfInvestments.length; i++) {
+			if (listOfInvestments[i].prototype.id == id) {
+				var remaining = listOfInvestments[i].upgradeRealEstate();
+				if (remaining) {
+					cash = remaining;
+				}
+				else {
+					console.log("Oh-no! You don't have enough cash to upgrade this investment.");
 				}
 			}
 		}

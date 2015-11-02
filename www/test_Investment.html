@@ -14,6 +14,7 @@
 		<script src="class/Avatar.js"></script>
 		<script src="class/Investment.js"></script>
 		<script src="class/StartUp.js"></script>
+		<script src="class/RealEstate.js"></script>
 		<script src="json/listofInvestments.json"></script>
 		
 		<title>Test</title>
@@ -23,18 +24,27 @@
 			theAvatar = new Avatar("Daniel");
 			console.log(theAvatar.getName());
 			
-			theAvatar.setCashAmount(10000);
+			theAvatar.setCashAmount(100000);
 			console.log(theAvatar.getCashAmount());
 			
 			console.log(theAvatar.getListOfInvestment());
 			
 			console.log(theAvatar.toString());
 
-			theAvatar.createInvestment(001);
-			theAvatar.makeInvestment(001);
-			theAvatar.createInvestment(002);
-			theAvatar.makeInvestment(002);
+			theAvatar.createStartUp(001);
+			theAvatar.makeTemporaryInvestment(001);
+			theAvatar.createRealEstate(002);
+			theAvatar.makeContinuousInvestment(002);
 			console.log(theAvatar.getListOfInvestment());
+			console.log(theAvatar.getCashAmount());
+
+			theAvatar.upgradeRealEstate(002);
+			console.log(theAvatar.getListOfInvestment());
+			console.log(theAvatar.getCashAmount());
+
+			theAvatar.upgradeRealEstate(002);
+			console.log(theAvatar.getListOfInvestment());
+			console.log(theAvatar.getCashAmount());
 		</script>
 	</body>
 </html>

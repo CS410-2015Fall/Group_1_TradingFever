@@ -1,18 +1,20 @@
 function StartUp(startupID){
 
-	this.prototype = new Investment();
+	this.prototype = new Investment(startupID);
+	this.prototype.setStartUp = StartUp;
 
-	this.id = startupID;
-	this.type = "";
-	this.name = "";
-	this.description = "";
-	this.cost = 0;
-	this.profitPercentage = 0;
-	this.duration = 0;
+	this.successRate = 0.5;
+}
 
-	this.startTime = 0;
+StartUp.prototype.update = function(){
 
-	this.prototype.invest = function(){
-		return Investment.prototype.invest.call(this);		
+	if (Math.random() > this.successRate) {
+		var profit = this.prototype.cost * this.prototype.profitPercentage;
+		theAvatar.setCashAmount(theAvatar.getCashAmount() + profit);
+		console.log("Wow! " + this.prototype.name + " is making money! You earned $" + profit + "!");
+	}
+
+	else {
+		console.log("Uh-oh! " + this.prototype.name + " went bankrupt!. You lost all your money.");
 	}
 }
