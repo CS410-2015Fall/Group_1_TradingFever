@@ -9,8 +9,10 @@ function Investment(investID){
 	this.duration = 0;
 	this.level = 0;
 	this.startTime = 0;
+	this.level = 0;
 }
 
+// constructor
 Investment.prototype.setInvestment = function(){
 	var jsonData = listOfPossibleInvestments;
 	var investment = "";
@@ -27,19 +29,22 @@ Investment.prototype.setInvestment = function(){
 	this.duration = investment.duration;
 }
 
+// make the investment and return the remaining cash value
 Investment.prototype.invest = function(){
 	var cash = theAvatar.getCashAmount();
 	if (cash >= this.cost) {
-		cash = cash - this.cost;
+		cash -= this.cost;
 	} 
 	else return null;
 
 	var date = new Date();
 	var timeNow = date.getTime();
 	this.startTime = timeNow;
+	this.level ++;
 	return cash;
 }
 
+// returns true if time is up
 Investment.prototype.track = function(){
 	var date = new Date();
 	var timeNow = date.getTime();
@@ -52,11 +57,16 @@ Investment.prototype.track = function(){
 	
 	if (hoursPassed >= this.duration){
 		this.startTime = timeNow;
-		this.update();
+		return true;
 	}
 }
 
+// update the cash value; may be overriden by subclass
 Investment.prototype.update = function(){
 	var profit = this.cost * this.profitPercentage;
 	theAvatar.setCashAmount(theAvatar.getCashAmount() + profit);
+}
+
+// upgrade the real estate investments
+Investment.prototype.upgradeRealEstate = function(){
 }
