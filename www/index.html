@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<!-- Loading Libraries-->
+		<script src="externalLibrary/d3/d3.min.js"></script>
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
@@ -19,6 +20,25 @@
 		<script src="js/UIControl/InvestmentPage.js"></script>
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 		<title>Trading Fever</title>
+		<style>
+
+		svg {
+			font: 10px sans-serif;
+		}
+
+		.line {
+			fill: none;
+			stroke: #000;
+			stroke-width: 1.5px;
+		}
+
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+		}
+		</style>
 	</head>
 	<body style="font-size:5vmin;">
 		<script>
@@ -66,7 +86,33 @@
 					<p>Content for home page goes here</p>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
-					<p>Content for stock page goes here</p>
+					<p>Content for stock page goes here
+						<div id = "stocks"></div>
+						<table style="width:100%">
+							<tr>
+								<td><button id = 'buybutton'>Buy 100 shares</button></td>
+								<td><button id = 'sellbutton'>Sell 100 shares</button></td> 
+							</tr>
+						</table>
+
+						<div id="stockPrice"></div>
+
+						<div id="netLiquidation"></div>
+
+						<div id="shares"></div>
+
+						<div id="securitiesGPV"></div>
+
+						<div id="cash"></div>
+
+						<div id="availableFunds"></div>
+
+						<div id="leverage"></div>
+
+						<div id="transactionFee"></div>
+
+
+					</p>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
@@ -117,6 +163,8 @@
 			}
 			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
 			
+
 		</script>
+		<script src = "class/Stocks.js"></script>
 	</body>
 </html>
