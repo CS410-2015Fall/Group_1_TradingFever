@@ -19,7 +19,7 @@ function InvestmentItemDisplay(itemID){
 		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/dell.png" style="width:2em"/>';
 		toReturn += '</td>';
 		
-		toReturn += '<td>';
+		toReturn += '<td width="100%">';
 		toReturn += '<table width="100%;">';
 		// Investment title
 		toReturn += '<tr style="width:100%"><td>';
@@ -31,8 +31,13 @@ function InvestmentItemDisplay(itemID){
 	
 		toReturn += '</table>';
 		
+		toReturn += '<td>';
+		toReturn += '<button onclick="handle_makeInvestmentButton('+ID+')">Invest</button>';
+		toReturn += '</td>';
 		
-		toReturn += '</tr></table>';
+		toReturn += '</tr>';
+		
+		toReturn += '</table>';
 		toReturn += '</div>';
 		
 		return toReturn;
@@ -67,6 +72,19 @@ function InvestmentItemDisplay(itemID){
 		},
 		'css':function(propertyName,propertyValue){
 			$('#displayInvestmentDetail_'+ID).css(propertyName,propertyValue);
+		}
+	}
+}
+
+function handle_makeInvestmentButton(investmentID){
+	console.log('making investment: ' + investmentID);
+	
+	// get investment instance
+	var investmentList = theAvatar.getListOfInvestment();
+	for(var ind=0; ind < investmentList.length; ind++){
+		if (investmentList[ind].id == investmentID){
+			//
+			console.log('almost there!');
 		}
 	}
 }
