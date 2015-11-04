@@ -1,29 +1,35 @@
 function InvestmentItemDisplay(itemID){
 	// itemID: String
-	ID = itemID;
+	var ID = itemID;
+	this.getInvestmentID = function(){
+		return ID;
+	}
+	this.setInvestmentID = function(newID){
+		ID = newID;
+	}
 	
 	this.mkHTML = function(){
 		// this makes the display HTML on the investment menu list
+	
 		var toReturn = '';
 		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
 		
 		toReturn += '<table style="width:100%"><tr>';
-		toReturn += '<td style="width:20%">'; // picture
-		
+		toReturn += '<td id="displayInvestmentImageBlock_'+ID+'" style="width:2em;">'; // picture
+		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/dell.png" style="width:2em"/>';
 		toReturn += '</td>';
 		
 		toReturn += '<td>';
-		toReturn += '<table style="width:100%">';
-	
+		toReturn += '<table width="100%;">';
 		// Investment title
-		toReturn += '<tr style="width:100%">';
+		toReturn += '<tr style="width:100%"><td>';
 		toReturn += '<div id="displayInvestmentTitle_'+ID+'" style="background-color:blue"></div>';
-		toReturn += '</tr>';
+		toReturn += '</td></tr>';
 	
 		// Investment detail
-		toReturn += '<tr id="displayInvestmentDetail_'+ID+'" style="width:100%; background-color:#5555ff"></tr>';
+		toReturn += '<tr style="width:100%; background-color:#5555ff"><td id="displayInvestmentDetail_'+ID+'" style="width:100%; background-color:#5555ff"></td></tr>';
 	
-		toReturn += '</table></td>';
+		toReturn += '</table>';
 		
 		
 		toReturn += '</tr></table>';
@@ -34,6 +40,18 @@ function InvestmentItemDisplay(itemID){
 	
 	this.setFontSize = function(newFontSize){
 		$('#displayInvestment_'+ID).css('font-size',newFontSize);
+	}
+	this.image = {
+		'setImage':function(imgURL){
+			$('#displayInvestmentImage_'+ID).attr("src",imgURL);
+			console.log(imgURL);
+		},
+		'css':function(propertyName,propertyValue){
+			$('#displayInvestmentImage_'+ID).css(propertyName,propertyValue);
+		},
+		'setBackgroundColor':function(colorCode){
+			$('#displayInvestmentImageBlock_'+ID).css('background-color',colorCode);
+		}
 	}
 	this.title = {
 		'setTitle':function(newTitle){

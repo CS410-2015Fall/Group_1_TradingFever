@@ -4,11 +4,13 @@ function mkInvestmentPage(){
 	var theList = theAvatar.getListOfInvestment();
 	console.log(theList);
 	
+	$("#investmentPage").append('<div id="investmentViewerList"></div>');
+	
 	for(var ind=0; ind < theList.length; ind++){
 		var investmentName = theList[ind].name;
 		var anInvestmentViewItem = new InvestmentItemDisplay(theList[ind].id);
 		investmentViewItems.push(anInvestmentViewItem);
-		$("#investmentPage").append(anInvestmentViewItem.mkHTML());
+		$("#investmentViewerList").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
 		anInvestmentViewItem.detail.setHTML(theList[ind].description);
 				
@@ -23,5 +25,17 @@ function mkInvestmentPage(){
 		}
 	}
 	console.log(investmentViewItems);
-	//$("#investmentPage").html(toReturn);
+	//$("#investmentViewerList").html(toReturn);
+}
+function rmInvestmentViewItem(investmentID){
+	for(var ind=0; ind < investmentViewItems.length; ind++){
+		if(investmentViewItems[ind].getInvestmentID() == investmentID){
+			// remove from the UI
+			$('#displayInvestment_'+investmentID).remove();
+			
+			// remove from investmentViewItems
+			investmentViewItems.splice(ind,1);
+			break;
+		}
+	}
 }
