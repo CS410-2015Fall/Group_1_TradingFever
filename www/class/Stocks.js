@@ -4,9 +4,17 @@ var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash 
 
 var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
 
-var margin = {top: 20, right: 20, bottom: 20, left: 40},
+/*var margin = {top: 20, right: 20, bottom: 20, left: 40},
     width = 400 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;*/
+
+var currentWindowHeight = $(window).height();
+var currentWindowWidth = $(window).width();
+
+
+var margin = {top: 20, right: 20, bottom: 20, left: 40},
+    width = currentWindowWidth*0.8 - margin.left - margin.right,
+    height = currentWindowHeight*0.5 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
     .domain([0, n - 1])
@@ -20,9 +28,11 @@ var line = d3.svg.line()
     .x(function(d, i) { return x(i); })
     .y(function(d, i) { return y(d); });
 
+
+
 var svg = d3.select("#stocks").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("height", height + margin.left + margin.right)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -112,10 +122,10 @@ function setRandom() {
     random = d3.random.normal(0.97, 0.15);
   }else if (data[data.length-1]<6){
     console.log('case 2');
-    random = d3.random.normal(1.06, 0.07);
+    random = d3.random.normal(1.05, 0.05);
   }else if (Math.random() > 0.5){
   console.log('case 3')
-  random = d3.random.normal(1.02, 0.03);
+  random = d3.random.normal(1.03, 0.04);
   }else{
     console.log('case 4');
     random = d3.random.normal(0.99, 0.15);
@@ -205,5 +215,5 @@ function showLeverage(){
 setInterval(showFees, 200);
 
 function showFees(){
-  $('#transactionFee').html('Transaction Fee Paid: $'+ fee.toFixed(2));
+  $('#transactionFee').html('Transaction Fees Paid: $'+ fee.toFixed(2));
 }
