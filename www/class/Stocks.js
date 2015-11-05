@@ -1,17 +1,19 @@
 var exit = 0;
 
-var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 3000, availableFunds = 3000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, leverage = securitiesGPV/netLiquidation;
+var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 3000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation;
 
 var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
 
+// absolute sizing
 /*var margin = {top: 20, right: 20, bottom: 20, left: 40},
     width = 400 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;*/
 
+// relative sizing
 var currentWindowHeight = $(window).height();
 var currentWindowWidth = $(window).width();
 
-
+// relative sizing
 var margin = {top: 20, right: 20, bottom: 20, left: 40},
     width = currentWindowWidth*0.8 - margin.left - margin.right,
     height = currentWindowHeight*0.5 - margin.top - margin.bottom;
@@ -27,8 +29,6 @@ var y = d3.scale.linear()
 var line = d3.svg.line()
     .x(function(d, i) { return x(i); })
     .y(function(d, i) { return y(d); });
-
-
 
 var svg = d3.select("#stocks").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -61,6 +61,46 @@ var path = svg.append("g")
 
 setInterval(setRandom, 1000)
 tick();
+
+// feeRate
+function getStocksFeeRate() {
+  return feeRate;
+}
+
+function setStocksFeeRate(newFeeRate) {
+  feeRate = newFeeRate;
+}
+
+// Cash
+function getStocksCash() {
+  return cash;
+}
+
+function setStocksCash(newCash) {
+  cash = newCash;
+}
+
+function addStocksCash(newCash) {
+  cash = cash + newCash;
+}
+
+function subtractStocksCash(newCash) {
+  if (cash - newCash > 3000){
+    cash = cash - newCash;
+  }
+  else{
+    alert("You can't take that much money or you'll go below minimum trading account size.")
+  }
+}
+
+// netLiquidation
+function getStocksNetLiquidation() {
+  return netLiquidation;
+}
+
+function setStocksNetLiquidation(newNetLiquidation) {
+  netLiquidation = newNetLiquidation; // this should never really be used
+}
 
 // THIS UPDATES ABSOLUTELY EVERYTHING
 function tick() {
