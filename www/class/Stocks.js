@@ -1,8 +1,8 @@
 var exit = 0;
 
-var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 20000, availableFunds = 20000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, leverage = securitiesGPV/netLiquidation;
+var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 3000, availableFunds = 3000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, leverage = securitiesGPV/netLiquidation;
 
-var n = 11, random = d3.random.normal(1, 0.2), data = d3.range(n).map(random);
+var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
 
 var margin = {top: 20, right: 20, bottom: 20, left: 40},
     width = 400 - margin.left - margin.right,
@@ -63,13 +63,13 @@ function tick() {
   availableFunds = maxLeverage*netLiquidation;
 
   // blowup scenarios
-  if (netLiquidation < 0){
+  if (netLiquidation < 100*stockPrice){
     alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
     securitiesGPV = 0;
     shares = 0;
     leverage = 0;
-    cash = 20000;
-    availableFunds = 20000;
+    cash = 3000;
+    availableFunds = 3000;
     netLiquidation = cash;
     availableFunds = maxLeverage*netLiquidation;
   }else if (leverage > maxLeverage){
@@ -109,16 +109,16 @@ function tick() {
 function setRandom() {
   if (data[data.length-1]>12){
     console.log('case 1');
-    random = d3.random.normal(0.95, 0.15);
+    random = d3.random.normal(0.97, 0.15);
   }else if (data[data.length-1]<6){
     console.log('case 2');
-    random = d3.random.normal(1.1, 0.08);
+    random = d3.random.normal(1.06, 0.07);
   }else if (Math.random() > 0.5){
   console.log('case 3')
-  random = d3.random.normal(1.04, 0.08);
+  random = d3.random.normal(1.02, 0.03);
   }else{
     console.log('case 4');
-    random = d3.random.normal(0.98, 0.15);
+    random = d3.random.normal(0.99, 0.15);
   }
 }
 
