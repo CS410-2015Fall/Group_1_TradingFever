@@ -114,7 +114,7 @@ function Avatar(name){
 								listOfInvestments[i].prototype.update();
 							}
 							console.log(cash);
-						}, 1000); 
+						}, 200); 
 					return null;
 				}
 				else {

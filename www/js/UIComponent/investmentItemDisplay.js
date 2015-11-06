@@ -12,6 +12,7 @@ function InvestmentItemDisplay(itemID){
 		// this makes the display HTML on the investment menu list
 	
 		var toReturn = '';
+		toReturn += '<link rel="stylesheet" href="css/index.css">';
 		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
 		
 		toReturn += '<table style="width:100%"><tr>';
@@ -79,12 +80,5 @@ function InvestmentItemDisplay(itemID){
 function handle_makeInvestmentButton(investmentID){
 	console.log('making investment: ' + investmentID);
 	
-	// get investment instance
-	var investmentList = theAvatar.getListOfInvestment();
-	for(var ind=0; ind < investmentList.length; ind++){
-		if (investmentList[ind].id == investmentID){
-			//
-			console.log('almost there!');
-		}
-	}
+	theAvatar.makeContinuousInvestment(investmentID);
 }

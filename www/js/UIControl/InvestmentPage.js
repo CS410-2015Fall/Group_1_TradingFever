@@ -16,11 +16,11 @@ function mkInvestmentPage(){
 		// set colour
 		console.log(ind%2);
 		if(ind%2 == 0){
-			anInvestmentViewItem.title.css("background-color","#1111ff");
-			anInvestmentViewItem.detail.css("background-color","#9999ff");
+			//anInvestmentViewItem.title.css("background-color","#1111ff");
+			//anInvestmentViewItem.detail.css("background-color","#9999ff");
 		} else {
-			anInvestmentViewItem.title.css("background-color","#00ff00");
-			anInvestmentViewItem.detail.css("background-color","#99ff99");
+			//anInvestmentViewItem.title.css("background-color","#00ff00");
+			//anInvestmentViewItem.detail.css("background-color","#99ff99");
 		}
 	}
 	console.log(investmentViewItems);
