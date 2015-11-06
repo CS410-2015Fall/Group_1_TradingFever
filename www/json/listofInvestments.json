@@ -1,5 +1,5 @@
 listOfPossibleInvestments = {"investments":[
-    {"id":001, "type":"Startup", "name":"Daniel Inc.", "description":"Daniel has a tech startup and needs your investment.", "cost":1000, "profitPercentage":0.05,"duration":4},
-    {"id":002, "type":"Real Estate", "name":"Ocean View Condo", "description":"Buy a condo and lease it.", "cost":2000, "profitPercentage":0.10,"duration":8},
+    {"id":001, "type":"Startup", "name":"Daniel Inc.", "description":"Daniel has a tech startup and needs your investment.", "cost":1000, "profitPercentage":0.05,"duration":0.5},
+    {"id":002, "type":"Real Estate", "name":"Ocean View Condo", "description":"Buy a condo and lease it.", "cost":2000, "profitPercentage":0.10,"duration":0.2},
     {"id":003, "type":"Scam", "name":"Nigerian Prince", "description":"The royal prince of Nigerian asks for your help.", "cost":5000, "profitPercentage":2,"duration":10}
 ]}

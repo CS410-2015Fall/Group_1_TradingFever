@@ -12,6 +12,10 @@ function InvestmentItemDisplay(itemID){
 		// this makes the display HTML on the investment menu list
 	
 		var toReturn = '';
+		toReturn += '<link rel="stylesheet" href="css/index.css">';
+		toReturn += '<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.css">';
+		toReturn += '<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.js"></script>';
+
 		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
 		
 		toReturn += '<table style="width:100%"><tr>';
@@ -21,18 +25,23 @@ function InvestmentItemDisplay(itemID){
 		
 		toReturn += '<td width="100%">';
 		toReturn += '<table width="100%;">';
-		// Investment title
-		toReturn += '<tr style="width:100%"><td>';
-		toReturn += '<div id="displayInvestmentTitle_'+ID+'" style="background-color:blue"></div>';
-		toReturn += '</td></tr>';
-	
-		// Investment detail
-		toReturn += '<tr style="width:100%; background-color:#5555ff"><td id="displayInvestmentDetail_'+ID+'" style="width:100%; background-color:#5555ff"></td></tr>';
-	
-		toReturn += '</table>';
 		
 		toReturn += '<td>';
-		toReturn += '<button onclick="handle_makeInvestmentButton('+ID+')">Invest</button>';
+
+		toReturn += ' \
+		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child ui-btn-up-c"> \
+			<div class="ui-btn-inner ui-li"> \
+				<div class="ui-btn-text"> \
+					<a href="index.html" class="ui-link-inherit"> \
+						<h2 class="ui-li-heading" id="displayInvestmentTitle_'+ID+'">Avery Walker</h2> \
+						<p class="ui-li-desc" id="displayInvestmentDetail_'+ID+'"></p> \
+					</a> \
+				</div> \
+				<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span> \
+			</div> \
+		</li>';
+
+		toReturn += '<button onclick="handle_makeInvestmentButton('+ID+')">Invest $2000</button>';
 		toReturn += '</td>';
 		
 		toReturn += '</tr>';
@@ -79,12 +88,5 @@ function InvestmentItemDisplay(itemID){
 function handle_makeInvestmentButton(investmentID){
 	console.log('making investment: ' + investmentID);
 	
-	// get investment instance
-	var investmentList = theAvatar.getListOfInvestment();
-	for(var ind=0; ind < investmentList.length; ind++){
-		if (investmentList[ind].id == investmentID){
-			//
-			console.log('almost there!');
-		}
-	}
+	theAvatar.makeContinuousInvestment(investmentID);
 }

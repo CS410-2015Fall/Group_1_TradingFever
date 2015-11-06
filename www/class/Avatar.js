@@ -114,7 +114,7 @@ function Avatar(name){
 								listOfInvestments[i].prototype.update();
 							}
 							console.log(cash);
-						}, 1000); 
+						}, 200); 
 					return null;
 				}
 				else {
@@ -137,5 +137,13 @@ function Avatar(name){
 				}
 			}
 		}
+	}
+
+	this.getNetWorth = function(id){
+		var net = 0;
+		for(var i = 0; i < listOfInvestments.length; i++) {
+			net += listOfInvestments[i].prototype.cost;
+		}
+		return net + cash;
 	}
 }
