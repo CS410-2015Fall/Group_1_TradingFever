@@ -22,7 +22,7 @@ function Avatar(name){
 	
 	// Cash
 	this.getCashAmount = function(){
-		return cash.toFixed(2);
+		return cash;
 	}
 	this.setCashAmount = function(newCashAmount){
 		cash = newCashAmount;
@@ -145,6 +145,6 @@ function Avatar(name){
 			net += listOfInvestments[i].prototype.cost;
 		}
 		netWorth = net + cash + getStocksNetLiquidation();
-		return netWorth.toFixed(2);
+		return netWorth;
 	}
 }
