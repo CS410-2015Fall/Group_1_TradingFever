@@ -13,8 +13,8 @@ function InvestmentItemDisplay(itemID){
 	
 		var toReturn = '';
 		toReturn += '<link rel="stylesheet" href="css/index.css">';
-		toReturn += '<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.css">';
-		toReturn += '<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.js"></script>';
+		//toReturn += '<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.css">';
+		//toReturn += '<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.js"></script>';
 
 		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
 		

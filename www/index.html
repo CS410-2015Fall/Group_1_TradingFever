@@ -9,13 +9,14 @@
 		
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
-		<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.css">
-		<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.js"></script>
+		<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css">
+		<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
 
 		<script src="js/modal.js"></script>
 		<link rel="stylesheet" href="css/index.css">
 		
 		<script src="class/Avatar.js"></script>
+		<script src="class/Login.js"></script>
 		<script src="class/Investment.js"></script>
 		<script src="class/StartUp.js"></script>
 		<script src="class/RealEstate.js"></script>
@@ -88,7 +89,10 @@
 			<div id="myTabContent" class="tab-content">
 				<div role="tabpanel" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
 					<!--p>Content for home page goes here</p-->
-					<img src="img/room.jpg" style="width:100%; height:80vh"/>
+					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
+					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
+					<div id="status"></div>
+					<button class="btn" style="width:20%" onclick="post()">post to facebook</button>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>Content for stock page goes here
