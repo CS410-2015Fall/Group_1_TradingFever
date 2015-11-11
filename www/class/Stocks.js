@@ -1,6 +1,6 @@
 var exit = 0;
 
-var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 3000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation;
+var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 4000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation;
 
 var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
 
@@ -85,11 +85,11 @@ function addStocksCash(newCash) {
 }
 
 function subtractStocksCash(newCash) {
-  if (cash - newCash > 3000){
+  if (cash - newCash > 4000){
     cash = cash - newCash;
   }
   else{
-    alert("You can't take that much money or you'll go below minimum trading account size.")
+    alert("You can't take that much money or you'll go below minimum trading account size.");
   }
 }
 
@@ -118,8 +118,8 @@ function tick() {
     securitiesGPV = 0;
     shares = 0;
     leverage = 0;
-    cash = 3000;
-    availableFunds = 3000;
+    cash = 4000;
+    availableFunds = 4000;
     netLiquidation = cash;
     availableFunds = maxLeverage*netLiquidation;
   }else if (leverage > maxLeverage){
@@ -160,12 +160,12 @@ function setRandom() {
   if (data[data.length-1]>12){
     console.log('case 1');
     random = d3.random.normal(0.97, 0.15);
-  }else if (data[data.length-1]<6){
+  }else if (data[data.length-1]<4){
     console.log('case 2');
-    random = d3.random.normal(1.05, 0.05);
+    random = d3.random.normal(1.04, 0.05);
   }else if (Math.random() > 0.5){
   console.log('case 3')
-  random = d3.random.normal(1.03, 0.04);
+  random = d3.random.normal(1.015, 0.04);
   }else{
     console.log('case 4');
     random = d3.random.normal(0.99, 0.15);
@@ -248,7 +248,7 @@ function showAvailableFunds(){
 setInterval(showLeverage, 200);
 
 function showLeverage(){
-  $('#leverage').html('Leverage: '+ leverage);
+  $('#leverage').html('Leverage: '+ leverage.toFixed(1));
 }
 
 // Using the jQuery library
