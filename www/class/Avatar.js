@@ -24,8 +24,24 @@ function Avatar(name){
 	this.getCashAmount = function(){
 		return cash;
 	}
+
 	this.setCashAmount = function(newCashAmount){
 		cash = newCashAmount;
+	}
+
+	this.addCashAmount = function(addedCashAmount){
+		var newCash = cash + addedCashAmount;
+		this.setCashAmount(newCash);
+	}
+
+	this.subtractCashAmount = function(subtractedCashAmount){
+			var newCash = cash - subtractedCashAmount;
+			if (newCash > -1){
+				this.setCashAmount(newCash);
+			}else{
+				alert("You're attempting to take out more personal cash than you have.")
+			}
+			
 	}
 	
 	// Investment

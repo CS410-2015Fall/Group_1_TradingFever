@@ -203,6 +203,23 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+    $("#outbutton").click(function(){
+      subtractStocksCash(10000);
+      theAvatar.addCashAmount(10000);
+
+    });
+});
+
+$(document).ready(function(){
+    $("#inbutton").click(function(){
+
+      addStocksCash(10000);
+      theAvatar.subtractCashAmount(10000);
+
+    });
+});
+
 setInterval(showStockPrice, 200);
 
 function showStockPrice(){
