@@ -1,90 +1,67 @@
-var exit = 0;
+
+function Stocks(){
 
 var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 4000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation;
 
-var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
+// fee
+this.getStocksFee = function(){
+  return fee;
+}
 
-// absolute sizing
-/*var margin = {top: 20, right: 20, bottom: 20, left: 40},
-    width = 400 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;*/
-
-// relative sizing
-var currentWindowHeight = $(window).height();
-var currentWindowWidth = $(window).width();
-
-// relative sizing
-var margin = {top: 20, right: 20, bottom: 20, left: 40},
-    width = currentWindowWidth*0.8 - margin.left - margin.right,
-    height = currentWindowHeight*0.5 - margin.top - margin.bottom;
-
-var x = d3.scale.linear()
-    .domain([0, n - 1])
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .domain([0, 20])
-    .range([height, 0]);
-
-var line = d3.svg.line()
-    .x(function(d, i) { return x(i); })
-    .y(function(d, i) { return y(d); });
-
-var svg = d3.select("#stocks").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.left + margin.right)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.append("defs").append("clipPath")
-    .attr("id", "clip")
-  .append("rect")
-    .attr("width", width)
-    .attr("height", height);
-
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + y(0) + ")")
-    .call(d3.svg.axis().scale(x).orient("bottom"));
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(d3.svg.axis().scale(y).orient("left"));
-
-var path = svg.append("g")
-    .attr("clip-path", "url(#clip)")
-  .append("path")
-    .datum(data)
-    .attr("class", "line")
-    .attr("d", line);
-
-
-setInterval(setRandom, 1000)
-this.tick();
+this.setStocksFee = function(newFee){
+  fee = newFee;
+}
 
 // feeRate
-function getStocksFeeRate() {
+this.getStocksFeeRate = function() {
   return feeRate;
 }
 
-function setStocksFeeRate(newFeeRate) {
+this.setStocksFeeRate = function(newFeeRate) {
   feeRate = newFeeRate;
 }
 
+// stockPrice
+this.getStocksStockPrice = function(){
+  return stockPrice;
+}
+
+this.setStocksStockPrice = function(newStockPrice){
+  stockPrice = newStockPrice;
+}
+
+// shares
+this.getStocksShares = function(){
+  return shares;
+}
+
+this.setStocksShares = function(newShares){
+  shares = newShares;
+}
+
+// securitiesGPV
+this.getStocksSecuritiesGPV = function(){
+  return securitiesGPV;
+}
+
+this.setStocksSecuritiesGPV = function(newSecuritiesGPV){
+  securitiesGPV = newSecuritiesGPV;
+}
+
 // Cash
-function getStocksCash() {
+this.getStocksCash = function() {
   return cash;
 }
 
-function setStocksCash(newCash) {
+this.setStocksCash = function(newCash) {
   cash = newCash;
 }
 
-function addStocksCash(newCash) {
+this.addStocksCash = function(newCash) {
   cash = cash + newCash;
 }
 
-function subtractStocksCash(newCash) {
+this.subtractStocksCash = function(newCash) {
   if (cash - newCash > 4000){
     cash = cash - newCash;
   }
@@ -93,184 +70,72 @@ function subtractStocksCash(newCash) {
   }
 }
 
+// maxLeverage
+this.getStocksMaxLeverage = function(){
+  return maxLeverage;
+}
+
+this.setStocksMaxLeverage = function(newMaxLeverage){
+  maxLeverage = newMaxLeverage;
+}
+
 // netLiquidation
-function getStocksNetLiquidation() {
+this.getStocksNetLiquidation = function() {
   return netLiquidation;
 }
 
-function setStocksNetLiquidation(newNetLiquidation) {
-  netLiquidation = newNetLiquidation; // this should never really be used
+this.setStocksNetLiquidation = function(newNetLiquidation) {
+  netLiquidation = newNetLiquidation; 
 }
 
-// THIS UPDATES ABSOLUTELY EVERYTHING
-this.tick = function(){
-
-  // push a new data point onto the back
-  stockPrice = data[data.length-1];
-  securitiesGPV = shares * stockPrice;
-  netLiquidation = securitiesGPV + cash;
-  leverage = securitiesGPV/netLiquidation;
-  availableFunds = maxLeverage*netLiquidation;
-
-  // blowup scenarios
-  if (netLiquidation < 100*stockPrice){
-    alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
-    securitiesGPV = 0;
-    shares = 0;
-    leverage = 0;
-    cash = 4000;
-    availableFunds = 4000;
-    netLiquidation = cash;
-    availableFunds = maxLeverage*netLiquidation;
-  }else if (leverage > maxLeverage){
-    alert('You exceeded the maximum leverage of ' + maxLeverage + "! The broker won't allow you to borrow more and you were forced to sell off.")
-    stockPrice = data[data.length-1];
-    securitiesGPV = shares * stockPrice;
-    cash = cash + securitiesGPV;
-    netLiquidation = cash;
-    shares = 0;
-    securitiesGPV = 0;
-    netLiquidation = securitiesGPV + cash;
-    availableFunds = maxLeverage*netLiquidation;
-    leverage = securitiesGPV/netLiquidation;
-  }
-
-  var newrand = random()*stockPrice;
-  var exit = 0;
-
-  data.push(newrand);
-
-  // redraw the line, and slide it to the left
-  path
-      .attr("d", line)
-      .attr("transform", null)
-    .transition()
-      .duration(200)
-      .ease("linear")
-      .attr("transform", "translate(" + x(-1) + ",0)")
-      .each("end", this.tick);
-
-  // pop the old data point off the front
-  data.shift();
-
+// availableFunds
+this.getStocksAvailableFunds = function(){
+  return availableFunds;
 }
 
-// handles the RNG
-function setRandom() {
-  if (data[data.length-1]>12){
-    console.log('case 1');
-    random = d3.random.normal(0.97, 0.15);
-  }else if (data[data.length-1]<4){
-    console.log('case 2');
-    random = d3.random.normal(1.04, 0.05);
-  }else if (Math.random() > 0.5){
-  console.log('case 3')
-  random = d3.random.normal(1.015, 0.04);
-  }else{
-    console.log('case 4');
-    random = d3.random.normal(0.99, 0.15);
-  }
+this.setStocksAvailableFunds = function(newAvailableFunds){
+  availableFunds = newAvailableFunds;
 }
 
+// leverage
+this.getStocksLeverage = function(){
+  return leverage;
+}
 
+this.setStocksLeverage = function(newLeverage){
+  leverage = newLeverage;
+}
 
-$(document).ready(function(){
-    $("#buybutton").click(function(){
-      transactionFee= 100 * feeRate;
-      fee = fee + transactionFee;
-      transaction = 100 * stockPrice + transactionFee;
-      shares = shares + 100;
-      cash = cash - transaction;
-      availableFunds= availableFunds - transaction;
-
-        //$("div").animate({left: '250px'});
-    });
-});
-
-
-$(document).ready(function(){
-    $("#sellbutton").click(function(){
-      if(shares >0){
-        transactionFee= 100 * feeRate;
-        fee = fee + transactionFee;
-        transaction = 100 * stockPrice - transactionFee;
-        shares = shares - 100;
-        cash = cash + transaction;
-        availableFunds= availableFunds + transaction;
-    }else{
-      alert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
-    }
-    });
-});
-
-$(document).ready(function(){
-    $("#outbutton").click(function(){
-      subtractStocksCash(10000);
-      theAvatar.addCashAmount(10000);
-
-    });
-});
-
-$(document).ready(function(){
-    $("#inbutton").click(function(){
-
-      addStocksCash(10000);
-      theAvatar.subtractCashAmount(10000);
-
-    });
-});
-
-setInterval(showStockPrice, 200);
-
-function showStockPrice(){
+this.showStockPrice = function(){
   $('#stockPrice').html('Current Stock Price: $'+ data[data.length-1].toFixed(2));
 }
 
-// Using the jQuery library
-setInterval(showNetLiquidation, 200);
-
-function showNetLiquidation(){
+this.showNetLiquidation = function(){
   $('#netLiquidation').html('Net Liquidation: $'+ netLiquidation.toFixed(2));
 }
 
-// Using the jQuery library
-setInterval(showShares, 200);
-
-function showShares(){
+this.showShares = function(){
   $('#shares').html('Number of Shares: '+ shares);
 }
 
-// Using the jQuery library
-setInterval(showSecuritiesGPV, 200);
-
-function showSecuritiesGPV(){
+this.showSecuritiesGPV = function(){
   $('#securitiesGPV').html('Securities GPV: $'+ securitiesGPV.toFixed(2));
 }
 
-// Using the jQuery library
-setInterval(showCash, 200);
-
-function showCash(){
+this.showCash = function(){
   $('#cash').html('Cash: $'+ cash.toFixed(2));
 }
 
-// Using the jQuery library
-setInterval(showAvailableFunds, 200);
-
-function showAvailableFunds(){
+this.showAvailableFunds = function(){
   $('#availableFunds').html('Available Funds: $'+ availableFunds.toFixed(2));
 }
 
-// Using the jQuery library
-setInterval(showLeverage, 200);
-
-function showLeverage(){
+this.showLeverage = function(){
   $('#leverage').html('Leverage: '+ leverage.toFixed(1));
 }
 
-// Using the jQuery library
-setInterval(showFees, 200);
-
-function showFees(){
+this.showFees = function(){
   $('#transactionFee').html('Transaction Fees Paid: $'+ fee.toFixed(2));
+}
+
 }

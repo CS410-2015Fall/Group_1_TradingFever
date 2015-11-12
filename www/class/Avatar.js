@@ -160,7 +160,7 @@ function Avatar(name){
 		for(var i = 0; i < listOfInvestments.length; i++) {
 			net += listOfInvestments[i].prototype.cost;
 		}
-		netWorth = net + cash + getStocksNetLiquidation();
+		netWorth = net + cash + theStocks.getStocksNetLiquidation();
 		return netWorth;
 	}
 	
