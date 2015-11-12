@@ -2,6 +2,7 @@ function StartUp(startupID){
 
 	this.prototype = new Investment(startupID);
 	this.prototype.setStartUp = StartUp;
+	this.prototype.upgradeable = true;
 
 	this.successRate = 0.5;
 }

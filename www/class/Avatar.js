@@ -163,4 +163,18 @@ function Avatar(name){
 		netWorth = net + cash + getStocksNetLiquidation();
 		return netWorth;
 	}
+	
+	this.checkInvestmentUpgradeable = function(id){
+		for(var ind = 0; ind < listOfInvestments.length; ind++) {
+			console.log('hmmmm....');
+			if(listOfInvestments[ind].prototype.id == id){
+				if(listOfInvestments[ind].prototype.upgradeable){
+					console.log('investment type of id=' + id + ' is upgradeable');
+				} else {
+					console.log('investment type of id=' + id + ' is not upgradeable');
+				}
+				
+			}
+		}
+	}
 }

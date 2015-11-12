@@ -60,7 +60,7 @@ var path = svg.append("g")
 
 
 setInterval(setRandom, 1000)
-tick();
+this.tick();
 
 // feeRate
 function getStocksFeeRate() {
@@ -103,7 +103,7 @@ function setStocksNetLiquidation(newNetLiquidation) {
 }
 
 // THIS UPDATES ABSOLUTELY EVERYTHING
-function tick() {
+this.tick = function(){
 
   // push a new data point onto the back
   stockPrice = data[data.length-1];
@@ -148,7 +148,7 @@ function tick() {
       .duration(200)
       .ease("linear")
       .attr("transform", "translate(" + x(-1) + ",0)")
-      .each("end", tick);
+      .each("end", this.tick);
 
   // pop the old data point off the front
   data.shift();

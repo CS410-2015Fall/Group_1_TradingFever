@@ -2,6 +2,8 @@ function RealEstate(realEstateID){
 
 	this.prototype = new Investment(realEstateID);
 	this.prototype.setRealEstate = RealEstate;
+	this.prototype.upgradeable = true;
+	
 }
 
 RealEstate.prototype.upgradeRealEstate = function(){

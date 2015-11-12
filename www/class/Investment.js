@@ -9,7 +9,7 @@ function Investment(investID){
 	this.duration = 0;
 	this.level = 0;
 	this.startTime = 0;
-	this.level = 0;
+	this.upgradeable = false;
 }
 
 // constructor

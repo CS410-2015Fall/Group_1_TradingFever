@@ -20,7 +20,7 @@ function InvestmentItemDisplay(itemID){
 		
 		toReturn += '<table style="width:100%"><tr>';
 		toReturn += '<td id="displayInvestmentImageBlock_'+ID+'" style="width:2em;">'; // picture
-		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/dell.png" style="width:2em"/>';
+		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/noImg.png" style="width:4em; border-style:solid;"/>';
 		toReturn += '</td>';
 		
 		toReturn += '<td width="100%">';
@@ -49,6 +49,8 @@ function InvestmentItemDisplay(itemID){
 		toReturn += '</table>';
 		toReturn += '</div>';
 		
+		
+		theAvatar.checkInvestmentUpgradeable(itemID);
 		return toReturn;
 	}
 	
