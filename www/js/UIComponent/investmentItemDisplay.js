@@ -1,6 +1,7 @@
 function InvestmentItemDisplay(itemID){
 	// itemID: String
 	var ID = itemID;
+	var theInstance = theAvatar.getInvestmentInstanceByID(itemID);
 	this.getInvestmentID = function(){
 		return ID;
 	}
@@ -33,7 +34,7 @@ function InvestmentItemDisplay(itemID){
 			<div class="ui-btn-inner ui-li"> \
 				<div class="ui-btn-text"> \
 					<a href="index.html" class="ui-link-inherit"> \
-						<h2 class="ui-li-heading" id="displayInvestmentTitle_'+ID+'">Avery Walker</h2> \
+						<h2 class="ui-li-heading" id="displayInvestmentTitle_'+ID+'"></h2> \
 						<p class="ui-li-desc" id="displayInvestmentDetail_'+ID+'"></p> \
 					</a> \
 				</div> \
@@ -41,7 +42,7 @@ function InvestmentItemDisplay(itemID){
 			</div> \
 		</li>';
 
-		toReturn += '<button onclick="handle_makeInvestmentButton('+ID+')">Invest $2000</button>';
+		toReturn += '<button id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')">Upgrade for $'+theInstance.upgradeCost()+'</button>';
 		toReturn += '</td>';
 		
 		toReturn += '</tr>';
@@ -49,8 +50,6 @@ function InvestmentItemDisplay(itemID){
 		toReturn += '</table>';
 		toReturn += '</div>';
 		
-		
-		theAvatar.checkInvestmentUpgradeable(itemID);
 		return toReturn;
 	}
 	
@@ -89,6 +88,10 @@ function InvestmentItemDisplay(itemID){
 
 function handle_makeInvestmentButton(investmentID){
 	console.log('making investment: ' + investmentID);
+	var theInstance = theAvatar.getInvestmentInstanceByID(investmentID);
 	
-	theAvatar.makeContinuousInvestment(investmentID);
+	theAvatar.upgradeInvestment(theInstance);
+	$('#upgradeButton_'+investmentID).html('Upgrade for $'+theInstance.upgradeCost());
+	// update the view
+	
 }

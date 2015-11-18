@@ -1,180 +1,115 @@
 function Avatar(name){
-	var name = name;
-	var rage = null;
-	var cash = null;
-	var listOfInvestments = [];
+	this.name = name;
+	this.cash = 0;
+	this.listOfInvestments = [];
+	this.rage = 0;
 	
-	// Name
-	this.getName = function(){
-		return name;
-	}
 	this.setName = function(newName){
-		name = newName;
+		this.name = newName;
+	}
+	this.getName = function(){
+		return this.name;
 	}
 	
-	// Rage
-	this.getRage = function(){
-		return rage;
-	}
-	this.setRage = function(newRageValue){
-		rage = newRageValue;
-	}
-	
-	// Cash
-	this.getCashAmount = function(){
-		return cash;
-	}
-
 	this.setCashAmount = function(newCashAmount){
-		cash = newCashAmount;
+		this.cash = newCashAmount;
 	}
-
-	this.addCashAmount = function(addedCashAmount){
-		var newCash = cash + addedCashAmount;
-		this.setCashAmount(newCash);
-	}
-
-	this.subtractCashAmount = function(subtractedCashAmount){
-			var newCash = cash - subtractedCashAmount;
-			if (newCash > -1){
-				this.setCashAmount(newCash);
-			}else{
-				alert("You're attempting to take out more personal cash than you have.")
-			}
-			
+	this.getCashAmount = function(){
+		return this.cash;
 	}
 	
-	// Investment
-	this.getListOfInvestment = function(){
-		return listOfInvestments;
+	this.setInvestmentList = function(newList){
+		this.listOfInvestments = newList;
 	}
-	this.setListOfInvestment = function(newListOfInvestment){
-		listOfInvestments = newListOfInvestment;
+	this.getInvestmentList = function(){
+		return this.listOfInvestments;
 	}
-	this.addInvestment = function(investmentInstance){
-		listOfInvestments.push(investmentInstance);
-	}
-	
-	// Object IO
-	this.toString = function(){
-		var theObject = {
-			'name':name,
-			'cash':cash,
-			'investments':listOfInvestments
-		}
-		
-		return JSON.stringify(theObject);
-	}
-	this.loadFromString = function(theJSONString){
-		var theObject = JSON.parse(theJSONString);
-		name = theObject.name;
-		cash = theObject.cash;
-		listOfInvestments =  theObject.investments;
-	}
-
-	// create a new startup investment that is available for avatar to invest
-	this.createStartUp = function(id){
-		var investment = new StartUp(id);
-		investment.prototype.setInvestment();
-		listOfInvestments.push(investment);
-	}
-
-	// create a new real estate investment that is available for avatar to invest
-	this.createRealEstate = function(id){
-		var investment = new RealEstate(id);
-		investment.prototype.setInvestment();
-		listOfInvestments.push(investment);
-	}
-
-	// create a new scam (random) investment that is available for avatar to invest
-	this.createScam = function(id){
-		var investment = new Scam(id);
-		investment.prototype.setInvestment();
-		listOfInvestments.push(investment);
-	}
-
-	// make an one-time investment
-	this.makeTemporaryInvestment = function(id){
-		for(var i = 0; i < listOfInvestments.length; i++) {
-			if (listOfInvestments[i].prototype.id == id) {
-				var remaining = listOfInvestments[i].prototype.invest();
-				if (remaining) {
-					cash = remaining;
-					var tempInvestment = window.setInterval(
-						function() {
-							if (listOfInvestments[i].prototype.track()){
-								listOfInvestments[i].update();
-								clearInterval(tempInvestment);
-							}
-							console.log(cash);
-						}, 1000);
-					return null;
-				}
-				else {
-					console.log("Oh-no! You don't have enough cash to make this investment.");
-				}
+	this.getInvestmentInstanceByID = function(targetID){
+		for(var ind=0; ind < this.listOfInvestments.length; ind++){
+			if(this.listOfInvestments[ind].getInvestmentID() == targetID){
+				return this.listOfInvestments[ind];
 			}
 		}
+		throw('cannot find the investment with ID=' + targetID);
 	}
-
-	// make a continuous investment
-	this.makeContinuousInvestment = function(id){
-		for(var i = 0; i < listOfInvestments.length; i++) {
-			if (listOfInvestments[i].prototype.id == id) {
-				var remaining = listOfInvestments[i].prototype.invest();
-				if (remaining) {
-					cash = remaining;
-					window.setInterval(
-						function() {
-							if (listOfInvestments[i].prototype.track()){
-								listOfInvestments[i].prototype.update();
-							}
-							console.log(cash);
-						}, 200); 
-					return null;
-				}
-				else {
-					console.log("Oh-no! You don't have enough cash to make this investment.");
-				}
-			}
-		}
+	this.addInvestmentInstance = function(newInvestmentInstance){
+		this.assignInvestmentIDIfNone(newInvestmentInstance);
+		this.listOfInvestments.push(newInvestmentInstance);
 	}
-
-	// upgrade a continuous investment
-	this.upgradeRealEstate = function(id){
-		for(var i = 0; i < listOfInvestments.length; i++) {
-			if (listOfInvestments[i].prototype.id == id) {
-				var remaining = listOfInvestments[i].upgradeRealEstate();
-				if (remaining) {
-					cash = remaining;
-				}
-				else {
-					console.log("Oh-no! You don't have enough cash to upgrade this investment.");
-				}
-			}
-		}
-	}
-
-	this.getNetWorth = function(id){
-		var net = 0;
-		for(var i = 0; i < listOfInvestments.length; i++) {
-			net += listOfInvestments[i].prototype.cost;
-		}
-		netWorth = net + cash + theStocks.getStocksNetLiquidation();
-		return netWorth;
-	}
-	
-	this.checkInvestmentUpgradeable = function(id){
-		for(var ind = 0; ind < listOfInvestments.length; ind++) {
-			console.log('hmmmm....');
-			if(listOfInvestments[ind].prototype.id == id){
-				if(listOfInvestments[ind].prototype.upgradeable){
-					console.log('investment type of id=' + id + ' is upgradeable');
-				} else {
-					console.log('investment type of id=' + id + ' is not upgradeable');
-				}
+	this.upgradeInvestment = function(investmentInstance){
+		// this method is for BOTH buying investment and upgrading investment
+		// Treat not owned investment as level 0
+		if(investmentInstance.upgradeable()){
+			// check upgrade cost
+			var cost = investmentInstance.upgradeCost();
+			if(this.cash >= cost){
+				// deduct cash
+				this.cash = this.cash - cost;
 				
+				// assign id for newly added investment
+				this.assignInvestmentIDIfNone(investmentInstance);
+				
+				// level up the investment
+				investmentInstance.upgrade();
+			} else {
+				throw("You do not have enough cash");
+			}
+		} else {
+			throw('The investment is not upgradeable');
+		}
+	}
+	this.assignInvestmentIDIfNone = function(investmentInstance){
+		// assign id for newly added investment
+		if(investmentInstance.getInvestmentID() == -1){
+			// find current highest investment ID and assign new ID
+			var currentHighestID = -1;
+			for(var ind=0; ind < this.listOfInvestments.length; ind++){
+				if(this.listOfInvestments[ind].getInvestmentID() > currentHighestID){
+					currentHighestID = ind;
+				}
+			}
+			var assignedID = currentHighestID + 1;
+			
+			var currentTime = new Date();
+			currentTime = currentTime.getTime();
+			
+			investmentInstance.initiateInvestment(currentTime,assignedID);
+		}
+	}
+	this.removeInvestmentInstanceByID = function(targetID){
+		for(var ind=0; ind < this.listOfInvestments.length; ind++){
+			if(this.listOfInvestments[ind].getInvestmentID() == targetID){
+				var removedInstance = this.listOfInvestments.splice(ind,1);
+				return removedInstance;
 			}
 		}
+		throw('cannot find the investment with ID=' + targetID);
+	}
+	this.visitInvestments = function(){
+		for(var ind=0; ind < this.listOfInvestments.length; ind ++){
+			var targetInvestmentInstance = this.listOfInvestments[ind];
+			//console.log(targetInvestmentInstance);
+			this.setCashAmount(this.getCashAmount() + targetInvestmentInstance.grabCollectableReward());
+		}
+	}
+	
+	this.getNetWorth = function(){
+		var currentTime = new Date();
+		currentTime = currentTime.getTime();
+		
+		var acc = 0;
+		for(var ind=0; ind < this.listOfInvestments.length; ind++){
+			acc += this.listOfInvestments[ind].getCurrentWorth(currentTime);
+		}
+		acc += theStocks.getStocksNetLiquidation();
+		acc += this.getCashAmount();
+		
+		return acc;
+	}
+	this.setRage = function(newRage){
+		this.rage = newRage;
+	}
+	this.getRage = function(){
+		return this.rage;
 	}
 }

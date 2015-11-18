@@ -166,11 +166,20 @@
 		</script>
 		
 		<script>
-			// make UI
-			theAvatar.createStartUp(001);
-			//theAvatar.makeTemporaryInvestment(001);
-			theAvatar.createRealEstate(002);
-			//theAvatar.makeContinuousInvestment(002);
+		
+			var aStartUp = new StartUp();
+			aStartUp.setPotentialReturn(100);
+			aStartUp.setInvestmentTitle('Daniel Inc.');
+			aStartUp.setDescription('Daniel has a billion dollar idea');
+			theAvatar.addInvestmentInstance(aStartUp);
+			theAvatar.upgradeInvestment(aStartUp);
+			
+			var aRealEstate = new RealEstate();
+			aRealEstate.setMonthlyReturn(10);
+			aRealEstate.setInvestmentTitle('Waterfront Property');
+			aRealEstate.setDescription('A pricy piece of property');
+			theAvatar.addInvestmentInstance(aRealEstate);
+			theAvatar.upgradeInvestment(aRealEstate);
 			
 			mkInvestmentPage();
 		</script>

@@ -174,17 +174,15 @@ function setRandom() {
 $(document).ready(function(){
     $("#outbutton").click(function(){
       theStocks.subtractStocksCash(10000);
-      theAvatar.addCashAmount(10000);
+      theAvatar.setCashAmount(theAvatar.getCashAmount()+10000);
 
     });
 });
 
 $(document).ready(function(){
     $("#inbutton").click(function(){
-
-      theStocks.addStocksCash(10000);
-      theAvatar.subtractCashAmount(10000);
-
+		theStocks.addStocksCash(10000);
+		theAvatar.setCashAmount(theAvatar.getCashAmount()-10000);
     });
 });
 

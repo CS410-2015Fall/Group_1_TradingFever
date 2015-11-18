@@ -1,30 +1,77 @@
-function RealEstate(realEstateID){
-
-	this.prototype = new Investment(realEstateID);
-	this.prototype.setRealEstate = RealEstate;
-	this.prototype.upgradeable = true;
+RealEstate.prototype = new Investment();
+RealEstate.prototype.constructor = RealEstate;
+function RealEstate(){
+	this.setInvestmentType("RealEstate");
 	
-}
-
-RealEstate.prototype.upgradeRealEstate = function(){
-	var cash = theAvatar.getCashAmount();
-
-	var newCost = this.prototype.level * 1000 + this.prototype.cost; 
-
-	if (cash >= newCost) {
-		cash -= newCost;
-	} 
-	else return null;
-
-	this.prototype.profitPercentage += 0.01;
-
-	var date = new Date();
-	var timeNow = date.getTime();
-	this.prototype.startTime = timeNow;
+	this.currentWorth = 0;
+	this.monthlyReturn = 0;
+	//this.cashOutInterval = 24*60*60*1000; // Time interval in miliseconds // 1 day
+	this.cashOutInterval = 5*1000; // Time interval in miliseconds
 	
-	this.prototype.level ++;
-
-	console.log("Your condo is now at level " + this.prototype.level + "! You are making money at " + this.prototype.profitPercentage + "!");
-
-	return cash;
+	this.setCurrentWorth = function(newWorth){
+		this.currentWorth = newWorth;
+	}
+	this.setMonthlyReturn = function(newMonthlyReturn){
+		monthlyReturn = newMonthlyReturn;
+	}
+	
+	this.setCashOutInterval = function(newInterval){
+		// unit: miliseconds
+		this.cashOutInterval = newInterval;
+	}
+	this.getCashOutInterval = function(){
+		// unit: miliseconds
+		return this.cashOutInterval;
+	}
+	
+	// interface methods
+	this.initiateInvestment = function(currentTime, assignedID){
+		this.setLastCashedTime(currentTime);
+		this.setInvestmentID(assignedID);
+		// To think about: move this method to Investment class?
+	}
+	this.getCurrentWorth = function(currentTime){
+		return this.currentWorth;
+	}
+	this.getIncomeStatement = function(){
+		var toReturn = {};
+		toReturn = {
+			'amount':this.monthlyReturn,
+			'duration':'monthly',
+			'cashOutMethod':'discrete'
+		};
+	}
+	this.upgradeable = function(){
+		return true; // TODO: should be false if reached max level
+	}
+	this.upgradeCost = function(){
+		return 500*this.currentLevel; //TODO: Change this. Should change with every level
+	}
+	this.upgrade = function(){
+		// TODO: improve this implementation
+		this.monthlyReturn += 10*(this.currentLevel + 1);
+		this.currentLevel += 1;
+	}
+	this.sellable = function(){
+		return true; //Always true for RealEstate
+	}
+	this.grabCollectableReward = function(){
+		var currentTime = new Date();
+		currentTime = currentTime.getTime();
+		
+		var timePassed = currentTime - this.getLastCashedTime(); //miliseconds
+		var numRoundNewDeposit = Math.floor(timePassed/this.getCashOutInterval());
+		if (numRoundNewDeposit < 0){
+			numRoundNewDeposit = 0;
+		}
+		var amountAvailable = numRoundNewDeposit * this.monthlyReturn;
+		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.getCashOutInterval());
+		return amountAvailable;
+	}
+	this.needsClear = function(){
+		return false;
+	}
+	this.setCurrentWorth = function(newWorth){
+		throw('not yet implemented');
+	}
 }
