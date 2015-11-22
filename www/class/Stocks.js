@@ -1,7 +1,7 @@
 
 function Stocks(){
 
-var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 4000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation;
+var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 4000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation, stocksReturn = 0, avgPurchasePrice = 0;
 
 // fee
 this.getStocksFee = function(){
@@ -106,6 +106,25 @@ this.setStocksLeverage = function(newLeverage){
   leverage = newLeverage;
 }
 
+// stock returns
+this.getStocksReturn = function(){
+  return stocksReturn;
+}
+
+this.setStocksReturn = function(newStocksReturn){
+  stocksReturn = newStocksReturn;
+}
+
+// average purchase price
+this.getAvgPurchasePrice = function(){
+  return avgPurchasePrice;
+}
+
+this.setAvgPurchasePrice = function(newAvgPurchasePrice){
+  avgPurchasePrice = newAvgPurchasePrice;
+}
+
+// show variables
 this.showStockPrice = function(){
   $('#stockPrice').html('Current Stock Price: $'+ data[data.length-1].toFixed(2));
 }
@@ -136,6 +155,13 @@ this.showLeverage = function(){
 
 this.showFees = function(){
   $('#transactionFee').html('Transaction Fees Paid: $'+ fee.toFixed(2));
+}
+
+this.showStocksReturn = function(){
+  if (theStocks.getStocksShares() > 0){
+  $('#showReturn').html('Return on current shares: '+ Math.floor(stocksReturn * 100) + '%');
+  }else
+  $('#showReturn').html('Return on current shares: 0 %');
 }
 
 }

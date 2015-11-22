@@ -61,13 +61,22 @@ function tick() {
 
   // push a new data point onto the back
   theStocks.setStocksStockPrice(data[data.length-1]);
+
+  // calculate variables
   theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
   theStocks.setStocksNetLiquidation(theStocks.getStocksSecuritiesGPV() + theStocks.getStocksCash());
   theStocks.setStocksLeverage(theStocks.getStocksSecuritiesGPV()/theStocks.getStocksNetLiquidation());
   theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage() * theStocks.getStocksNetLiquidation());
 
+  // calculate return
+  if (theStocks.getStocksShares()>0){
+  theStocks.setStocksReturn((data[data.length-1]-theStocks.getAvgPurchasePrice())/theStocks.getAvgPurchasePrice());
+  }else{
+    theStocks.setStocksReturn(0);
+  } 
+
   // blowup scenarios
-  if (theStocks.getStocksNetLiquidation < 100* theStocks.getStocksStockPrice){
+  if (theStocks.getStocksNetLiquidation() < 100* theStocks.getStocksStockPrice()){
     alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
     theStocks.setStocksSecuritiesGPV(0);
     theStocks.setStocksShares(0);
@@ -76,7 +85,7 @@ function tick() {
     theStocks.setStocksAvailableFunds(4000);
     theStocks.setStocksNetLiquidation(theStocks.getStocksCash());
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
-  }else if (theStocks.getStocksLeverage > theStocks.getStocksMaxLeverage){
+  }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
     alert('You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.")
     theStocks.setStocksStockPrice(data[data.length-1]);
     theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
@@ -118,19 +127,28 @@ setInterval(theStocks.showSecuritiesGPV, 200);
 setInterval(theStocks.showAvailableFunds, 200);
 setInterval(theStocks.showLeverage, 200);
 setInterval(theStocks.showCash, 200);
-setInterval(setRandom, 1000)
+setInterval(theStocks.showStocksReturn, 200);
+setInterval(setReturnColour, 200);
+setInterval(setRandom, 1000);
 
 
 tick();
 
 $(document).ready(function(){
     $("#buybutton").click(function(){
+      
       transactionFee= 100 * theStocks.getStocksFeeRate();
       theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
       transaction = 100 * theStocks.getStocksStockPrice() + transactionFee;
       theStocks.setStocksShares(theStocks.getStocksShares() + 100);
+      if (theStocks.getStocksShares() > 0){
+        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*theStocks.getStocksShares() + theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares() + 100));
+      }else{
+        theStocks.setAvgPurchasePrice(0);
+      }
       theStocks.setStocksCash(theStocks.getStocksCash() - transaction);
       theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() - transaction);
+
 
         //$("div").animate({left: '250px'});
     });
@@ -140,10 +158,16 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#sellbutton").click(function(){
       if(theStocks.getStocksShares() >0){
+        
         transactionFee= 100 * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
         transaction = 100 * theStocks.getStocksStockPrice() - transactionFee;
         theStocks.setStocksShares(theStocks.getStocksShares() - 100);
+        if (theStocks.getStocksShares() > 0){
+          theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*theStocks.getStocksShares() - theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares() - 100));
+        }else{
+        theStocks.setAvgPurchasePrice(0);
+        }
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
@@ -168,6 +192,16 @@ function setRandom() {
     console.log('case 4');
     random = d3.random.normal(0.99, 0.15);
   }
+}
+
+// handles the return
+function setReturnColour() {
+  if (theStocks.getStocksReturn() > 0){
+    document.getElementById("showReturn").style.color = "#00FF00";
+  }
+  else{
+    document.getElementById("showReturn").style.color = "#FF0000";
+  }   
 }
 
 // buttons
