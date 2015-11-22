@@ -1,6 +1,6 @@
 var exit = 0;
 
-var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random);
+var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random), minAccount = 1000;
 
 // absolute sizing
 /*var margin = {top: 20, right: 20, bottom: 20, left: 40},
@@ -76,7 +76,7 @@ function tick() {
   } 
 
   // blowup scenarios
-  if (theStocks.getStocksNetLiquidation() < 100* theStocks.getStocksStockPrice()){
+  if (theStocks.getStocksNetLiquidation() < minAccount){
     alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
     theStocks.setStocksSecuritiesGPV(0);
     theStocks.setStocksShares(0);
@@ -128,6 +128,7 @@ setInterval(theStocks.showAvailableFunds, 200);
 setInterval(theStocks.showLeverage, 200);
 setInterval(theStocks.showCash, 200);
 setInterval(theStocks.showStocksReturn, 200);
+setInterval(theStocks.showFees, 200);
 setInterval(setReturnColour, 200);
 setInterval(setRandom, 1000);
 
@@ -142,7 +143,7 @@ $(document).ready(function(){
       transaction = 100 * theStocks.getStocksStockPrice() + transactionFee;
       theStocks.setStocksShares(theStocks.getStocksShares() + 100);
       if (theStocks.getStocksShares() > 0){
-        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*theStocks.getStocksShares() + theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares() + 100));
+        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*(theStocks.getStocksShares()-100) + theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares()));
       }else{
         theStocks.setAvgPurchasePrice(0);
       }
@@ -163,11 +164,6 @@ $(document).ready(function(){
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
         transaction = 100 * theStocks.getStocksStockPrice() - transactionFee;
         theStocks.setStocksShares(theStocks.getStocksShares() - 100);
-        if (theStocks.getStocksShares() > 0){
-          theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*theStocks.getStocksShares() - theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares() - 100));
-        }else{
-        theStocks.setAvgPurchasePrice(0);
-        }
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
@@ -220,4 +216,4 @@ $(document).ready(function(){
     });
 });
 
-setInterval(theStocks.showStockPrice(), 200);
+setInterval(theStocks.showStockPrice, 200);

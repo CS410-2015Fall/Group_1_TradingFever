@@ -62,7 +62,7 @@ this.addStocksCash = function(newCash) {
 }
 
 this.subtractStocksCash = function(newCash) {
-  if (cash - newCash > 4000){
+  if (cash - newCash > 1000){
     cash = cash - newCash;
   }
   else{
@@ -127,6 +127,7 @@ this.setAvgPurchasePrice = function(newAvgPurchasePrice){
 // show variables
 this.showStockPrice = function(){
   $('#stockPrice').html('Current Stock Price: $'+ data[data.length-1].toFixed(2));
+  console.log('updated stock price');
 }
 
 this.showNetLiquidation = function(){
