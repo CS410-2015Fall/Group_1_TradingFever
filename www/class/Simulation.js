@@ -186,4 +186,4 @@ $(document).ready(function(){
     });
 });
 
-setInterval(theStocks.showStockPrice(), 200);
+setInterval(theStocks.showStockPrice, 200);

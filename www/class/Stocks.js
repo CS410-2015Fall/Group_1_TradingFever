@@ -108,6 +108,7 @@ this.setStocksLeverage = function(newLeverage){
 
 this.showStockPrice = function(){
   $('#stockPrice').html('Current Stock Price: $'+ data[data.length-1].toFixed(2));
+  console.log('updated stock price');
 }
 
 this.showNetLiquidation = function(){
