@@ -62,7 +62,7 @@ this.addStocksCash = function(newCash) {
 }
 
 this.subtractStocksCash = function(newCash) {
-  if (cash - newCash > 4000){
+  if (cash - newCash > 1000){
     cash = cash - newCash;
   }
   else{
