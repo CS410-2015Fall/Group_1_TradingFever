@@ -1,4 +1,5 @@
 function Avatar(name){
+	var id = null;
 	var name = name;
 	var rage = null;
 	var cash = null;
@@ -11,6 +12,14 @@ function Avatar(name){
 	this.setName = function(newName){
 		name = newName;
 	}
+
+	// ID
+	this.getID = function(){
+		return id;
+	}
+	this.setID = function(newID){
+		id = newID;
+	}
 	
 	// Rage
 	this.getRage = function(){
@@ -20,12 +29,21 @@ function Avatar(name){
 		rage = newRageValue;
 	}
 	
-	// Cash
+	// Local Cash
 	this.getCashAmount = function(){
-		return cash.toFixed(2);
+		return cash;
 	}
 	this.setCashAmount = function(newCashAmount){
 		cash = newCashAmount;
+	}
+
+	// Remote Cash
+	this.updateRemoteCash = function(){
+		cash = getCash(id);
+	}
+	this.setRemoteCash = function() {
+		console.log("hiiii");
+		setCash(id,cash);
 	}
 	
 	// Investment
