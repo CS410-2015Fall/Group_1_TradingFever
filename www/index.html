@@ -9,12 +9,13 @@
 		
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
-		<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css">
-		<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
+		<!--script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.js"></script-->
 
 		<script src="js/modal.js"></script>
 		<link rel="stylesheet" href="css/index.css">
-		
+
+		<script src = "class/Stocks.js"></script>
 		<script src="class/Avatar.js"></script>
 		<script src="class/Login.js"></script>
 		<script src="class/Investment.js"></script>
@@ -30,6 +31,18 @@
 
 		<title>Trading Fever</title>
 		<style>
+
+		#showReturn {
+    	border-radius: 1em;
+    	background: #000000;
+    	padding: 0.25em; 
+    	width: 20em;
+    	height: 2em;    
+    	margin-left: auto;
+   	 	margin-right: auto;
+
+		}	
+
 
 		svg {
 			font: 10px sans-serif;
@@ -56,22 +69,72 @@
 			theAvatar.setCashAmount(10000);
 			theAvatar.setRage(100);
 			
-			
+			theStocks = new Stocks();
+		</script>
+		
+		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Profile</h4>
+					</div>
+					
+					<div class="modal-body">
+						<table><tr>
+							<td>
+								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
+								<input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/>
+							</td>
+							<td><table>
+								<tr><td id="avatarName_modal">(Name)</td></tr>
+								<tr><td>Networth:$<span id="avatarNetworth_modal">(Networth)</span></td></tr>
+							</table></td>
+						</tr></table>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function gotImage(theImage){
+				if (theImage.files && theImage.files[0]) {
+					var reader = new FileReader();
+					var resultImageData = 0;
+
+					reader.onload = function (e) {
+						resultImageData = e.target.result;
+						document.getElementById('avatarPicture_modal').src =  resultImageData;
+						
+						console.log(resultImageData);
+						
+						// save to local storage
+						localStorage.setItem("profilePicture", resultImageData);
+					
+						// load from local storage
+						document.getElementById('avatarPicture').src = localStorage.getItem('profilePicture');
+					}
+					reader.readAsDataURL(theImage.files[0]);
+				}
+			}
 		</script>
 		
 		<div id="statusBar" style="height:10vh; background-color:black">
 			<table style="width:100%; height:100%"><tr>
-				<td id="avatarInfo" style="height:100%">
-					<div id="avatarName_display" style="color:white;">
-						(Name)
-					</div>
-				</td>
-				<td id="avatarRage_display" style="height:100%; color:white">
-					(Rage)
-				</td>
-				<td id="avatarNetWorth_display" style="height:100%; color:white; text-align:right">
-					(Net Worth)
-				</td>
+				<td><table data-toggle="modal" data-target="#profileModal"><tr>
+					<td id="avatarPictureHolder">
+						<img id="avatarPicture" src="img/profile_empty.jpg" style="height:1.8em"/>
+					</td>
+					<td id="avatarInfo" style="height:100%">
+						<div id="avatarName_display" style="color:white;">
+							(Name)
+						</div>
+					</td>
+				</tr></table></td>
 				<td id="avatarCash_display" style="height:100%; color:white; text-align:right">
 					(Cash Amount)
 				</td>
@@ -110,13 +173,18 @@
 					<button class="btn" style="width:20%" onclick="post()">post to facebook</button>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
-					<p>Content for stock page goes here
+					<p>
+						<p id="showReturn" style="font-size:1em" align="center"></p>
+
+
 						<div id = "stocks"></div>
 						<table style="width:100%">
 							<tr>
-								<td><button id = 'buybutton'>Buy 100 shares</button></td>
-								<td><button id = 'sellbutton'>Sell 100 shares</button></td> 
+								<td><button id = 'buybutton' style="background-color:lightgreen">Buy 100 shares</button></td>
+								
+								<td><button id = 'sellbutton' style="background-color:red">Sell 100 shares</button></td> 
 							</tr>
+							
 						</table>
 
 						<div id="stockPrice"></div>
@@ -134,7 +202,13 @@
 						<div id="leverage"></div>
 
 						<div id="transactionFee"></div>
+						<table style = "width:100%">
+							<tr>
+								<td><button id = 'outbutton'>Transfer $10k out</button></td>
+								<td><button id = 'inbutton'>Transfer $10k in</button></td>
 
+							</tr>
+						</table>
 
 					</p>
 				</div>
@@ -172,16 +246,26 @@
 		</script>
 		
 		<script>
-			// make UI
-			theAvatar.createStartUp(001);
-			//theAvatar.makeTemporaryInvestment(001);
-			theAvatar.createRealEstate(002);
-			//theAvatar.makeContinuousInvestment(002);
+		
+			var aStartUp = new StartUp();
+			aStartUp.setPotentialReturn(100);
+			aStartUp.setInvestmentTitle('Daniel Inc.');
+			aStartUp.setDescription('Daniel has a billion dollar idea');
+			theAvatar.addInvestmentInstance(aStartUp);
+			theAvatar.upgradeInvestment(aStartUp);
+			
+			var aRealEstate = new RealEstate();
+			aRealEstate.setMonthlyReturn(10);
+			aRealEstate.setInvestmentTitle('Waterfront Property');
+			aRealEstate.setDescription('A pricy piece of property');
+			theAvatar.addInvestmentInstance(aRealEstate);
+			theAvatar.upgradeInvestment(aRealEstate);
 			
 			mkInvestmentPage();
 		</script>
 		
 		<script>
+			initialLoad();
 			function callRefreshStatusBar(){
 				refreshStatusBar(theAvatar);
 			}
@@ -189,6 +273,7 @@
 			
 
 		</script>
-		<script src = "class/Stocks.js"></script>
+		
+		<script src = "class/Simulation.js"></script>
 	</body>
 </html>

@@ -1,17 +1,17 @@
 investmentViewItems = [];
 function mkInvestmentPage(){
 	var toReturn = '';
-	var theList = theAvatar.getListOfInvestment();
+	var theList = theAvatar.getInvestmentList();
 	
 	$("#investmentPage").append('<div id="investmentViewerList"></div>');
 	
 	for(var ind=0; ind < theList.length; ind++){
-		var investmentName = theList[ind].prototype.name;
-		var anInvestmentViewItem = new InvestmentItemDisplay(theList[ind].prototype.id);
+		var investmentName = theList[ind].getInvestmentTitle();
+		var anInvestmentViewItem = new InvestmentItemDisplay(theList[ind].getInvestmentID());
 		investmentViewItems.push(anInvestmentViewItem);
 		$("#investmentViewerList").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
-		anInvestmentViewItem.detail.setHTML(theList[ind].prototype.description);
+		anInvestmentViewItem.detail.setHTML(theList[ind].getDescription());
 				
 		// set colour
 		console.log(ind%2);
