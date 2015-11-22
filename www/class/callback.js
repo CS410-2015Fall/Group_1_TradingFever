@@ -4,7 +4,6 @@ getCash = function(id){
 			avatar_id : JSON.stringify(id),
 		},
 		function(string) {
-			console.log("current remote cash: " + string);
 			return string;
 	});
 }
@@ -16,6 +15,6 @@ setCash = function(id, newCashAmount){
 			avatar_cash : newCashAmount,
 		},
 		function(string) {
-			console.log("new remote cash: " + string);
+			console.log("update succesful");
 	});
 }

@@ -1,9 +1,17 @@
 function Avatar(name){
+	this.id = null;
 	this.name = name;
 	this.cash = 0;
 	this.listOfInvestments = [];
 	this.rage = 0;
 	
+	this.setID = function(id){
+		this.id = id;
+	}
+	this.getID = function(){
+		return this.id;
+	}
+
 	this.setName = function(newName){
 		this.name = newName;
 	}
@@ -21,10 +29,9 @@ function Avatar(name){
 
 	// Remote Cash
 	this.updateRemoteCash = function(){
-		this.cash = getCash(id);
+		this.cash = getCash(this.id);
 	}
 	this.setRemoteCash = function() {
-		console.log("hiiii");
 		setCash(this.id,this.cash);
 	}
 	
