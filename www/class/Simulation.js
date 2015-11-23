@@ -183,7 +183,7 @@ function setRandom() {
     random = d3.random.normal(1.04, 0.05);
   }else if (Math.random() > 0.5){
   console.log('case 3')
-  random = d3.random.normal(1.015, 0.04);
+  random = d3.random.normal(1.01, 0.04);
   }else{
     console.log('case 4');
     random = d3.random.normal(0.99, 0.15);

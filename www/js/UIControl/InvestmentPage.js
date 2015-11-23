@@ -12,7 +12,7 @@ function mkInvestmentPage(){
 		$("#investmentViewerList").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
 		anInvestmentViewItem.detail.setHTML(theList[ind].getDescription());
-				
+		anInvestmentViewItem.image.setImage(theList[ind].getImgURL());
 		// set colour
 		console.log(ind%2);
 		if(ind%2 == 0){

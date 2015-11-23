@@ -5,8 +5,8 @@ function RealEstate(){
 	
 	this.currentWorth = 0;
 	this.monthlyReturn = 0;
-	//this.cashOutInterval = 24*60*60*1000; // Time interval in miliseconds // 1 day
-	this.cashOutInterval = 5*1000; // Time interval in miliseconds
+	//this.cashOutInterval = 24*60*60*1000; // Time interval in milliseconds // 1 day
+	this.cashOutInterval = 5*1000; // Time interval in milliseconds
 	
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;
@@ -45,7 +45,7 @@ function RealEstate(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 500*this.currentLevel; //TODO: Change this. Should change with every level
+		return 500*Math.pow(1.2, this.currentLevel); //TODO: Change this. Should change with every level
 	}
 	this.upgrade = function(){
 		// TODO: improve this implementation
@@ -59,7 +59,7 @@ function RealEstate(){
 		var currentTime = new Date();
 		currentTime = currentTime.getTime();
 		
-		var timePassed = currentTime - this.getLastCashedTime(); //miliseconds
+		var timePassed = currentTime - this.getLastCashedTime(); //milliseconds
 		var numRoundNewDeposit = Math.floor(timePassed/this.getCashOutInterval());
 		if (numRoundNewDeposit < 0){
 			numRoundNewDeposit = 0;
