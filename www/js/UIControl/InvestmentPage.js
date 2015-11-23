@@ -11,19 +11,8 @@ function mkInvestmentPage(){
 		investmentViewItems.push(anInvestmentViewItem);
 		$("#investmentViewerList").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
-		anInvestmentViewItem.detail.setHTML(theList[ind].getDescription());
-				
-		// set colour
-		console.log(ind%2);
-		if(ind%2 == 0){
-			//anInvestmentViewItem.title.css("background-color","#1111ff");
-			//anInvestmentViewItem.detail.css("background-color","#9999ff");
-		} else {
-			//anInvestmentViewItem.title.css("background-color","#00ff00");
-			//anInvestmentViewItem.detail.css("background-color","#99ff99");
-		}
+		theList[ind].viewHandler = anInvestmentViewItem;
 	}
-	console.log(investmentViewItems);
 	//$("#investmentViewerList").html(toReturn);
 }
 function rmInvestmentViewItem(investmentID){

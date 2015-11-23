@@ -37,9 +37,11 @@ function RealEstate(){
 		var toReturn = {};
 		toReturn = {
 			'amount':this.monthlyReturn,
-			'duration':'monthly',
-			'cashOutMethod':'discrete'
+			'duration':this.cashOutInterval,
+			'cashOutMethod':'discrete',
+			'hasRisk':false
 		};
+		return toReturn;
 	}
 	this.upgradeable = function(){
 		return true; // TODO: should be false if reached max level

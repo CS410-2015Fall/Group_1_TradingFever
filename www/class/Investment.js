@@ -5,6 +5,7 @@ function Investment(){
 	this.investmentDescription = '';
 	this.currentLevel = 0;
 	this.lastCashedTime = 0;
+	this.viewHandler = {};
 	
 	this.setInvestmentID = function(newID){
 		this.investmentID = newID;
@@ -46,6 +47,12 @@ function Investment(){
 	this.getLastCashedTime = function(){
 		return this.lastCashedTime;
 	}
+	this.setViewHandler = function(newViewHandler){
+		this.viewHandler = newViewHandler;
+	}
+	this.getViewHandler = function(){
+		return this.viewHandler;
+	}
 }
 Investment.prototype.initiateInvestment = function(currentTime, assignedID){
 	throw('need to override this');
@@ -80,9 +87,6 @@ Investment.prototype.sellable = function(){
 	// note: implement sell in avatar class
 }
 Investment.prototype.grabCollectableReward = function(){
-	throw('need to override this');
-}
-Investment.prototype.timeToNextReward = function(){
 	throw('need to override this');
 }
 Investment.prototype.needsClear = function(){

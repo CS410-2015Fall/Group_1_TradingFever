@@ -33,8 +33,9 @@ function StartUp(){
 		var toReturn = {};
 		toReturn = {
 			'amount':0,
-			'duration':'depends',
-			'cashOutMethod':'get cash if successful'
+			'duration':1*60*1000,
+			'cashOutMethod':'get cash if successful',
+			'hasRisk':true
 		}
 		return toReturn;
 	}
@@ -55,6 +56,9 @@ function StartUp(){
 	}
 	this.grabCollectableReward = function(){
 		return 0;
+	}
+	this.timeToNextReward = function(){
+		return -1;
 	}
 	this.needsClear = function(){
 		return false;

@@ -6,7 +6,7 @@
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
-		
+		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -27,7 +27,6 @@
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 
 		<script src="class/callback.js"></script>
-		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
 
 		<title>Trading Fever</title>
 		<style>
@@ -109,7 +108,6 @@
 						resultImageData = e.target.result;
 						document.getElementById('avatarPicture_modal').src =  resultImageData;
 						
-						console.log(resultImageData);
 						
 						// save to local storage
 						localStorage.setItem("profilePicture", resultImageData);
@@ -165,7 +163,6 @@
 
 						function updateDatabase(){
 							theAvatar.setRemoteCash();
-							console.log("update remote cash");
 						}
 						setInterval(updateDatabase,1000);
 					</script>
@@ -215,35 +212,6 @@
 				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
 		</div>
-			<!--button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button-->
-		
-		
-		<script>
-		/*
-			$(document).ready(function(){
-				document.getElementById("gameTabWidget").style.height = "" + $(window).height() + "px";
-				$(window).resize(function(){
-					var currentWindowHeight = $(window).height();
-					var currentWindowWidth = $(window).width();
-					
-					// resize gameTabWidget
-					document.getElementById("gameTabWidget").style.height = "" + currentWindowHeight + "px";
-				})
-			});
-		*/
-		
-		
-		
-		/*
-		<div id="investment1" class="overlay">
-		    <div>
-		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
-		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
-				<button class="option floated" href="" onclick='overlay()'>close</button>
-		     </div>
-		</div>
-		*/
-		</script>
 		
 		<script>
 		
@@ -270,8 +238,6 @@
 				refreshStatusBar(theAvatar);
 			}
 			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
-			
-
 		</script>
 		
 		<script src = "class/Simulation.js"></script>
