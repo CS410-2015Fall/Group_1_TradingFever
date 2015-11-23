@@ -1,9 +1,17 @@
 function Avatar(name){
+	this.id = null;
 	this.name = name;
 	this.cash = 0;
 	this.listOfInvestments = [];
 	this.rage = 0;
 	
+	this.setID = function(id){
+		this.id = id;
+	}
+	this.getID = function(){
+		return this.id;
+	}
+
 	this.setName = function(newName){
 		this.name = newName;
 	}
@@ -11,11 +19,20 @@ function Avatar(name){
 		return this.name;
 	}
 	
+	// Local Cash
+	this.getCashAmount = function(){
+		return this.cash;
+	}
 	this.setCashAmount = function(newCashAmount){
 		this.cash = newCashAmount;
 	}
-	this.getCashAmount = function(){
-		return this.cash;
+
+	// Remote Cash
+	this.updateRemoteCash = function(){
+		this.cash = getCash(this.id);
+	}
+	this.setRemoteCash = function() {
+		setCash(this.id,this.cash);
 	}
 	
 	this.setInvestmentList = function(newList){

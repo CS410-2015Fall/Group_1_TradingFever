@@ -1,3 +1,4 @@
+
 function Investment(){
 	this.investmentID = -1;
 	this.investmentType = '';
@@ -112,3 +113,4 @@ Investment.prototype.loadAndCreateInstance(){
 	throw('need to override this');
 }
 */
+
