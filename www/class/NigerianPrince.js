@@ -2,15 +2,50 @@ NigerianPrince.prototype = new Investment();
 NigerianPrince.prototype.constructor = NigerianPrince;
 function NigerianPrince(){
 	this.setInvestmentType("NigerianPrince");
-	
-	this.chanceOfSuccess = 0;
+	this.currentLevel = 0;
+	this.chanceOfSuccess = 1.01;
 	this.currentWorth = 0;
 	this.potentialReturn = 0; // money return if successful
 	
+	// for income
+	this.monthlyReturn = 0;
+	this.cashOutInterval = 3*1000; 
+	this.setMonthlyReturn = function(newMonthlyReturn){
+		monthlyReturn = newMonthlyReturn;
+	}
+	
+	this.setCashOutInterval = function(newInterval){
+		// unit: miliseconds
+		this.cashOutInterval = newInterval;
+	}
+	this.getCashOutInterval = function(){
+		// unit: miliseconds
+		return this.cashOutInterval;
+	}
+	this.setCurrentWorth = function(newWorth){
+		this.currentWorth = newWorth;
+	}
+	this.grabCollectableReward = function(){
+		var currentTime = new Date();
+		currentTime = currentTime.getTime();
+		
+		var timePassed = currentTime - this.getLastCashedTime(); //milliseconds
+		var numRoundNewDeposit = Math.floor(timePassed/this.getCashOutInterval());
+		if (numRoundNewDeposit < 0){
+			numRoundNewDeposit = 0;
+		}
+		var amountAvailable = numRoundNewDeposit * this.monthlyReturn;
+		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.getCashOutInterval());
+		return amountAvailable;
+	}
 	
 	this.setChanceOfSuccess = function(percentage){
 		this.chanceOfSuccess = percentage;
 		// note: this function is called by upgrade
+	}
+	this.getChanceOfSuccess = function(percentage){
+		return this.chanceOfSuccess;
+		
 	}
 	this.setPotentialReturn = function(newPotentialReturn){
 		this.potentialReturn = newPotentialReturn;
@@ -42,11 +77,11 @@ function NigerianPrince(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 100; //TODO: Change this
+		return 2500*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
-
-		if (this.currentLevel == 1){
+if (Math.random() < this.getChanceOfSuccess()){
+		if (this.currentLevel == 0){
 			swal({title: "Royal Correspondence!", 
 			text: "Investment Advisor Kato says: \nWow! You barely even have to do anything! Hook me UP!",  
       		imageUrl: "img/advisor.jpg",  
@@ -59,13 +94,24 @@ function NigerianPrince(){
 		// TODO: improve this implementation
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
-		this.setChanceOfSuccess(0.5);
+		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
+		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		}else{
+		swal({title: "Busted!", 
+					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+					imageUrl: "img/advisor.jpg",  
+					type: "warning",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+		this.potentialReturn /= 2;
+		this.currentLevel -= 1;
+		this.setChanceOfSuccess(1);
+		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+	}
 	}
 	this.sellable = function(){
 		return true;
-	}
-	this.grabCollectableReward = function(){
-		return 0;
 	}
 	this.needsClear = function(){
 		return false;

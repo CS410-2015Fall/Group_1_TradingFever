@@ -2,14 +2,21 @@ RealEstate.prototype = new Investment();
 RealEstate.prototype.constructor = RealEstate;
 function RealEstate(){
 	this.setInvestmentType("RealEstate");
-	
+	this.currentLevel = 0;
 	this.currentWorth = 0;
 	this.monthlyReturn = 0;
 	//this.cashOutInterval = 24*60*60*1000; // Time interval in milliseconds // 1 day
-	this.cashOutInterval = 5*1000; // Time interval in milliseconds
-
+	this.cashOutInterval = 3*1000;  // Time interval in milliseconds
+	this.chanceOfSuccess = 1.01;
 	// random events
-
+	this.setChanceOfSuccess = function(percentage){
+		this.chanceOfSuccess = percentage;
+		// note: this function is called by upgrade
+	}
+	this.getChanceOfSuccess = function(percentage){
+		return this.chanceOfSuccess;
+		
+	}
 	
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;
@@ -48,10 +55,11 @@ function RealEstate(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 500*Math.pow(1.2, this.currentLevel);
+		return 100*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
-		if (this.currentLevel == 1){
+		if (Math.random() < this.getChanceOfSuccess()){
+		if (this.currentLevel == 0){
 			swal({title: "The American Dream!", 
 			text: "Investment Advisor Kato says: \nInvesting in properties with subprime mortgages is so 2008-we call it nonprime now!",  
       		imageUrl: "img/advisor.jpg",  
@@ -62,8 +70,22 @@ function RealEstate(){
 		}
 
 		// TODO: improve this implementation
-		this.monthlyReturn += 10*(this.currentLevel + 1);
 		this.currentLevel += 1;
+		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
+		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		}else{
+		swal({title: "Busted!", 
+					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+					imageUrl: "img/advisor.jpg",  
+					type: "warning",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+		this.potentialReturn /= 2;
+		this.currentLevel -= 1;
+		this.setChanceOfSuccess(1);
+		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+	}
 	}
 	this.sellable = function(){
 		return true; //Always true for RealEstate
@@ -83,8 +105,5 @@ function RealEstate(){
 	}
 	this.needsClear = function(){
 		return false;
-	}
-	this.setCurrentWorth = function(newWorth){
-		throw('not yet implemented');
 	}
 }
