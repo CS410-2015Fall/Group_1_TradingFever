@@ -59,6 +59,7 @@ var path = svg.append("g")
 // THIS UPDATES ABSOLUTELY EVERYTHING
 function tick() {
 
+
   // push a new data point onto the back
   theStocks.setStocksStockPrice(data[data.length-1]);
 
@@ -77,7 +78,13 @@ function tick() {
 
   // blowup scenarios
   if (theStocks.getStocksNetLiquidation() < minAccount){
-    alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
+
+    swal({title: "Blown Account!", text: "Investment Advisor Kato says: \nGrats, you blew up your account! Don't worry-you can always take another loan from the bank of Dad.",  
+      imageUrl: "img/advisor.jpg",   
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "He's gonna rage...",   closeOnConfirm: false });
+
     theStocks.setStocksSecuritiesGPV(0);
     theStocks.setStocksShares(0);
     theStocks.setStocksLeverage(0);
@@ -86,7 +93,13 @@ function tick() {
     theStocks.setStocksNetLiquidation(theStocks.getStocksCash());
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
   }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
-    alert('You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.")
+    
+    swal({title: "Leverage Exceeded!", text: 'Investment Advisor Kato says: \nDude, you just exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker liquidated your entire account!",   
+      imageUrl: "img/advisor.jpg",
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "Fine, I'll stop using so much margin.",   closeOnConfirm: false });
+
     theStocks.setStocksStockPrice(data[data.length-1]);
     theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
     theStocks.setStocksCash(theStocks.getStocksCash() + theStocks.getStocksSecuritiesGPV());
@@ -167,7 +180,7 @@ $(document).ready(function(){
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
-      alert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
+      sweetAlert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
     }
     });
 });
@@ -183,7 +196,7 @@ function setRandom() {
     random = d3.random.normal(1.04, 0.05);
   }else if (Math.random() > 0.5){
   console.log('case 3')
-  random = d3.random.normal(1.015, 0.04);
+  random = d3.random.normal(1.01, 0.04);
   }else{
     console.log('case 4');
     random = d3.random.normal(0.99, 0.15);

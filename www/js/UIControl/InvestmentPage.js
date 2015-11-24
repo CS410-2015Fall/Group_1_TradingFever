@@ -12,6 +12,9 @@ function mkInvestmentPage(){
 		$("#investmentViewerList").append(anInvestmentViewItem.mkHTML());
 		anInvestmentViewItem.title.setTitle(investmentName);
 		theList[ind].viewHandler = anInvestmentViewItem;
+		
+		anInvestmentViewItem.detail.setHTML(theList[ind].getDescription());
+		anInvestmentViewItem.image.setImage(theList[ind].getImgURL());
 	}
 	//$("#investmentViewerList").html(toReturn);
 }

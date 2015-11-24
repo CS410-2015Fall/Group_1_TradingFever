@@ -1,7 +1,7 @@
-StartUp.prototype = new Investment();
-StartUp.prototype.constructor = StartUp;
-function StartUp(){
-	this.setInvestmentType("StartUp");
+HedgeFund.prototype = new Investment();
+HedgeFund.prototype.constructor = HedgeFund;
+function HedgeFund(){
+	this.setInvestmentType("HedgeFund");
 	
 	this.chanceOfSuccess = 0;
 	this.currentWorth = 0;
@@ -32,9 +32,8 @@ function StartUp(){
 		var toReturn = {};
 		toReturn = {
 			'amount':0,
-			'duration':1*60*1000,
-			'cashOutMethod':'get cash if successful',
-			'hasRisk':true
+			'duration':'depends',
+			'cashOutMethod':'get cash if successful'
 		}
 		return toReturn;
 	}
@@ -46,13 +45,13 @@ function StartUp(){
 	}
 	this.upgrade = function(){
 		if (this.currentLevel == 1){
-			swal({title: "It cures cancer, man!", 
-			text: "Investment Advisor Kato says: \nNeed someone to help with quality assurance?",  
+			swal({title: "We're in the big leagues now!", 
+			text: "Investment Advisor Kato says: \nI heard this guy never loses money. I'm so jealous you get to invest with him!",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
       		confirmButtonColor: "#DD6B55",   
-      		confirmButtonText: "No, but I could use lobbyists",   closeOnConfirm: false });
+      		confirmButtonText: "The SEC trusts this guy...",   closeOnConfirm: false });
 		}
 
 		// TODO: improve this implementation
@@ -65,9 +64,6 @@ function StartUp(){
 	}
 	this.grabCollectableReward = function(){
 		return 0;
-	}
-	this.timeToNextReward = function(){
-		return -1;
 	}
 	this.needsClear = function(){
 		return false;

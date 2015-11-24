@@ -143,7 +143,7 @@ this.showSecuritiesGPV = function(){
 }
 
 this.showCash = function(){
-  $('#cash').html('Cash: $'+ cash.toFixed(2));
+  $('#cash').html('Trading Cash: $'+ cash.toFixed(2));
 }
 
 this.showAvailableFunds = function(){

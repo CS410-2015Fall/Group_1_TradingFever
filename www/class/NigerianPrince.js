@@ -1,11 +1,12 @@
-StartUp.prototype = new Investment();
-StartUp.prototype.constructor = StartUp;
-function StartUp(){
-	this.setInvestmentType("StartUp");
+NigerianPrince.prototype = new Investment();
+NigerianPrince.prototype.constructor = NigerianPrince;
+function NigerianPrince(){
+	this.setInvestmentType("NigerianPrince");
 	
 	this.chanceOfSuccess = 0;
 	this.currentWorth = 0;
 	this.potentialReturn = 0; // money return if successful
+	
 	
 	this.setChanceOfSuccess = function(percentage){
 		this.chanceOfSuccess = percentage;
@@ -32,9 +33,8 @@ function StartUp(){
 		var toReturn = {};
 		toReturn = {
 			'amount':0,
-			'duration':1*60*1000,
-			'cashOutMethod':'get cash if successful',
-			'hasRisk':true
+			'duration':'depends',
+			'cashOutMethod':'get cash if successful'
 		}
 		return toReturn;
 	}
@@ -45,14 +45,15 @@ function StartUp(){
 		return 100; //TODO: Change this
 	}
 	this.upgrade = function(){
+
 		if (this.currentLevel == 1){
-			swal({title: "It cures cancer, man!", 
-			text: "Investment Advisor Kato says: \nNeed someone to help with quality assurance?",  
+			swal({title: "Royal Correspondence!", 
+			text: "Investment Advisor Kato says: \nWow! You barely even have to do anything! Hook me UP!",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
       		confirmButtonColor: "#DD6B55",   
-      		confirmButtonText: "No, but I could use lobbyists",   closeOnConfirm: false });
+      		confirmButtonText: "Seems legit",   closeOnConfirm: false });
 		}
 
 		// TODO: improve this implementation
@@ -65,9 +66,6 @@ function StartUp(){
 	}
 	this.grabCollectableReward = function(){
 		return 0;
-	}
-	this.timeToNextReward = function(){
-		return -1;
 	}
 	this.needsClear = function(){
 		return false;

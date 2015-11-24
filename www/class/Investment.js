@@ -5,7 +5,9 @@ function Investment(){
 	this.investmentDescription = '';
 	this.currentLevel = 0;
 	this.lastCashedTime = 0;
-	this.viewHandler = {};
+	this.eventProbability = 0;
+	this.successProbability = 0;
+	this.imageURL = 'img/noImg.png';
 	
 	this.setInvestmentID = function(newID){
 		this.investmentID = newID;
@@ -47,11 +49,11 @@ function Investment(){
 	this.getLastCashedTime = function(){
 		return this.lastCashedTime;
 	}
-	this.setViewHandler = function(newViewHandler){
-		this.viewHandler = newViewHandler;
+	this.setImgURL = function(newImgURL){
+		this.imageURL = newImgURL;
 	}
-	this.getViewHandler = function(){
-		return this.viewHandler;
+	this.getImgURL = function(){
+		return this.imageURL;
 	}
 }
 Investment.prototype.initiateInvestment = function(currentTime, assignedID){
@@ -87,6 +89,13 @@ Investment.prototype.sellable = function(){
 	// note: implement sell in avatar class
 }
 Investment.prototype.grabCollectableReward = function(){
+	throw('need to override this');
+}
+Investment.prototype.timeToNextReward = function(){
+	throw('need to override this');
+}
+Investment.prototype.randomEvent = function(){
+	// creates a random event that happens with a random probability of success
 	throw('need to override this');
 }
 Investment.prototype.needsClear = function(){

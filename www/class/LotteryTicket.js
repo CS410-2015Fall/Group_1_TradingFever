@@ -1,7 +1,7 @@
-StartUp.prototype = new Investment();
-StartUp.prototype.constructor = StartUp;
-function StartUp(){
-	this.setInvestmentType("StartUp");
+LotteryTicket.prototype = new Investment();
+LotteryTicket.prototype.constructor = LotteryTicket;
+function LotteryTicket(){
+	this.setInvestmentType("LotteryTicket");
 	
 	this.chanceOfSuccess = 0;
 	this.currentWorth = 0;
@@ -32,9 +32,8 @@ function StartUp(){
 		var toReturn = {};
 		toReturn = {
 			'amount':0,
-			'duration':1*60*1000,
-			'cashOutMethod':'get cash if successful',
-			'hasRisk':true
+			'duration':'depends',
+			'cashOutMethod':'get cash if successful'
 		}
 		return toReturn;
 	}
@@ -46,13 +45,13 @@ function StartUp(){
 	}
 	this.upgrade = function(){
 		if (this.currentLevel == 1){
-			swal({title: "It cures cancer, man!", 
-			text: "Investment Advisor Kato says: \nNeed someone to help with quality assurance?",  
+			swal({title: "You gotta be in it to win it.", 
+			text: "Investment Advisor Kato says: \nThe more tickets you buy, the more likely you're gonna win, right?",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
       		confirmButtonColor: "#DD6B55",   
-      		confirmButtonText: "No, but I could use lobbyists",   closeOnConfirm: false });
+      		confirmButtonText: "Say no more!",   closeOnConfirm: false });
 		}
 
 		// TODO: improve this implementation
@@ -65,9 +64,6 @@ function StartUp(){
 	}
 	this.grabCollectableReward = function(){
 		return 0;
-	}
-	this.timeToNextReward = function(){
-		return -1;
 	}
 	this.needsClear = function(){
 		return false;
