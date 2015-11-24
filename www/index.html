@@ -6,7 +6,7 @@
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
-		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -59,6 +59,65 @@
 			shape-rendering: crispEdges;
 		}
 		</style>
+		<script>
+			document.addEventListener("deviceready",onDeviceReady,false);
+			function onDeviceReady() {
+				pictureSource=navigator.camera.PictureSourceType;
+				destinationType=navigator.camera.DestinationType;
+			}
+			function onPhotoDataSuccess(imageData) {
+				
+				var smallImage = document.getElementById('avatarPicture_modal');
+				smallImage.src = "data:image/jpeg;base64," + imageData;
+				
+				localStorage.setItem("profilePicture", "data:image/jpeg;base64," + imageData);
+				document.getElementById('avatarPicture').src = localStorage.getItem('profilePicture');
+				/*
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					resultImageData = e.target.result;
+					document.getElementById('avatarPicture_modal').src =  resultImageData;
+					
+					
+					// save to local storage
+					localStorage.setItem("profilePicture", resultImageData);
+				
+					// load from local storage
+					document.getElementById('avatarPicture').src = localStorage.getItem('profilePicture');
+					
+				}
+				reader.readAsDataURL(imageData);
+				*/
+				/*
+				var smallImage = document.getElementById('smallImage');
+				smallImage.style.display = 'block';
+				smallImage.src = "data:image/jpeg;base64," + imageData;
+				*/
+			}
+			function onPhotoURISuccess(imageURI) {
+				var largeImage = document.getElementById('largeImage');
+				largeImage.style.display = 'block';
+				largeImage.src = imageURI;
+			}
+			function capturePhoto() {
+				navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+				destinationType: destinationType.DATA_URL });
+			}
+			function capturePhotoEdit() {
+				navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+				destinationType: destinationType.DATA_URL });
+			}
+			function getPhoto(source) {
+				navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+				destinationType: destinationType.FILE_URI,
+				sourceType: source });
+			}
+			function onFail(message) {
+				console.log('Failed because: ' + message);
+			}
+
+		</script>
 	</head>
 	<body style="font-size:5vmin;">
 		<script>
@@ -82,7 +141,9 @@
 						<table><tr>
 							<td>
 								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
-								<input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/>
+								<!--input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/-->
+								<button onclick="capturePhoto()">Take new Photo</button>
+								
 							</td>
 							<td><table>
 								<tr><td id="avatarName_modal">(Name)</td></tr>
