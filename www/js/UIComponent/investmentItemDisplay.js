@@ -22,34 +22,32 @@ function InvestmentItemDisplay(itemID){
 		toReturn += '<table style="width:100%"><tr>';
 		toReturn += '<td id="displayInvestmentImageBlock_'+ID+'" style="width:2em;">'; // picture
 		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/noImg.png" style="width:4em; border-style:solid;"/>';
+		toReturn += '<div id="displayInvestmentLevel_'+ID+'" width="100%" align="center" style="background-color:black; color: white; border-radius:0.5em;">(level)</div>';
 		toReturn += '</td>';
 		
 		toReturn += '<td width="100%">';
 		toReturn += '<table width="100%;">';
 		
 		toReturn += '<td>';
-
-		toReturn += ' \
-		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-last-child ui-btn-up-c"> \
-			<div class="ui-btn-inner ui-li"> \
-				<div class="ui-btn-text"> \
-					<a href="index.html" class="ui-link-inherit"> \
-						<h2 class="ui-li-heading" id="displayInvestmentTitle_'+ID+'"></h2> \
-						<p class="ui-li-desc" id="displayInvestmentDetail_'+ID+'"></p> \
-					</a> \
-				</div> \
-				<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span> \
-			</div> \
-		</li>';
-
-		toReturn += '<button id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')">Upgrade for $'+theInstance.upgradeCost()+'</button>';
+		
+		toReturn += '\
+			<table width="100%">\
+				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td></tr>\
+				<tr width="100%"><td width="100%">\
+					<div width="100%" class="progress">\
+						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%">\
+							<span id="progress_'+ID+'" width="100%"></span>\
+						</div>\
+					</div>\
+				</td></tr>\
+				<tr><td><button id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')">Upgrade for $'+theInstance.upgradeCost()+'</button></td></tr>\
+			</table>';
 		toReturn += '</td>';
 		
 		toReturn += '</tr>';
 		
 		toReturn += '</table>';
 		toReturn += '</div>';
-		
 		return toReturn;
 	}
 	
@@ -59,7 +57,6 @@ function InvestmentItemDisplay(itemID){
 	this.image = {
 		'setImage':function(imgURL){
 			$('#displayInvestmentImage_'+ID).attr("src",imgURL);
-			console.log(imgURL);
 		},
 		'css':function(propertyName,propertyValue){
 			$('#displayInvestmentImage_'+ID).css(propertyName,propertyValue);
@@ -84,10 +81,17 @@ function InvestmentItemDisplay(itemID){
 			$('#displayInvestmentDetail_'+ID).css(propertyName,propertyValue);
 		}
 	}
+	this.progress = {
+		'setPercentage':function(newPercentage){
+			$('#progressBar_'+ID).css('width',' ' + newPercentage + '%');
+		}
+	}
+	this.setLevel = function(newLevel){
+		$('#displayInvestmentLevel_'+ID).html(newLevel);
+	}
 }
 
 function handle_makeInvestmentButton(investmentID){
-	console.log('making investment: ' + investmentID);
 	var theInstance = theAvatar.getInvestmentInstanceByID(investmentID);
 	
 	theAvatar.upgradeInvestment(theInstance);

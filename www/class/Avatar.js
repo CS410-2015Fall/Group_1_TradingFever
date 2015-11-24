@@ -105,8 +105,27 @@ function Avatar(name){
 	this.visitInvestments = function(){
 		for(var ind=0; ind < this.listOfInvestments.length; ind ++){
 			var targetInvestmentInstance = this.listOfInvestments[ind];
-			//console.log(targetInvestmentInstance);
+			
 			this.setCashAmount(this.getCashAmount() + targetInvestmentInstance.grabCollectableReward());
+			
+			// progress bar
+			var lastTime = targetInvestmentInstance.getLastCashedTime();
+			var duration = targetInvestmentInstance.getIncomeStatement().duration;
+			var progress = 0;
+			if(duration == -1){ //if depends or not defined
+				progress = 0;
+			} else {
+				var currentTime = new Date();
+				currentTime = currentTime.getTime();
+				var timePassed = currentTime - lastTime;
+				var percentagePassed = (timePassed % duration)/duration * 100;
+				
+				// progress percentage
+				targetInvestmentInstance.viewHandler.progress.setPercentage(percentagePassed);
+				
+				// level
+				targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());
+			}
 		}
 	}
 	

@@ -7,7 +7,7 @@
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
-		
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -34,8 +34,7 @@
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 
 		<script src="class/callback.js"></script>
-		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
-
+		<script src="js/camera.js"></script>
 		<title>Trading Fever</title>
 		<style>
 
@@ -67,6 +66,13 @@
 			shape-rendering: crispEdges;
 		}
 		</style>
+		<script>
+			document.addEventListener("deviceready",onDeviceReady,false);
+			function onDeviceReady() {
+				pictureSource=navigator.camera.PictureSourceType;
+				destinationType=navigator.camera.DestinationType;
+			}
+		</script>
 	</head>
 	<body style="font-size:5vmin;">
 		<script>
@@ -90,7 +96,8 @@
 						<table><tr>
 							<td>
 								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
-								<input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/>
+								<button onclick="capturePhoto()">Take new Photo</button>
+								
 							</td>
 							<td><table>
 								<tr><td id="avatarName_modal">(Name)</td></tr>
@@ -116,7 +123,6 @@
 						resultImageData = e.target.result;
 						document.getElementById('avatarPicture_modal').src =  resultImageData;
 						
-						console.log(resultImageData);
 						
 						// save to local storage
 						localStorage.setItem("profilePicture", resultImageData);
@@ -172,7 +178,6 @@
 
 						function updateDatabase(){
 							theAvatar.setRemoteCash();
-							console.log("update remote cash");
 						}
 						setInterval(updateDatabase,1000);
 					</script>
@@ -222,35 +227,6 @@
 				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
 		</div>
-			<!--button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button-->
-		
-		
-		<script>
-		/*
-			$(document).ready(function(){
-				document.getElementById("gameTabWidget").style.height = "" + $(window).height() + "px";
-				$(window).resize(function(){
-					var currentWindowHeight = $(window).height();
-					var currentWindowWidth = $(window).width();
-					
-					// resize gameTabWidget
-					document.getElementById("gameTabWidget").style.height = "" + currentWindowHeight + "px";
-				})
-			});
-		*/
-		
-		
-		
-		/*
-		<div id="investment1" class="overlay">
-		    <div>
-		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
-		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
-				<button class="option floated" href="" onclick='overlay()'>close</button>
-		     </div>
-		</div>
-		*/
-		</script>
 		
 		<script>
 			var aLotteryTicket = new LotteryTicket();
@@ -323,8 +299,6 @@
 				refreshStatusBar(theAvatar);
 			}
 			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
-			
-
 		</script>
 		
 		<script src = "class/Simulation.js"></script>
