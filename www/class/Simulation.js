@@ -77,7 +77,13 @@ function tick() {
 
   // blowup scenarios
   if (theStocks.getStocksNetLiquidation() < minAccount){
-    alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
+
+    swal({title: "Blown Account!", text: "You blew up your account! Don't worry-you take another loan from the bank of dad.",   
+      type: "warning",   
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "He's gonna rage...",   closeOnConfirm: false });
+
     theStocks.setStocksSecuritiesGPV(0);
     theStocks.setStocksShares(0);
     theStocks.setStocksLeverage(0);
@@ -86,7 +92,13 @@ function tick() {
     theStocks.setStocksNetLiquidation(theStocks.getStocksCash());
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
   }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
-    alert('You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.")
+    
+    swal({title: "Leverage Exceeded!", text: 'You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.",   
+      type: "warning",   
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "Fine, I'll stop using so much margin.",   closeOnConfirm: false });
+
     theStocks.setStocksStockPrice(data[data.length-1]);
     theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
     theStocks.setStocksCash(theStocks.getStocksCash() + theStocks.getStocksSecuritiesGPV());
@@ -167,7 +179,7 @@ $(document).ready(function(){
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
-      alert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
+      sweetAlert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
     }
     });
 });
