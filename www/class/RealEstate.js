@@ -7,6 +7,9 @@ function RealEstate(){
 	this.monthlyReturn = 0;
 	//this.cashOutInterval = 24*60*60*1000; // Time interval in milliseconds // 1 day
 	this.cashOutInterval = 5*1000; // Time interval in milliseconds
+
+	// random events
+
 	
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;
@@ -45,9 +48,19 @@ function RealEstate(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 500*Math.pow(1.2, this.currentLevel); //TODO: Change this. Should change with every level
+		return 500*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
+		if (this.currentLevel == 1){
+			swal({title: "The American Dream!", 
+			text: "Investment Advisor Kato says: \nInvesting in properties with subprime mortgages is so 2008-we call it nonprime now!",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "You gotta borrow money to make money",   closeOnConfirm: false });
+		}
+
 		// TODO: improve this implementation
 		this.monthlyReturn += 10*(this.currentLevel + 1);
 		this.currentLevel += 1;

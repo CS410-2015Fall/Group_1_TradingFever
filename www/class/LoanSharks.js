@@ -45,6 +45,16 @@ function LoanSharks(){
 		return 100; //TODO: Change this
 	}
 	this.upgrade = function(){
+		if (this.currentLevel == 1){
+			swal({title: "That's some high yields!", 
+			text: "Investment Advisor Kato says: \nWhy's that guy carrying a baseball bat?",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "Time to rake it in!",   closeOnConfirm: false });
+		}
+		
 		// TODO: improve this implementation
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;

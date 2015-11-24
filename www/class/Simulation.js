@@ -59,6 +59,7 @@ var path = svg.append("g")
 // THIS UPDATES ABSOLUTELY EVERYTHING
 function tick() {
 
+
   // push a new data point onto the back
   theStocks.setStocksStockPrice(data[data.length-1]);
 
@@ -78,8 +79,8 @@ function tick() {
   // blowup scenarios
   if (theStocks.getStocksNetLiquidation() < minAccount){
 
-    swal({title: "Blown Account!", text: "You blew up your account! Don't worry-you take another loan from the bank of dad.",   
-      type: "warning",   
+    swal({title: "Blown Account!", text: "Investment Advisor Kato says: \nGrats, you blew up your account! Don't worry-you can always take another loan from the bank of Dad.",  
+      imageUrl: "img/advisor.jpg",   
       showCancelButton: true,   
       confirmButtonColor: "#DD6B55",   
       confirmButtonText: "He's gonna rage...",   closeOnConfirm: false });
@@ -93,8 +94,8 @@ function tick() {
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
   }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
     
-    swal({title: "Leverage Exceeded!", text: 'You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.",   
-      type: "warning",   
+    swal({title: "Leverage Exceeded!", text: 'Investment Advisor Kato says: \nDude, you just exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker liquidated your entire account!",   
+      imageUrl: "img/advisor.jpg",
       showCancelButton: true,   
       confirmButtonColor: "#DD6B55",   
       confirmButtonText: "Fine, I'll stop using so much margin.",   closeOnConfirm: false });

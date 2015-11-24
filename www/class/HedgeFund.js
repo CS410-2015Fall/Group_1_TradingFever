@@ -44,6 +44,16 @@ function HedgeFund(){
 		return 100; //TODO: Change this
 	}
 	this.upgrade = function(){
+		if (this.currentLevel == 1){
+			swal({title: "We're in the big leagues now!", 
+			text: "Investment Advisor Kato says: \nI heard this guy never loses money. I'm so jealous you get to invest with him!",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "The SEC trusts this guy...",   closeOnConfirm: false });
+		}
+
 		// TODO: improve this implementation
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;

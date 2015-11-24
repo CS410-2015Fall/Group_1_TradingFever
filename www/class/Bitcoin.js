@@ -45,6 +45,17 @@ function Bitcoin(){
 		return 100; //TODO: Change this
 	}
 	this.upgrade = function(){
+
+		if (this.currentLevel == 1){
+			swal({title: "To the Moon!", 
+			text: "Investment Advisor Kato says: \n Bitcoin has is mathematically calculable value.. It's the dollar and the fiat currency price that is all over the place.",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "Better buy some before it hits $10,000",   closeOnConfirm: false });
+		}
+
 		// TODO: improve this implementation
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;

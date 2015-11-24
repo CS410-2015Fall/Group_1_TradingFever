@@ -45,6 +45,17 @@ function NigerianPrince(){
 		return 100; //TODO: Change this
 	}
 	this.upgrade = function(){
+
+		if (this.currentLevel == 1){
+			swal({title: "Royal Correspondence!", 
+			text: "Investment Advisor Kato says: \nWow! You barely even have to do anything! Hook me UP!",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "Seems legit",   closeOnConfirm: false });
+		}
+
 		// TODO: improve this implementation
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
