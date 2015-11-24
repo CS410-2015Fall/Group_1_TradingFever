@@ -6,8 +6,8 @@
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
-		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -34,7 +34,7 @@
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 
 		<script src="class/callback.js"></script>
-
+		<script src="js/camera.js"></script>
 		<title>Trading Fever</title>
 		<style>
 
@@ -66,6 +66,13 @@
 			shape-rendering: crispEdges;
 		}
 		</style>
+		<script>
+			document.addEventListener("deviceready",onDeviceReady,false);
+			function onDeviceReady() {
+				pictureSource=navigator.camera.PictureSourceType;
+				destinationType=navigator.camera.DestinationType;
+			}
+		</script>
 	</head>
 	<body style="font-size:5vmin;">
 		<script>
@@ -89,7 +96,8 @@
 						<table><tr>
 							<td>
 								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
-								<input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/>
+								<button onclick="capturePhoto()">Take new Photo</button>
+								
 							</td>
 							<td><table>
 								<tr><td id="avatarName_modal">(Name)</td></tr>
