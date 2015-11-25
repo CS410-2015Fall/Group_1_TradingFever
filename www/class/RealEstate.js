@@ -45,7 +45,7 @@ function RealEstate(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 100*Math.pow(1.2, this.currentLevel);
+		return 50000*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
 		this.rewardDuration = 8 * 1000;
