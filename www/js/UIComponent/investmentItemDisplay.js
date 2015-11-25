@@ -95,7 +95,7 @@ function handle_makeInvestmentButton(investmentID){
 	var theInstance = theAvatar.getInvestmentInstanceByID(investmentID);
 	
 	theAvatar.upgradeInvestment(theInstance);
-	$('#upgradeButton_'+investmentID).html('Upgrade for $'+theInstance.upgradeCost());
+	$('#upgradeButton_'+investmentID).html('Upgrade for $'+Math.floor(theInstance.upgradeCost()));
 	// update the view
 	
 }

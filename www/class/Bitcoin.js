@@ -85,7 +85,7 @@ function Bitcoin(){
 	if (Math.random() < this.getChanceOfSuccess()){
 		if (this.currentLevel == 0){
 			swal({title: "To the Moon!", 
-			text: "Investment Advisor Kato says: \n Bitcoin has is mathematically calculable value.. It's the dollar and the fiat currency price that is all over the place.",  
+			text: "Investment Advisor Kato says: \n Bitcoin has mathematically calculable value.. It's the dollar and the fiat currency price that is all over the place.",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
@@ -97,7 +97,11 @@ function Bitcoin(){
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 25000*Math.pow(1.2, this.currentLevel-1);
+		}	
 		}else{
 		swal({title: "Busted!", 
 					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
@@ -109,7 +113,7 @@ function Bitcoin(){
 		this.potentialReturn /= 2;
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		this.monthlyReturn = 25000*Math.pow(this.currentLevel, 1.5);
 	}
 	}
 	this.sellable = function(){

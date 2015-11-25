@@ -85,7 +85,11 @@ function LotteryTicket(){
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
+		}	
 		}else{
 		swal({title: "Busted!", 
 					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
@@ -97,7 +101,11 @@ function LotteryTicket(){
 		this.potentialReturn /= 2;
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
+		}	
 	}
 
 
