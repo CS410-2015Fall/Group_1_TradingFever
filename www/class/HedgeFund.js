@@ -96,21 +96,50 @@ function HedgeFund(){
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
-		}else{
-		swal({title: "Busted!", 
-					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+	}
+		
+		else if(this.getChanceOfSuccess() == 0){
+			swal({title: "PONZI SCHEME!", 
+					text: "Investment Advisor Kato says: \nA giant pyramid scheme all along! His biggest investor just committed suicide! At least we managed to salvage some of your money back...it's SOMETHING!",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Well, it's not nothing",   closeOnConfirm: false });
+		this.currentLevel = 0;
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+
+		else{
+			this.monthlyReturn = 100000*Math.pow(2, this.currentLevel-1);
+		}	
+		}
+
+		else{
+		swal({title: "A Request", 
+					text: "Investment Advisor Kato says: \nHe's giving you an opportunity to invest even more with him! O.M.G!",  
 					imageUrl: "img/advisor.jpg",  
 					type: "warning",
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
-		this.potentialReturn /= 2;
-		this.currentLevel -= 1;
-		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+					confirmButtonText: "More, more, MORE!",   closeOnConfirm: false });
+		this.potentialReturn *= 2;
+		this.currentLevel += 1;
+		this.setChanceOfSuccess(0);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 100000*Math.pow(2, this.currentLevel-1);
+		}	
 	}
 	}
+
 	this.sellable = function(){
 		return true;
 	}

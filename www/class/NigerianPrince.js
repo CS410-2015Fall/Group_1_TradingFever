@@ -86,19 +86,51 @@ function NigerianPrince(){
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
 		}else{
+			this.monthlyReturn = 250*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			swal({title: "CAUGHT!", 
+					text: "Investment Advisor Kato says: \nI don't know you, and you don't know me! I never advised you, got that??",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Time to run! (lose operations, 10% of cash)",   closeOnConfirm: false });
+		this.currentLevel = 0;
+		theAvatar.setCashAmount(theAvatar.getCashAmount()*0.9);
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 250*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+
+
+		else{
 		swal({title: "Busted!", 
-					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+					text: "Investment Advisor Kato says: \nThey caught the Nigerian! Looks like you're hiring again!",  
 					imageUrl: "img/advisor.jpg",  
 					type: "warning",
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+					confirmButtonText: "They will never suspect me",   closeOnConfirm: false });
 		this.potentialReturn /= 2;
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 250*Math.pow(1.2, this.currentLevel-1);
+		}	
 	}
 	}
 	this.sellable = function(){

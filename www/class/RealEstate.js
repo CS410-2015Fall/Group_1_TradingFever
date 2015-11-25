@@ -45,7 +45,7 @@ function RealEstate(){
 		return true; // TODO: should be false if reached max level
 	}
 	this.upgradeCost = function(){
-		return 100*Math.pow(1.2, this.currentLevel);
+		return 50000*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
 		this.rewardDuration = 8 * 1000;
@@ -63,19 +63,51 @@ function RealEstate(){
 		// TODO: improve this implementation
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
 		}else{
-		swal({title: "Busted!", 
-					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			swal({title: "SUBPRIME MELTDOWN!", 
+					text: "Investment Advisor Kato says: \n Everyone's defaulting on their mortgages! Quick, sell your houses before they turn worthless!!",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Sell it all! (dump real estate on the cheap)",   closeOnConfirm: false });
+		theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
+		this.currentLevel = 0;
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+
+		else{
+		swal({title: "Recession!", 
+					text: "Investment Advisor Kato says: \nWe should probably offload some assets in case this turns for the worse!",  
 					imageUrl: "img/advisor.jpg",  
 					type: "warning",
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+					confirmButtonText: "Sensible advice",   closeOnConfirm: false });
 		this.potentialReturn /= 2;
+		theAvatar.setCashAmount(theAvatar.getCashAmount()+25000);
 		this.currentLevel -= 1;
-		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.95);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+		}	
 	}
 	}
 	this.sellable = function(){

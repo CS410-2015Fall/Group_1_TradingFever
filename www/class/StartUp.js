@@ -91,19 +91,49 @@ function StartUp(){
 			console.log('currentLevel: ' + this.currentLevel);
 			this.currentLevel += 1;
 			this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-			this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
-		} else {
-			swal({title: "Busted!", 
-				text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+			if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 1000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		} 
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.7){
+			swal({title: "BUSTED!", 
+					text: "Investment Advisor Kato says: \nI'm sure we can talk our way out of this??",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Diplomatic negotiation (lose 1 level)",   closeOnConfirm: false });
+		this.currentLevel -= 1;
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 1000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+
+		else {
+			swal({title: "Conservative Prime Minister", 
+				text: "Investment Advisor Kato says: \nThey think legislation will put our medicines out of business??",  
 				imageUrl: "img/advisor.jpg",  
 				type: "warning",
 				showCancelButton: true,   
 				confirmButtonColor: "#DD6B55",   
-				confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+				confirmButtonText: "Can't fight the policymakers",   closeOnConfirm: false });
 			this.potentialReturn /= 2;
 			this.currentLevel -= 1;
 			this.setChanceOfSuccess(1);
-			this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+			if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 1000*Math.pow(1.2, this.currentLevel-1);
+		}	
 		}
 	}
 	this.sellable = function(){

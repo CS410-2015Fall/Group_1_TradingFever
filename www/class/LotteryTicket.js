@@ -74,7 +74,7 @@ function LotteryTicket(){
 		if (Math.random() < this.getChanceOfSuccess()){
 		if (this.currentLevel == 0){
 			swal({title: "You gotta be in it to win it.", 
-			text: "Investment Advisor Kato says: \nThe more tickets you buy, the more likely you're gonna win, right?",  
+			text: "Investment Advisor Kato says: \nThe more tickets you buy, the more likely you're gonna win, right? At least if you're friends with the store clerk.",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
@@ -85,19 +85,49 @@ function LotteryTicket(){
 		this.potentialReturn *= 2;
 		this.currentLevel += 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
 		}else{
+			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			swal({title: "CAUGHT!", 
+					text: "Investment Advisor Kato says: \nI don't know you, and you don't know me! I never advised you, got that??",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Heavy fines (lose 50% of cash)",   closeOnConfirm: false });
+		this.currentLevel = 0;
+		theAvatar.setCashAmount(theAvatar.getCashAmount()*0.5);
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+		else{
 		swal({title: "Busted!", 
-					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+					text: "Investment Advisor Kato says: \n$!@#! They found out your clerk was cheating lottery winners! Thank god they didn't link it to you!",  
 					imageUrl: "img/advisor.jpg",  
 					type: "warning",
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+					confirmButtonText: "I need a better scheme",   closeOnConfirm: false });
 		this.potentialReturn /= 2;
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(1);
-		this.monthlyReturn = 10*Math.pow(this.currentLevel, 1.5);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
+		}	
 	}
 
 
