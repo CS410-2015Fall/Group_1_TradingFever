@@ -115,9 +115,10 @@ function Avatar(name){
 			var duration = targetInvestmentInstance.getIncomeStatement().duration;
 			var progress = 0;
 			
-			if(this.duration <= -1){ //if depends or not defined
+			if(this.duration <= -1 || targetInvestmentInstance.getCurrentLevel() < 1){ //if depends or not defined
 				progress = 0;
 				targetInvestmentInstance.viewHandler.progress.setPercentage(0);
+				targetInvestmentInstance.viewHandler.setReturnAmountText(0);
 			} else {
 				var currentTime = new Date();
 				currentTime = currentTime.getTime();

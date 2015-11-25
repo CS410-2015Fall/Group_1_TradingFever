@@ -98,7 +98,9 @@ function HedgeFund(){
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
 		if (this.currentLevel < 1){
 			this.monthlyReturn = 0;
-		}
+		}else{
+			this.monthlyReturn = 100000*Math.pow(2, this.currentLevel-1);
+		}	
 	}
 		
 		else if(this.getChanceOfSuccess() == 0){

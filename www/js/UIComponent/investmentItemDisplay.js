@@ -32,7 +32,7 @@ function InvestmentItemDisplay(itemID){
 		
 		toReturn += '\
 			<table width="100%">\
-				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td></tr>\
+				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td><td><button onclick="handle_getInvestmentDetailButton('+ID+')">?</button></td></tr>\
 				<tr width="100%"><td width="100%">\
 					<div width="100%" class="progress">\
 						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%;">\
@@ -102,4 +102,12 @@ function handle_makeInvestmentButton(investmentID){
 	$('#upgradeButton_'+investmentID).html('Upgrade for $'+Math.floor(theInstance.upgradeCost()));
 	// update the view
 	
+}
+function handle_getInvestmentDetailButton(investmentID){
+	var theInstance = theAvatar.getInvestmentInstanceByID(investmentID);
+	
+	$('#investmentInfo_name').html(theInstance.getInvestmentTitle());
+	$('#investmentPicture_modal').attr('src',theInstance.getImgURL());
+	$('#investmentDescription_modal').html(theInstance.getDescription());
+	$('#investmentInfoModal').modal();
 }
