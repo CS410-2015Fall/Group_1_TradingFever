@@ -85,7 +85,7 @@ function Bitcoin(){
 	if (Math.random() < this.getChanceOfSuccess()){
 		if (this.currentLevel == 0){
 			swal({title: "To the Moon!", 
-			text: "Investment Advisor Kato says: \n Bitcoin has mathematically calculable value.. It's the dollar and the fiat currency price that is all over the place.",  
+			text: "Investment Advisor Kato says: \n Finally, a curreny that will supplant the worthless US dollar!",  
       		imageUrl: "img/advisor.jpg",  
       		type: "success",
       		showCancelButton: true,   
@@ -102,14 +102,36 @@ function Bitcoin(){
 		}else{
 			this.monthlyReturn = 25000*Math.pow(1.2, this.currentLevel-1);
 		}	
-		}else{
-		swal({title: "Busted!", 
-					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
+		}
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			swal({title: "GT.MOX HACKED!", 
+					text: "Investment Advisor Kato says: \nHow did the largest virtual currencies exchange get hacked?? Where's my money, Kark Marpeles??",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Heavy losses (lose all bitcoin)",   closeOnConfirm: false });
+		this.currentLevel = 0;
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 25000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+
+		else{
+		swal({title: "Crash!", 
+					text: "Investment Advisor Kato says: \n I've bought at $..14/25/45/75/200/300/500/800/900... and I'll keep buying. last I checked - I still have the same amount of bitcoin. It's the dollar and the fiat currency price that is all over the place.",  
 					imageUrl: "img/advisor.jpg",  
 					type: "warning",
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Losing money is better than incarceration",   closeOnConfirm: false });
+					confirmButtonText: "Fear of volatility is for the weak",   closeOnConfirm: false });
 		this.potentialReturn /= 2;
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(1);

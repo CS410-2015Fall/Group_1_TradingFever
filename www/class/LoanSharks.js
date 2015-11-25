@@ -91,7 +91,30 @@ function LoanSharks(){
 		}else{
 			this.monthlyReturn = 50*Math.pow(1.2, this.currentLevel-1);
 		}	
-	}else{
+	}
+
+		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			swal({title: "CAUGHT!", 
+					text: "Investment Advisor Kato says: \nI don't know you, and you don't know me! I never advised you, got that??",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Short stint in jail (lose operations, 30% of cash, 100% of your dignity)",   closeOnConfirm: false });
+		this.currentLevel = 0;
+		theAvatar.setCashAmount(theAvatar.getCashAmount()*0.7);
+		this.potentialReturn *= 2;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 50*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}	
+
+
+	else{
 		swal({title: "Busted!", 
 					text: "Investment Advisor Kato says: \nI told you that guy looked sketch! Good thing they couldn't trace the money to you.",  
 					imageUrl: "img/advisor.jpg",  
