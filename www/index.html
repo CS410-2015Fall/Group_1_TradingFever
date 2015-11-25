@@ -183,6 +183,55 @@
 						}
 						setInterval(updateDatabase,1000);
 					</script>
+					
+
+					<!-- animation -->
+					<div id="animation" align="center"> 
+
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+						<img src="img/setup0.jpg" />
+	
+					</div> 
+
+					<script>
+					onload = function startAnimation() { 
+						var frames = document.getElementById("animation").children;
+						var frameCount = frames.length;
+						var i = 0;
+						setInterval(function () { 
+							frames[i % frameCount].style.display = "none";
+							frames[++i % frameCount].style.display = "block";
+						}, 100); 
+					} 
+					</script>
+
+					<style>
+					#animation img {
+						width: 17em;
+    					height: 18em;
+						display: none;
+					}
+					#animation img:first-child {
+						display: block;
+					} 
+					</style>
+					<!-- end of animation -->
+
+
+
 					<div id="status"></div>
 					<button class="btn" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
 				</div>
