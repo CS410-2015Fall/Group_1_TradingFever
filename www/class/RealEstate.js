@@ -5,9 +5,7 @@ function RealEstate(){
 	this.currentLevel = 0;
 	this.currentWorth = 0;
 	this.monthlyReturn = 0;
-	//this.cashOutInterval = 24*60*60*1000; // Time interval in milliseconds // 1 day
-	this.cashOutInterval = 3*1000;  // Time interval in milliseconds
-	this.chanceOfSuccess = 1.01;
+	this.chanceOfSuccess = 1;
 	// random events
 	this.setChanceOfSuccess = function(percentage){
 		this.chanceOfSuccess = percentage;
@@ -15,7 +13,6 @@ function RealEstate(){
 	}
 	this.getChanceOfSuccess = function(percentage){
 		return this.chanceOfSuccess;
-		
 	}
 	
 	this.setCurrentWorth = function(newWorth){
@@ -23,15 +20,6 @@ function RealEstate(){
 	}
 	this.setMonthlyReturn = function(newMonthlyReturn){
 		monthlyReturn = newMonthlyReturn;
-	}
-	
-	this.setCashOutInterval = function(newInterval){
-		// unit: miliseconds
-		this.cashOutInterval = newInterval;
-	}
-	this.getCashOutInterval = function(){
-		// unit: miliseconds
-		return this.cashOutInterval;
 	}
 	
 	// interface methods
@@ -47,7 +35,7 @@ function RealEstate(){
 		var toReturn = {};
 		toReturn = {
 			'amount':this.monthlyReturn,
-			'duration':this.cashOutInterval,
+			'duration':this.rewardDuration,
 			'cashOutMethod':'discrete',
 			'hasRisk':false
 		};
@@ -60,6 +48,7 @@ function RealEstate(){
 		return 100*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
+		this.rewardDuration = 8 * 1000;
 		if (Math.random() < this.getChanceOfSuccess()){
 		if (this.currentLevel == 0){
 			swal({title: "The American Dream!", 
@@ -97,12 +86,12 @@ function RealEstate(){
 		currentTime = currentTime.getTime();
 		
 		var timePassed = currentTime - this.getLastCashedTime(); //milliseconds
-		var numRoundNewDeposit = Math.floor(timePassed/this.getCashOutInterval());
+		var numRoundNewDeposit = Math.floor(timePassed/this.rewardDuration);
 		if (numRoundNewDeposit < 0){
 			numRoundNewDeposit = 0;
 		}
 		var amountAvailable = numRoundNewDeposit * this.monthlyReturn;
-		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.getCashOutInterval());
+		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.rewardDuration);
 		return amountAvailable;
 	}
 	this.needsClear = function(){

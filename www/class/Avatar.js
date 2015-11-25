@@ -67,7 +67,9 @@ function Avatar(name){
 				this.assignInvestmentIDIfNone(investmentInstance);
 				
 				// level up the investment
+				console.log(investmentInstance.getCurrentLevel());
 				investmentInstance.upgrade();
+				console.log(investmentInstance.getCurrentLevel());
 			} else {
 				throw("You do not have enough cash");
 			}
@@ -112,20 +114,23 @@ function Avatar(name){
 			var lastTime = targetInvestmentInstance.getLastCashedTime();
 			var duration = targetInvestmentInstance.getIncomeStatement().duration;
 			var progress = 0;
-			if(duration == -1){ //if depends or not defined
+			
+			if(this.duration <= -1){ //if depends or not defined
 				progress = 0;
+				targetInvestmentInstance.viewHandler.progress.setPercentage(0);
 			} else {
 				var currentTime = new Date();
 				currentTime = currentTime.getTime();
+				console.log('duration' + duration);
 				var timePassed = currentTime - lastTime;
+				console.log('timePassed: ' + timePassed);
 				var percentagePassed = (timePassed % duration)/duration * 100;
 				
 				// progress percentage
 				targetInvestmentInstance.viewHandler.progress.setPercentage(percentagePassed);
-				
-				// level
-				targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());
 			}
+			// level
+			targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());
 		}
 	}
 	

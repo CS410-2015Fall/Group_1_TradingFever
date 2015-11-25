@@ -8,6 +8,8 @@ function Investment(){
 	this.eventProbability = 0;
 	this.successProbability = 0;
 	this.imageURL = 'img/noImg.png';
+	this.rewardDuration = -1;
+	this.viewHandler = {};
 	
 	this.setInvestmentID = function(newID){
 		this.investmentID = newID;

@@ -9,18 +9,8 @@ function LoanSharks(){
 	
 	// for income
 	this.monthlyReturn = 0;
-	this.cashOutInterval = 3*1000; 
 	this.setMonthlyReturn = function(newMonthlyReturn){
 		monthlyReturn = newMonthlyReturn;
-	}
-	
-	this.setCashOutInterval = function(newInterval){
-		// unit: miliseconds
-		this.cashOutInterval = newInterval;
-	}
-	this.getCashOutInterval = function(){
-		// unit: miliseconds
-		return this.cashOutInterval;
 	}
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;
@@ -30,12 +20,12 @@ function LoanSharks(){
 		currentTime = currentTime.getTime();
 		
 		var timePassed = currentTime - this.getLastCashedTime(); //milliseconds
-		var numRoundNewDeposit = Math.floor(timePassed/this.getCashOutInterval());
+		var numRoundNewDeposit = Math.floor(timePassed/this.rewardDuration);
 		if (numRoundNewDeposit < 0){
 			numRoundNewDeposit = 0;
 		}
 		var amountAvailable = numRoundNewDeposit * this.monthlyReturn;
-		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.getCashOutInterval());
+		this.setLastCashedTime(this.getLastCashedTime() + numRoundNewDeposit * this.rewardDuration);
 		return amountAvailable;
 	}
 
@@ -68,7 +58,7 @@ function LoanSharks(){
 		var toReturn = {};
 		toReturn = {
 			'amount':0,
-			'duration':'depends',
+			'duration':this.rewardDuration,
 			'cashOutMethod':'get cash if successful'
 		}
 		return toReturn;
@@ -80,7 +70,7 @@ function LoanSharks(){
 		return 500*Math.pow(1.2, this.currentLevel);
 	}
 	this.upgrade = function(){
-
+		this.rewardDuration = 3 * 1000;
 	if (Math.random() < this.getChanceOfSuccess()){
 			if (this.currentLevel == 0){
 				swal({title: "That's some high yields!", 
