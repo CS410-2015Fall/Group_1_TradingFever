@@ -3,8 +3,8 @@ function onPhotoDataSuccess(imageData) {
 	var smallImage = document.getElementById('avatarPicture_modal');
 	smallImage.src = "data:image/jpeg;base64," + imageData;
 	
-	localStorage.setItem("profilePicture", "data:image/jpeg;base64," + imageData);
-	document.getElementById('avatarPicture').src = localStorage.getItem('profilePicture');
+	window.localStorage.setItem("profilePicture", "data:image/jpeg;base64," + imageData);
+	document.getElementById('avatarPicture').src = window.localStorage.getItem('profilePicture');
 }
 function onPhotoURISuccess(imageURI) {
 	var largeImage = document.getElementById('largeImage');
