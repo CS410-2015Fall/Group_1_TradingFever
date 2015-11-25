@@ -194,9 +194,25 @@
 						<div id = "stocks"></div>
 						<table style="width:100%">
 							<tr>
-								<td><button id = 'buybutton' style="background-color:lightgreen">Buy 100 shares</button></td>
+								<td><button id = 'buybutton' style="background-color:lightgreen; font-size:1m; width:100%;">Buy</button></td>
+								<td>
+									<select style="font-size:1em; width:100%" id="invSize">
+										<option value=100>100 shares</option>
+										<option value=500>500 shares</option>
+										<option value=1000>1,000 shares</option>
+										<option value=5000>5,000 shares</option>
+										<option value=10000>10,000 shares</option>
+									</select>
+								</td>
 								
-								<td><button id = 'sellbutton' style="background-color:red">Sell 100 shares</button></td> 
+								<td><button id = 'sellbutton' style="background-color:red; font-size:1m; width:100%;">Sell</button></td> 
+								<script>
+									function getInvestmentSize(){
+										var selIndex = document.getElementById("invSize").selectedIndex;
+										var toReturn = document.getElementById("invSize").options[selIndex].value;
+										return Number(toReturn);
+									}
+								</script>
 							</tr>
 							
 						</table>

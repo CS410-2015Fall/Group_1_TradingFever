@@ -150,13 +150,13 @@ tick();
 
 $(document).ready(function(){
     $("#buybutton").click(function(){
-      
-      transactionFee= 100 * theStocks.getStocksFeeRate();
+      var invSize = getInvestmentSize();
+      transactionFee= invSize * theStocks.getStocksFeeRate();
       theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
-      transaction = 100 * theStocks.getStocksStockPrice() + transactionFee;
-      theStocks.setStocksShares(theStocks.getStocksShares() + 100);
+      transaction = invSize * theStocks.getStocksStockPrice() + transactionFee;
+      theStocks.setStocksShares(theStocks.getStocksShares() + invSize);
       if (theStocks.getStocksShares() > 0){
-        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*(theStocks.getStocksShares()-100) + theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares()));
+        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*(theStocks.getStocksShares()-invSize) + theStocks.getStocksStockPrice()*invSize)/(theStocks.getStocksShares()));
       }else{
         theStocks.setAvgPurchasePrice(0);
       }
@@ -171,12 +171,13 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#sellbutton").click(function(){
+		var invSize = getInvestmentSize();
       if(theStocks.getStocksShares() >0){
         
-        transactionFee= 100 * theStocks.getStocksFeeRate();
+        transactionFee= invSize * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
-        transaction = 100 * theStocks.getStocksStockPrice() - transactionFee;
-        theStocks.setStocksShares(theStocks.getStocksShares() - 100);
+        transaction = invSize * theStocks.getStocksStockPrice() - transactionFee;
+        theStocks.setStocksShares(theStocks.getStocksShares() - invSize);
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
