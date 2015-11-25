@@ -128,6 +128,9 @@ function Avatar(name){
 				
 				// progress percentage
 				targetInvestmentInstance.viewHandler.progress.setPercentage(percentagePassed);
+				
+				// return amount
+				targetInvestmentInstance.viewHandler.setReturnAmountText(targetInvestmentInstance.getIncomeStatement().amount);
 			}
 			// level
 			targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());

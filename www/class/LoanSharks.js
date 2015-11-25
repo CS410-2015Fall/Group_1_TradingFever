@@ -57,7 +57,7 @@ function LoanSharks(){
 	this.getIncomeStatement = function(){
 		var toReturn = {};
 		toReturn = {
-			'amount':0,
+			'amount':this.monthlyReturn,
 			'duration':this.rewardDuration,
 			'cashOutMethod':'get cash if successful'
 		}

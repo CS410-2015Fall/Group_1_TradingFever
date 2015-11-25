@@ -35,9 +35,10 @@ function InvestmentItemDisplay(itemID){
 				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td></tr>\
 				<tr width="100%"><td width="100%">\
 					<div width="100%" class="progress">\
-						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%">\
-							<span id="progress_'+ID+'" width="100%"></span>\
+						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%;">\
+							<span id="progress_'+ID+'"></span>\
 						</div>\
+						<div style="font-size:0.5em; position:absolute; width:100%; text-align:center;">$<span id="returnPerRound_'+ID+'">0.00</span></div>\
 					</div>\
 				</td></tr>\
 				<tr><td><button id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')">Upgrade for $'+theInstance.upgradeCost()+'</button></td></tr>\
@@ -88,6 +89,9 @@ function InvestmentItemDisplay(itemID){
 	}
 	this.setLevel = function(newLevel){
 		$('#displayInvestmentLevel_'+ID).html(newLevel);
+	}
+	this.setReturnAmountText = function(returnAmount){
+		$('#returnPerRound_'+ID).html(returnAmount);
 	}
 }
 
