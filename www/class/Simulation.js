@@ -21,7 +21,7 @@ var x = d3.scale.linear()
     .range([0, width]);
 
 var y = d3.scale.linear()
-    .domain([0, 20])
+    .domain([0, 40])
     .range([height, 0]);
 
 var line = d3.svg.line()
@@ -94,11 +94,11 @@ function tick() {
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
   }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
     
-    swal({title: "Leverage Exceeded!", text: 'Investment Advisor Kato says: \nDude, you just exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker liquidated your entire account!",   
+    swal({title: "Leverage Exceeded!", text: 'Investment Advisor Kato says: \nDude, you just exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker liquidated your entire account! Stop using so much margin!",   
       imageUrl: "img/advisor.jpg",
       showCancelButton: true,   
       confirmButtonColor: "#DD6B55",   
-      confirmButtonText: "Fine, I'll stop using so much margin.",   closeOnConfirm: false });
+      confirmButtonText: "Fine.",   closeOnConfirm: false });
 
     theStocks.setStocksStockPrice(data[data.length-1]);
     theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
@@ -188,14 +188,14 @@ $(document).ready(function(){
 
 // handles the RNG
 function setRandom() {
-  if (data[data.length-1]>12){
-    random = d3.random.normal(0.97, 0.15);
-  }else if (data[data.length-1]<4){
-    random = d3.random.normal(1.04, 0.05);
+  if (data[data.length-1]>25){
+    random = d3.random.normal(0.96, 0.20);
+  }else if (data[data.length-1]<7){
+    random = d3.random.normal(1.04, 0.08);
   }else if (Math.random() > 0.5){
-  random = d3.random.normal(1.01, 0.04);
+  random = d3.random.normal(1.01, 0.06);
   }else{
-    random = d3.random.normal(0.99, 0.15);
+    random = d3.random.normal(0.99, 0.20);
   }
 }
 
