@@ -206,10 +206,9 @@
 					
 
 					<!-- animation -->
-					<div id="animation" align="center"> 
+					<div id="animation" align="center" onclick = "advisorPopUp()"> 
 
 						<img src="img/setup0_0.jpg" />
-						
 						<img src="img/setup0_2.jpg" />
 						<img src="img/setup0_3.jpg" />
 						<img src="img/setup0_4.jpg" />
@@ -224,7 +223,6 @@
 						<img src="img/setup0_13.jpg" />
 						<img src="img/setup0_14.jpg" />
 						<img src="img/setup0_15.jpg" />
-	
 					</div> 
 
 					<script>
@@ -241,8 +239,8 @@
 
 					<style>
 					#animation img {
-						width: 17em;
-    					height: 18em;
+						width: 100%;
+    					height: 22em;
 						display: none;
 					}
 					#animation img:first-child {
@@ -287,21 +285,21 @@
 							
 						</table>
 
-						<div id="stockPrice"></div>
+						<div onclick = "advisorStockPrice()" id="stockPrice"></div>
 
-						<div id="netLiquidation"></div>
+						<div onclick = "advisorNetLiquidation()" id="netLiquidation"></div>
 
-						<div id="shares"></div>
+						<div onclick = "advisorNumberOfShares()" id="shares"></div>
 
-						<div id="securitiesGPV"></div>
+						<div onclick = "advisorSecuritiesGPV()" id="securitiesGPV"></div>
 
-						<div id="cash"></div>
+						<div onclick = "advisorTradingCash()" id="cash"></div>
 
-						<div id="availableFunds"></div>
+						<div onclick = "advisorAvailableFuns()" id="availableFunds"></div>
 
-						<div id="leverage"></div>
+						<div onclick = "advisorLeverage()" id="leverage"></div>
 
-						<div id="transactionFee"></div>
+						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
 						<table style = "width:100%">
 							<tr>
 								<td><button id = 'outbutton'>Transfer $10k out</button></td>

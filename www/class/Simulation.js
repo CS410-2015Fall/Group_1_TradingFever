@@ -192,13 +192,96 @@ function setRandom() {
   if (data[data.length-1]>25){
     random = d3.random.normal(0.96, 0.20);
   }else if (data[data.length-1]<7){
-    random = d3.random.normal(1.04, 0.08);
+    random = d3.random.normal(1.03, 0.08);
   }else if (Math.random() > 0.5){
   random = d3.random.normal(1.01, 0.06);
   }else{
     random = d3.random.normal(0.99, 0.20);
   }
 }
+
+// handles kato the advisor
+function advisorPopUp(){
+  swal({title: "Questions?", 
+      text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first, until you get the hang of things, and until you make enough to up your size. If you're unsure of some of the words, just click them for an explanation. As for investments, they generate money passively! However, sometimes an investment can backfire and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming. Especially beware of later investment types.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorStockPrice(){
+  swal({title: "What's stock price?", 
+      text: "Investment Advisor Kato says: \nThat's the price of the stock at any given time, duh.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorNetLiquidation(){
+  swal({title: "What's net liquidation?", 
+      text: "Investment Advisor Kato says: \nNet liquidation is how much your trading account is worth, if you liquidated (sold) everything.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorNumberOfShares(){
+  swal({title: "What's number of shares?", 
+      text: "Investment Advisor Kato says: \nThat's how many shares you own!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorSecuritiesGPV(){
+  swal({title: "What's securities GPV?", 
+      text: "Investment Advisor Kato says: \nSecurities Gross Position Value is how much your current shares are worth.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorTradingCash(){
+  swal({title: "What's trading cash?", 
+      text: "Investment Advisor Kato says: \nTrading cash is how much actual cash you have in this account.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorAvailableFunds(){
+  swal({title: "What's available funds?", 
+      text: "Investment Advisor Kato says: \nAvailable cash is how much money you can still buy stocks with, in other words, your cash plus whatever the brokerage is willing to lend you.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorLeverage(){
+  swal({title: "What's leverage?", 
+      text: "Investment Advisor Kato says: \nLeverage is the ratio of money you can trade with, in relation to your actual worth. By default this is 2, so the brokerage will lend you as much money as you have, effectively doubling your purchasing power. Don't borrow too much, though! If you exceed this bad things will happen!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorTransactionFeesPaid(){
+  swal({title: "What's transaction fees paid?", 
+      text: "Investment Advisor Kato says: \nYou didn't think trading would be free, did you? Every buy/sell transaction costs money! Luckily I negotiated a pretty sweet deal with your brokerage in terms of fees. I swear, I'm not taking a cut!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Alright...",   closeOnConfirm: false });
+}
+// end of advisor
 
 // handles the return
 function setReturnColour() {
