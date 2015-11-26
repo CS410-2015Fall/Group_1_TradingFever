@@ -192,7 +192,7 @@ function setRandom() {
   if (data[data.length-1]>25){
     random = d3.random.normal(0.96, 0.20);
   }else if (data[data.length-1]<7){
-    random = d3.random.normal(1.04, 0.08);
+    random = d3.random.normal(1.03, 0.08);
   }else if (Math.random() > 0.5){
   random = d3.random.normal(1.01, 0.06);
   }else{
