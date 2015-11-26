@@ -7,7 +7,7 @@
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
+		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -35,6 +35,7 @@
 
 		<script src="class/callback.js"></script>
 		<script src="js/camera.js"></script>
+		<script src="js/loadGame.js"></script>
 		<title>Trading Fever</title>
 		<style>
 
@@ -67,6 +68,7 @@
 		}
 		</style>
 		<script>
+			
 			document.addEventListener("deviceready",onDeviceReady,false);
 			function onDeviceReady() {
 				pictureSource=navigator.camera.PictureSourceType;
@@ -75,14 +77,7 @@
 		</script>
 	</head>
 	<body style="font-size:5vmin;">
-		<script>
-			theAvatar = new Avatar("Daniel");
-			theAvatar.setID(48927123);
-			theAvatar.setCashAmount(1000000);
-			theAvatar.setRage(100);
-			
-			theStocks = new Stocks();
-		</script>
+		
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -137,7 +132,30 @@
 				</div>
 			</div>
 		</div>
-		
+		<div class="modal fade" id="newAvatarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title"><span>What is Your Name?</span></h4>
+					</div>
+					
+					<div class="modal-body">
+						<input type="text" name="avatarName" id="txtNewAvatarName"><br />
+						<button onclick="createAvatar()">Submit</button>
+					</div>
+					
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			theStocks = new Stocks();
+			loadGame();
+			
+			
+		</script>
 		<div id="statusBar" style="height:10vh; background-color:black">
 			<table style="width:100%; height:100%"><tr>
 				<!--td><table data-toggle="modal" data-target="#profileModal"><tr-->
@@ -175,6 +193,7 @@
 					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
 					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
 					<script>
+						/*
 						theAvatar.updateRemoteCash();
 						theAvatar.setCashAmount(5000000);
 
@@ -182,6 +201,7 @@
 							theAvatar.setRemoteCash();
 						}
 						setInterval(updateDatabase,1000);
+						*/
 					</script>
 					
 
@@ -304,65 +324,6 @@
 		</div>
 		
 		<script>
-			var aLotteryTicket = new LotteryTicket();
-			aLotteryTicket.setPotentialReturn(100);
-			aLotteryTicket.setInvestmentTitle('Lotto 649');
-			aLotteryTicket.setDescription('A ticket to prosperity');
-			theAvatar.addInvestmentInstance(aLotteryTicket);
-			//theAvatar.upgradeInvestment(aLotteryTicket);
-			aLotteryTicket.setImgURL('img/lotto.jpg');
-		
-			var aLoanShark = new LoanSharks();
-			aLoanShark.setPotentialReturn(100);
-			aLoanShark.setInvestmentTitle('Loan Sharks');
-			aLoanShark.setDescription("A new acquaintance offers to help invest your extra cash");
-			theAvatar.addInvestmentInstance(aLoanShark);
-			//theAvatar.upgradeInvestment(aLoanShark);
-			aLoanShark.setImgURL('img/loanshark.jpg');
-			
-			var aNigerianPrince = new NigerianPrince();
-			aNigerianPrince.setPotentialReturn(100);
-			aNigerianPrince.setInvestmentTitle('Nigerian Email');
-			aNigerianPrince.setDescription("Dear Sir: I have been requested by the Nigerian National Petroleum Company to contact you for assistance in resolving a matter.\n Yours truly, \n" + "\nPrince Alyusi Islassis");
-			theAvatar.addInvestmentInstance(aNigerianPrince);
-			//theAvatar.upgradeInvestment(aNigerianPrince);
-			aNigerianPrince.setImgURL('img/nigerian.png');
-			
-			
-			var aStartUp = new StartUp();
-			aStartUp.setPotentialReturn(100);
-			aStartUp.setInvestmentTitle('Daniel Inc.');
-			aStartUp.setDescription("Your friend's startup is certainly the next big thing");
-			theAvatar.addInvestmentInstance(aStartUp);
-			//theAvatar.upgradeInvestment(aStartUp);
-			aStartUp.setImgURL('img/daniel.jpg');
-			
-			
-			var aRealEstate = new RealEstate();
-			aRealEstate.setMonthlyReturn(10);
-			aRealEstate.setInvestmentTitle('Prime Real Estate');
-			aRealEstate.setDescription('A pricey piece of property');
-			theAvatar.addInvestmentInstance(aRealEstate);
-			//theAvatar.upgradeInvestment(aRealEstate);
-			aRealEstate.setImgURL('img/realestate.jpg');
-			
-			
-			var aBitcoin = new Bitcoin();
-			aBitcoin.setPotentialReturn(100);
-			aBitcoin.setInvestmentTitle('Virtual Currencies');
-			aBitcoin.setDescription("Clearly, the end of fiat currency is here.");
-			theAvatar.addInvestmentInstance(aBitcoin);
-			//theAvatar.upgradeInvestment(aBitcoin);
-			aBitcoin.setImgURL('img/bitcoin.jpg');
-
-			var aHedgeFund = new HedgeFund();
-			aHedgeFund.setPotentialReturn(100);
-			aHedgeFund.setInvestmentTitle('Investment Fund');
-			aHedgeFund.setDescription("Your investment advisor tells you to invest with a secure investment fund run by a jolly old man. He's been on Wall Street for decades-what could go wrong?");
-			theAvatar.addInvestmentInstance(aHedgeFund);
-			//theAvatar.upgradeInvestment(aHedgeFund);
-			aHedgeFund.setImgURL('img/scheme.jpg');
-
 			mkInvestmentPage();
 		</script>
 		
@@ -372,6 +333,11 @@
 				refreshStatusBar(theAvatar);
 			}
 			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
+			
+			function saveAvatarToFile(){
+				localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
+			}
+			setInterval(saveAvatarToFile,100);
 		</script>
 		
 		<script src = "class/Simulation.js"></script>

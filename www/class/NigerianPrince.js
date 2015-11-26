@@ -139,4 +139,40 @@ function NigerianPrince(){
 	this.needsClear = function(){
 		return false;
 	}
+	
+	this.toJSON = function(){
+		var toReturn = {
+			'investmentType':this.getInvestmentType(),
+			'currentLevel':this.getCurrentLevel(),
+			'chanceOfSuccess':this.getChanceOfSuccess(),
+			'currentWorth':this.getCurrentWorth(),
+			'potentialReturn':this.getPotentialReturn(),
+			'monthlyReturn': this.monthlyReturn,
+			'investmentID':this.investmentID,
+			'investmentTitle':this.investmentTitle,
+			'investmentDescription':this.investmentDescription,
+			'lastCashedTime':this.lastCashedTime,
+			'eventProbability':this.eventProbability,
+			'successProbability':this.successProbability,
+			'imageURL':this.imageURL,
+			'rewardDuration':this.rewardDuration
+		};
+		return toReturn;
+	};
+	this.loadFromJSON = function(theJSON){
+		this.setInvestmentType(theJSON.investmentType);
+		this.setCurrentLevel(theJSON.currentLevel);
+		this.setChanceOfSuccess(theJSON.chanceOfSuccess);
+		this.setCurrentWorth(theJSON.currentWorth);
+		this.setPotentialReturn(theJSON.potentialReturn);
+		this.monthlyReturn = theJSON.monthlyReturn;
+		this.investmentID = theJSON.investmentID;
+		this.investmentTitle = theJSON.investmentTitle;
+		this.investmentDescription = theJSON.investmentDescription;
+		this.lastCashedTime = theJSON.lastCashedTime;
+		this.eventProbability = theJSON.eventProbability;
+		this.successProbability = theJSON.successProbability;
+		this.imageURL = theJSON.imageURL;
+		this.rewardDuration = theJSON.rewardDuration;
+	};
 }

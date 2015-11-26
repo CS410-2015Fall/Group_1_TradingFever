@@ -6,6 +6,7 @@ function RealEstate(){
 	this.currentWorth = 0;
 	this.monthlyReturn = 0;
 	this.chanceOfSuccess = 1;
+	
 	// random events
 	this.setChanceOfSuccess = function(percentage){
 		this.chanceOfSuccess = percentage;
@@ -80,7 +81,6 @@ function RealEstate(){
 					confirmButtonText: "Sell it all! (dump real estate on the cheap)",   closeOnConfirm: false });
 		theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
 		this.currentLevel = 0;
-		this.potentialReturn *= 2;
 		this.setChanceOfSuccess(1);
 		if (this.currentLevel < 1){
 			this.monthlyReturn = 0;
@@ -99,7 +99,6 @@ function RealEstate(){
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Sensible advice",   closeOnConfirm: false });
-		this.potentialReturn /= 2;
 		theAvatar.setCashAmount(theAvatar.getCashAmount()+25000);
 		this.currentLevel -= 1;
 		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.95);
@@ -129,4 +128,37 @@ function RealEstate(){
 	this.needsClear = function(){
 		return false;
 	}
+	this.toJSON = function(){
+		var toReturn = {
+			'investmentType':this.getInvestmentType(),
+			'currentLevel':this.getCurrentLevel(),
+			'chanceOfSuccess':this.getChanceOfSuccess(),
+			'currentWorth':this.getCurrentWorth(),
+			'monthlyReturn': this.monthlyReturn,
+			'investmentID':this.investmentID,
+			'investmentTitle':this.investmentTitle,
+			'investmentDescription':this.investmentDescription,
+			'lastCashedTime':this.lastCashedTime,
+			'eventProbability':this.eventProbability,
+			'successProbability':this.successProbability,
+			'imageURL':this.imageURL,
+			'rewardDuration':this.rewardDuration
+		};
+		return toReturn;
+	};
+	this.loadFromJSON = function(theJSON){
+		this.setInvestmentType(theJSON.investmentType);
+		this.setCurrentLevel(theJSON.currentLevel);
+		this.setChanceOfSuccess(theJSON.chanceOfSuccess);
+		this.setCurrentWorth(theJSON.currentWorth);
+		this.monthlyReturn = theJSON.monthlyReturn;
+		this.investmentID = theJSON.investmentID;
+		this.investmentTitle = theJSON.investmentTitle;
+		this.investmentDescription = theJSON.investmentDescription;
+		this.lastCashedTime = theJSON.lastCashedTime;
+		this.eventProbability = theJSON.eventProbability;
+		this.successProbability = theJSON.successProbability;
+		this.imageURL = theJSON.imageURL;
+		this.rewardDuration = theJSON.rewardDuration;
+	};
 }

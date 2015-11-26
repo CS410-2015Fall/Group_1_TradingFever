@@ -106,11 +106,10 @@ Investment.prototype.needsClear = function(){
 	// avatar should collect reward and/or sell this investment
 	throw('need to override this');
 }
-/*
-Investment.prototype.toString(){
+Investment.prototype.toString = function(){
 	throw('need to override this');
 }
-Investment.prototype.loadAndCreateInstance(){
+Investment.prototype.loadFromJSONString = function(){
 	throw('need to override this');
 }
-*/
+
