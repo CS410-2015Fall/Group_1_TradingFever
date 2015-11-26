@@ -206,6 +206,15 @@
 					</div> 
 
 					<script>
+
+					//music
+					myAudio = new Audio('sound/tradingfever2.wav'); 
+					myAudio.addEventListener('ended', function() {
+						this.currentTime = 0;
+						this.play();
+					}, false);
+					myAudio.play();
+
 					onload = function startAnimation() { 
 						var frames = document.getElementById("animation").children;
 						var frameCount = frames.length;
@@ -232,7 +241,7 @@
 
 
 					<div id="status"></div>
-					<button class="btn" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
+					<center><button class="btn" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button></center>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>
