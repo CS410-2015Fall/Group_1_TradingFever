@@ -67,9 +67,7 @@ function Avatar(name){
 				this.assignInvestmentIDIfNone(investmentInstance);
 				
 				// level up the investment
-				console.log(investmentInstance.getCurrentLevel());
 				investmentInstance.upgrade();
-				console.log(investmentInstance.getCurrentLevel());
 			} else {
 				throw("You do not have enough cash");
 			}
@@ -122,9 +120,7 @@ function Avatar(name){
 			} else {
 				var currentTime = new Date();
 				currentTime = currentTime.getTime();
-				console.log('duration' + duration);
 				var timePassed = currentTime - lastTime;
-				console.log('timePassed: ' + timePassed);
 				var percentagePassed = (timePassed % duration)/duration * 100;
 				
 				// progress percentage
@@ -158,12 +154,17 @@ function Avatar(name){
 		return this.rage;
 	}
 	
-	this.toJSONString = function(){
+	this.toJSON = function(){
+		var listOfInvestmentJSON = [];
+		for(var ind=0; ind < this.listOfInvestments.length; ind++){
+			listOfInvestmentJSON.push(this.listOfInvestments[ind].toJSON());
+		}
+	
 		var toReturn = {
 			'id':this.id,
 			'name':this.name,
 			'cash':this.cash,
-			'investments':this.listOfInvestments,
+			'investments':listOfInvestmentJSON,
 			'rage':this.rage
 		}
 		return toReturn;
@@ -173,7 +174,15 @@ function Avatar(name){
 		this.id = avatarJSON.id;
 		this.name = avatarJSON.name;
 		this.cash = avatarJSON.cash;
-		this.listOfInvestments = avatarJSON.investments;
+		this.listOfInvestments = [];
 		this.rage = avatarJSON.rage;
+		
+		var investmentsToAdd = avatarJSON.investments;
+		for(var ind=0; ind < investmentsToAdd.length; ind++){
+			var investmentAdding = eval('new ' + investmentsToAdd[ind].investmentType + '();');
+			investmentAdding.loadFromJSON(investmentsToAdd[ind]);
+			
+			this.listOfInvestments.push(investmentAdding);
+		}
 	}
 }

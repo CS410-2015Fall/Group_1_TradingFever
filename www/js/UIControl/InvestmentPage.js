@@ -2,7 +2,6 @@ investmentViewItems = [];
 function mkInvestmentPage(){
 	var toReturn = '';
 	var theList = theAvatar.getInvestmentList();
-	
 	$("#investmentPage").append('<div id="investmentViewerList"></div>');
 	
 	for(var ind=0; ind < theList.length; ind++){
