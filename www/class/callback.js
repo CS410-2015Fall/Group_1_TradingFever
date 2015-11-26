@@ -15,6 +15,6 @@ setCash = function(id, newCashAmount){
 			avatar_cash : newCashAmount,
 		},
 		function(string) {
-			console.log("update succesful");
+			//console.log("update succesful");
 	});
 }
