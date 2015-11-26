@@ -200,6 +200,16 @@ function setRandom() {
   }
 }
 
+// handles kato the advisor on the front page
+function advisorPopUp(){
+  swal({title: "Questions?", 
+      text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first, until you get the hang of things, and until you make enough to up your size. If you're buying investments, try not to be too aggressive! Sometimes an investment can backfire and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming. Especially beware of later investment possibilities.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
 // handles the return
 function setReturnColour() {
   if (theStocks.getStocksReturn() > 0){
