@@ -157,4 +157,23 @@ function Avatar(name){
 	this.getRage = function(){
 		return this.rage;
 	}
+	
+	this.toJSONString = function(){
+		var toReturn = {
+			'id':this.id,
+			'name':this.name,
+			'cash':this.cash,
+			'investments':this.listOfInvestments,
+			'rage':this.rage
+		}
+		return toReturn;
+	}
+	this.loadFromJSONString = function(theJSONString){
+		var avatarJSON= jQuery.parseJSON( theJSONString );
+		this.id = avatarJSON.id;
+		this.name = avatarJSON.name;
+		this.cash = avatarJSON.cash;
+		this.listOfInvestments = avatarJSON.investments;
+		this.rage = avatarJSON.rage;
+	}
 }
