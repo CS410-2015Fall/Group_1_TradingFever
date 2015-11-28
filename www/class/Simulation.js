@@ -172,7 +172,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#sellbutton").click(function(){
 		var invSize = getInvestmentSize();
-      if(theStocks.getStocksShares() >0){
+      if(theStocks.getStocksShares() >invSize){
         
         transactionFee= invSize * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
@@ -202,7 +202,7 @@ function setRandom() {
 
 // handles kato the advisor
 function advisorPopUp(){
-  swal({title: "Questions?", 
+  swal({title: "", 
       text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first, until you get the hang of things, and until you make enough to up your size. If you're unsure of some of the words, just click them for an explanation. As for investments, they generate money passively! However, sometimes an investment can backfire and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming. Especially beware of later investment types.",  
           imageUrl: "img/advisor.jpg",  
           showCancelButton: true,   
@@ -296,16 +296,16 @@ function setReturnColour() {
 // buttons
 $(document).ready(function(){
     $("#outbutton").click(function(){
-      theStocks.subtractStocksCash(10000);
-      theAvatar.setCashAmount(theAvatar.getCashAmount()+10000);
+      theStocks.subtractStocksCash(getTransferSize());
+      theAvatar.setCashAmount(theAvatar.getCashAmount()+getTransferSize());
 
     });
 });
 
 $(document).ready(function(){
     $("#inbutton").click(function(){
-		theStocks.addStocksCash(10000);
-		theAvatar.setCashAmount(theAvatar.getCashAmount()-10000);
+		theStocks.addStocksCash(getTransferSize());
+		theAvatar.setCashAmount(theAvatar.getCashAmount()-getTransferSize());
     });
 });
 

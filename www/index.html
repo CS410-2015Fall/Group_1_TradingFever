@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 	<head>
+
 		<!-- Loading Libraries-->
 		<script src="externalLibrary/d3/d3.min.js"></script>
 		<script src="externalLibrary/jquery.min.js"></script>
@@ -35,7 +36,10 @@
 		<script src="js/loadGame.js"></script>
 		<script src="js/tools.js"></script>
 		<title>Trading Fever</title>
+		
+
 		<style>
+
 
 		#showReturn {
 	    	border-radius: 1em;
@@ -224,6 +228,15 @@
 					</div> 
 
 					<script>
+
+					//music
+					myAudio = new Audio('sound/tradingfever2.wav'); 
+					myAudio.addEventListener('ended', function() {
+						this.currentTime = 0;
+						this.play();
+					}, false);
+					myAudio.play();
+
 					onload = function startAnimation() { 
 						var frames = document.getElementById("animation").children;
 						var frameCount = frames.length;
@@ -253,7 +266,6 @@
 					<div style="width:100%; text-align:center;">
 						<button class="btn btn-warning" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
 					</div>
-					
 				</div>
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>
@@ -303,7 +315,6 @@
 						<div onclick = "advisorLeverage()" id="leverage"></div>
 
 						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
-						
 
 					</p>
 				</div>
