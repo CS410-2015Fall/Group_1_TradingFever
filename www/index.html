@@ -309,10 +309,34 @@
 						<div onclick = "advisorLeverage()" id="leverage"></div>
 
 						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
+
+						<table style="width:100%">
+							<tr>
+								<td><button id = 'outbutton' style="background-color:yellow; font-size:1m; width:100%;">Transfer $$$ out</button></td>
+								<td>
+									<select style="font-size:1em; width:100%" id="transferSize">
+										<option value=10000>$10 thousand</option>
+										<option value=50000>$50 thousand</option>
+										<option value=100000>$100 thousand</option>
+										<option value=500000>$500 thousand</option>
+										<option value=1000000>$1 million</option>
+									</select>
+								</td>
+								<td><button id = 'inbutton' style="background-color:yellow; font-size:1m; width:100%;">Transfer $$$ in</button></td>
+								<script>
+									function getTransferSize(){
+										var transferIndex = document.getElementById("transferSize").selectedIndex;
+										var valReturn = document.getElementById("transferSize").options[transferIndex].value;
+										return Number(valReturn);
+									}
+								</script>
+							</tr>
+							
+						</table>
 						<table style = "width:100%">
 							<tr>
-								<td><button id = 'outbutton'>Transfer $10k out</button></td>
-								<td><button id = 'inbutton'>Transfer $10k in</button></td>
+								
+								
 
 							</tr>
 						</table>

@@ -296,16 +296,16 @@ function setReturnColour() {
 // buttons
 $(document).ready(function(){
     $("#outbutton").click(function(){
-      theStocks.subtractStocksCash(10000);
-      theAvatar.setCashAmount(theAvatar.getCashAmount()+10000);
+      theStocks.subtractStocksCash(getTransferSize());
+      theAvatar.setCashAmount(theAvatar.getCashAmount()+getTransferSize());
 
     });
 });
 
 $(document).ready(function(){
     $("#inbutton").click(function(){
-		theStocks.addStocksCash(10000);
-		theAvatar.setCashAmount(theAvatar.getCashAmount()-10000);
+		theStocks.addStocksCash(getTransferSize());
+		theAvatar.setCashAmount(theAvatar.getCashAmount()-getTransferSize());
     });
 });
 
