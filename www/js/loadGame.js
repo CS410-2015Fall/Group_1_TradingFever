@@ -5,7 +5,10 @@ function loadGame(){
 	theAvatar.setCashAmount(5000000);
 	if(localStorage.getItem("avatar") === null){
 		// if first time loaded
-		$('#newAvatarModal').modal();
+		$('#newAvatarModal').modal({
+			backdrop: 'static',
+			keyboard: false
+		});
 		
 	} else {
 		theAvatar.loadFromJSONString(localStorage.getItem("avatar"));

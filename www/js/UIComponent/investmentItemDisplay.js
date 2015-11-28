@@ -17,12 +17,12 @@ function InvestmentItemDisplay(itemID){
 		//toReturn += '<link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.css">';
 		//toReturn += '<script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.js"></script>';
 
-		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%; border-style:solid">';
+		toReturn += '<div id="displayInvestment_'+ID+'" style="width:100%;">';
 		
-		toReturn += '<table style="width:100%"><tr>';
+		toReturn += '<table style="width:100%;"><tr>';
 		toReturn += '<td id="displayInvestmentImageBlock_'+ID+'" style="width:2em;">'; // picture
 		toReturn += '<img id="displayInvestmentImage_'+ID+'" src="img/noImg.png" style="width:4em; border-style:solid;"/>';
-		toReturn += '<div id="displayInvestmentLevel_'+ID+'" width="100%" align="center" style="background-color:black; color: white; border-radius:0.5em;">(level)</div>';
+		toReturn += '<div id="displayInvestmentLevel_'+ID+'" width="100%" align="center" style="background-color:rgba(100,100,100,0.5); color: white; border-radius:0.5em;">(level)</div>';
 		toReturn += '</td>';
 		
 		toReturn += '<td width="100%">';
@@ -32,16 +32,16 @@ function InvestmentItemDisplay(itemID){
 		
 		toReturn += '\
 			<table width="100%">\
-				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td><td><button onclick="handle_getInvestmentDetailButton('+ID+')">?</button></td></tr>\
+				<tr width="100%"><td width="100%"><div width="100%" id="displayInvestmentTitle_'+ID+'"></div></td><td><button class="btn btn-info" style="width:3em; height:3em; font-size:0.5em;" onclick="handle_getInvestmentDetailButton('+ID+')">?</button></td></tr>\
 				<tr width="100%"><td width="100%">\
-					<div width="100%" class="progress">\
-						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%;">\
-							<span id="progress_'+ID+'"></span>\
+					<div style="width:100%; height:1.2em;" class="progress">\
+						<div id="progressBar_'+ID+'" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%; position:relative;">\
+						<div style="font-size:2vmin; position:relative; width:25em; text-align:center;"><span style="font-size:1.8em; color:black;">$</span><span style="font-size:1.5em; color:black; top:-2em;" id="returnPerRound_'+ID+'">0.00</span></div>\
+							<span id="progress_'+ID+'" style="font-size:1.2em;"></span>\
 						</div>\
-						<div style="font-size:0.5em; position:absolute; width:100%; text-align:center;">$<span style="font-size:1.5em;" id="returnPerRound_'+ID+'">0.00</span></div>\
 					</div>\
 				</td></tr>\
-				<tr><td><button id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')">Upgrade for $'+theInstance.upgradeCost()+'</button></td></tr>\
+				<tr><td><button style="width:15em; font-size:0.5em;" id="upgradeButton_'+ID+'" onclick="handle_makeInvestmentButton('+ID+')" class="btn btn-warning">Upgrade for $'+moderateDisplayNumber(theInstance.upgradeCost())+'</button></td></tr>\
 			</table>';
 		toReturn += '</td>';
 		
@@ -65,6 +65,9 @@ function InvestmentItemDisplay(itemID){
 		'setBackgroundColor':function(colorCode){
 			$('#displayInvestmentImageBlock_'+ID).css('background-color',colorCode);
 		}
+	};
+	this.setBackgroundColor = function(newBackgroundColor){
+		$('#displayInvestment_'+ID).css('background-color',newBackgroundColor);
 	}
 	this.title = {
 		'setTitle':function(newTitle){
@@ -93,13 +96,25 @@ function InvestmentItemDisplay(itemID){
 	this.setReturnAmountText = function(returnAmount){
 		$('#returnPerRound_'+ID).html(returnAmount);
 	}
+	this.upgradeButton = {
+		'enable':function(){
+			$('#upgradeButton_'+ID).removeClass('disabled');
+			$('#upgradeButton_'+ID).addClass('active');
+		},
+		'disable':function(){
+			$('#upgradeButton_'+ID).removeClass('active');
+			$('#upgradeButton_'+ID).addClass('disabled');
+		}
+	};
 }
 
 function handle_makeInvestmentButton(investmentID){
 	var theInstance = theAvatar.getInvestmentInstanceByID(investmentID);
 	
 	theAvatar.upgradeInvestment(theInstance);
-	$('#upgradeButton_'+investmentID).html('Upgrade for $'+Math.floor(theInstance.upgradeCost()));
+	console.log(theInstance.upgradeCost());
+	console.log(moderateDisplayNumber(theInstance.upgradeCost()));
+	$('#upgradeButton_'+investmentID).html('Upgrade for $'+moderateDisplayNumber(theInstance.upgradeCost()));
 	// update the view
 	
 }
@@ -109,5 +124,8 @@ function handle_getInvestmentDetailButton(investmentID){
 	$('#investmentInfo_name').html(theInstance.getInvestmentTitle());
 	$('#investmentPicture_modal').attr('src',theInstance.getImgURL());
 	$('#investmentDescription_modal').html(theInstance.getDescription());
-	$('#investmentInfoModal').modal();
+	$('#investmentInfoModal').modal({
+		backdrop: 'static',
+		keyboard: false
+	});
 }

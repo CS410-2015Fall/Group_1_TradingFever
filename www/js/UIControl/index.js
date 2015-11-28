@@ -1,7 +1,7 @@
 function refreshStatusBar(avatarInstance){
 	avatarInstance.visitInvestments();
 	$('#avatarName_display').html(avatarInstance.getName());
-	$('#avatarCash_display').html(avatarInstance.getCashAmount().toFixed(2));
+	$('#avatarCash_display').html('$ ' + avatarInstance.getCashAmount().toFixed(2));
 	
 	//modal
 	$('#avatarName_modal').html(avatarInstance.getName());
@@ -21,4 +21,11 @@ function initialLoad(avatarInstance){
 	var imageData = localStorage.getItem('profilePicture');
 	document.getElementById('avatarPicture').src = imageData;
 	document.getElementById('avatarPicture_modal').src = imageData;
+}
+function adjustFrameSize(){
+	var h = $('#statusBar').height() + $('#gameTabs').height();
+	var windowHeight = $(window).height();
+	$('#gameHome').height(windowHeight-h-5);
+	$('#stockPage').height(windowHeight-h-5);
+	$('#investmentPage').height(windowHeight-h-5);
 }

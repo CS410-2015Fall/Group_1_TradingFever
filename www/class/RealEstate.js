@@ -79,15 +79,15 @@ function RealEstate(){
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Sell it all! (dump real estate on the cheap)",   closeOnConfirm: false });
-		theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
-		this.currentLevel = 0;
-		this.setChanceOfSuccess(1);
-		if (this.currentLevel < 1){
-			this.monthlyReturn = 0;
-		}
-		else{
-			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
-		}	
+			theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
+			this.currentLevel = 0;
+			this.setChanceOfSuccess(1);
+			if (this.currentLevel < 1){
+				this.monthlyReturn = 0;
+			}
+			else{
+				this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+			}	
 		}
 
 

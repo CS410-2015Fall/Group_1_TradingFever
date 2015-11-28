@@ -8,15 +8,12 @@
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
 		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
-		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
-
-		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
-		<!--script src="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.js"></script-->
+		
 
 		<script src="js/modal.js"></script>
-		<link rel="stylesheet" href="css/index.css">
+		<!--link rel="stylesheet" href="css/index.css"-->
 		<link rel="stylesheet" href="externalLibrary/sweetalert-master/dist/sweetalert.css" />
-
+		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 		<script src="class/Stocks.js"></script>
 		<script src="class/Avatar.js"></script>
 		<script src="class/Login.js"></script>
@@ -36,12 +33,13 @@
 		<script src="class/callback.js"></script>
 		<script src="js/camera.js"></script>
 		<script src="js/loadGame.js"></script>
+		<script src="js/tools.js"></script>
 		<title>Trading Fever</title>
 		<style>
 
 		#showReturn {
 	    	border-radius: 1em;
-	    	background: #000000;
+	    	background: rgba(100,100,200,0.5);
 	    	padding: 0.25em; 
 	    	width: 20em;
 	    	height: 2em;    
@@ -76,7 +74,7 @@
 			}
 		</script>
 	</head>
-	<body style="font-size:5vmin;">
+	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
 		
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -127,7 +125,7 @@
 					</div>
 					
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -136,7 +134,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<!--button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button-->
 						<h4 class="modal-title"><span>What is Your Name?</span></h4>
 					</div>
 					
@@ -188,7 +186,7 @@
 				</li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
-				<div role="tabpanel" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
+				<div role="tabpanel" style="overflow:scroll;" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
 					<!--p>Content for home page goes here</p-->
 					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
 					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
@@ -252,9 +250,12 @@
 
 
 					<div id="status"></div>
-					<button class="btn" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
+					<div style="width:100%; text-align:center;">
+						<button class="btn btn-warning" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
+					</div>
+					
 				</div>
-				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
+				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>
 						<p id="showReturn" style="font-size:1em; width:100%" align="center"></p>
 
@@ -262,8 +263,8 @@
 						<div id = "stocks"></div>
 						<table style="width:100%">
 							<tr>
-								<td><button id = 'buybutton' style="background-color:lightgreen; font-size:1m; width:100%;">Buy</button></td>
-								<td>
+								<td style="width:30%;"><button id = 'buybutton' class="btn btn-success" style="font-size:1m; width:100%">Buy</button></td>
+								<td style="width:40%;">
 									<select style="font-size:1em; width:100%" id="invSize">
 										<option value=100>100 shares</option>
 										<option value=500>500 shares</option>
@@ -273,7 +274,7 @@
 									</select>
 								</td>
 								
-								<td><button id = 'sellbutton' style="background-color:red; font-size:1m; width:100%;">Sell</button></td> 
+								<td style="width:30%;"><button id = 'sellbutton' class="btn btn-danger" style="font-size:1m; width:100%;">Sell</button></td> 
 								<script>
 									function getInvestmentSize(){
 										var selIndex = document.getElementById("invSize").selectedIndex;
@@ -282,9 +283,11 @@
 									}
 								</script>
 							</tr>
-							
 						</table>
-
+						<table style="width:100%">
+							<td style="width:50%;"><button id = 'outbutton' class="btn btn-info" style="width:100%">Transfer $10k out</button></td>
+							<td style="width:50%;"><button id = 'inbutton' class="btn btn-info" style="width:100%">Transfer $10k in</button></td>
+						</table>
 						<div onclick = "advisorStockPrice()" id="stockPrice"></div>
 
 						<div onclick = "advisorNetLiquidation()" id="netLiquidation"></div>
@@ -300,17 +303,11 @@
 						<div onclick = "advisorLeverage()" id="leverage"></div>
 
 						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
-						<table style = "width:100%">
-							<tr>
-								<td><button id = 'outbutton'>Transfer $10k out</button></td>
-								<td><button id = 'inbutton'>Transfer $10k in</button></td>
-
-							</tr>
-						</table>
+						
 
 					</p>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
+				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
 		</div>
 		
@@ -329,6 +326,8 @@
 				localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
 			}
 			setInterval(saveAvatarToFile,100);
+			
+			setInterval(adjustFrameSize,100);
 		</script>
 		
 		<script src = "class/Simulation.js"></script>
