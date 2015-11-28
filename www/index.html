@@ -296,10 +296,28 @@
 								</script>
 							</tr>
 						</table>
-						<table style="width:100%">
-							<td style="width:50%;"><button id = 'outbutton' class="btn btn-info" style="width:100%">Transfer $10k out</button></td>
-							<td style="width:50%;"><button id = 'inbutton' class="btn btn-info" style="width:100%">Transfer $10k in</button></td>
-						</table>
+						<table style="width:100%"><tr>
+							<td style="width:30%;"><button id = 'outbutton' class="btn btn-warning" style="width:100%">Transfer $10k out</button></td>
+							<td style="width:40%;">
+								<select style="font-size:1em; width:100%" id="transferSize">
+									<option value=10000>$10 thousand</option>
+									<option value=50000>$50 thousand</option>
+									<option value=100000>$100 thousand</option>
+									<option value=500000>$500 thousand</option>
+									<option value=1000000>$1 million</option>
+								</select>
+							</td>
+							<script>
+								function getTransferSize(){
+									var transferIndex = document.getElementById("transferSize").selectedIndex;
+									var valReturn = document.getElementById("transferSize").options[transferIndex].value;
+									return Number(valReturn);
+								}
+							</script>
+							<td style="width:30%;"><button id = 'inbutton' class="btn btn-warning" style="width:100%">Transfer $10k in</button></td>
+						</tr></table>
+						
+						<div id="stockAccountDetail" class="hide">
 						<div onclick = "advisorStockPrice()" id="stockPrice"></div>
 
 						<div onclick = "advisorNetLiquidation()" id="netLiquidation"></div>
@@ -315,7 +333,22 @@
 						<div onclick = "advisorLeverage()" id="leverage"></div>
 
 						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
-
+						</div>
+						<button class="btn btn-info" style="width:100%;" id="stockAccountDetailControlButton" data-toggleSstate="hide" onclick="handleStockAccountDetailDiv()">Show Account Detail</button>
+						<script>
+							function handleStockAccountDetailDiv(){
+								var divState = $('#stockAccountDetailControlButton').attr("data-toggleSstate");
+								if(divState=="hide"){
+									$('#stockAccountDetail').removeClass('hide');
+									$('#stockAccountDetailControlButton').html('Hide Account Detail');
+									$('#stockAccountDetailControlButton').attr("data-toggleSstate","show");
+								} else {
+									$('#stockAccountDetail').addClass('hide');
+									$('#stockAccountDetailControlButton').html('Show Account Detail');
+									$('#stockAccountDetailControlButton').attr("data-toggleSstate","hide");
+								}
+							}
+						</script>
 					</p>
 				</div>
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
