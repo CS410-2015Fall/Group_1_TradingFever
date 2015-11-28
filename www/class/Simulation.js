@@ -172,7 +172,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#sellbutton").click(function(){
 		var invSize = getInvestmentSize();
-      if(theStocks.getStocksShares() >0){
+      if(theStocks.getStocksShares() >invSize){
         
         transactionFee= invSize * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
