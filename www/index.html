@@ -75,8 +75,15 @@
 			function onDeviceReady() {
 				pictureSource=navigator.camera.PictureSourceType;
 				destinationType=navigator.camera.DestinationType;
+				
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 			}
-			
+			function onFileSystemSuccess(fileSystem) {
+				alert('onFileSystemSuccess: ' + fileSystem.name);
+			}
+			function onFileSystemFail(evt) {
+				alert('onFileSystemFail: ' + evt.target.error.code);
+			}
 		</script>
 	</head>
 	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
