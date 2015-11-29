@@ -115,6 +115,8 @@ function handle_makeInvestmentButton(investmentID){
 	console.log(theInstance.upgradeCost());
 	console.log(moderateDisplayNumber(theInstance.upgradeCost()));
 	$('#upgradeButton_'+investmentID).html('Upgrade for $'+moderateDisplayNumber(theInstance.upgradeCost()));
+	var cashRegisterSound = new Audio("sound/cashRegister.mp3");
+	cashRegisterSound.play();
 	// update the view
 	
 }
