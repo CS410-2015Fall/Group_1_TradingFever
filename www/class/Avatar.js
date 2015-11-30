@@ -113,8 +113,32 @@ function Avatar(name){
 	this.visitInvestments = function(){
 		for(var ind=0; ind < this.listOfInvestments.length; ind ++){
 			var targetInvestmentInstance = this.listOfInvestments[ind];
-			//console.log(targetInvestmentInstance);
+			
 			this.setCashAmount(this.getCashAmount() + targetInvestmentInstance.grabCollectableReward());
+			
+			// progress bar
+			var lastTime = targetInvestmentInstance.getLastCashedTime();
+			var duration = targetInvestmentInstance.getIncomeStatement().duration;
+			var progress = 0;
+			
+			if(this.duration <= -1 || targetInvestmentInstance.getCurrentLevel() < 1){ //if depends or not defined
+				progress = 0;
+				targetInvestmentInstance.viewHandler.progress.setPercentage(0);
+				targetInvestmentInstance.viewHandler.setReturnAmountText(0);
+			} else {
+				var currentTime = new Date();
+				currentTime = currentTime.getTime();
+				var timePassed = currentTime - lastTime;
+				var percentagePassed = (timePassed % duration)/duration * 100;
+				
+				// progress percentage
+				targetInvestmentInstance.viewHandler.progress.setPercentage(percentagePassed);
+				
+				// return amount
+				targetInvestmentInstance.viewHandler.setReturnAmountText(Math.floor(targetInvestmentInstance.getIncomeStatement().amount));
+			}
+			// level
+			targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());
 		}
 	}
 	
@@ -136,5 +160,37 @@ function Avatar(name){
 	}
 	this.getRage = function(){
 		return this.rage;
+	}
+	
+	this.toJSON = function(){
+		var listOfInvestmentJSON = [];
+		for(var ind=0; ind < this.listOfInvestments.length; ind++){
+			listOfInvestmentJSON.push(this.listOfInvestments[ind].toJSON());
+		}
+	
+		var toReturn = {
+			'id':this.id,
+			'name':this.name,
+			'cash':this.cash,
+			'investments':listOfInvestmentJSON,
+			'rage':this.rage
+		}
+		return toReturn;
+	}
+	this.loadFromJSONString = function(theJSONString){
+		var avatarJSON= jQuery.parseJSON( theJSONString );
+		this.id = avatarJSON.id;
+		this.name = avatarJSON.name;
+		this.cash = avatarJSON.cash;
+		this.listOfInvestments = [];
+		this.rage = avatarJSON.rage;
+		
+		var investmentsToAdd = avatarJSON.investments;
+		for(var ind=0; ind < investmentsToAdd.length; ind++){
+			var investmentAdding = eval('new ' + investmentsToAdd[ind].investmentType + '();');
+			investmentAdding.loadFromJSON(investmentsToAdd[ind]);
+			
+			this.listOfInvestments.push(investmentAdding);
+		}
 	}
 }

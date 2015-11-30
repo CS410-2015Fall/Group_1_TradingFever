@@ -5,6 +5,11 @@ function Investment(){
 	this.investmentDescription = '';
 	this.currentLevel = 0;
 	this.lastCashedTime = 0;
+	this.eventProbability = 0;
+	this.successProbability = 0;
+	this.imageURL = 'img/noImg.png';
+	this.rewardDuration = -1;
+	this.viewHandler = {};
 	
 	this.setInvestmentID = function(newID){
 		this.investmentID = newID;
@@ -46,6 +51,12 @@ function Investment(){
 	this.getLastCashedTime = function(){
 		return this.lastCashedTime;
 	}
+	this.setImgURL = function(newImgURL){
+		this.imageURL = newImgURL;
+	}
+	this.getImgURL = function(){
+		return this.imageURL;
+	}
 }
 Investment.prototype.initiateInvestment = function(currentTime, assignedID){
 	throw('need to override this');
@@ -85,17 +96,20 @@ Investment.prototype.grabCollectableReward = function(){
 Investment.prototype.timeToNextReward = function(){
 	throw('need to override this');
 }
+Investment.prototype.randomEvent = function(){
+	// creates a random event that happens with a random probability of success
+	throw('need to override this');
+}
 Investment.prototype.needsClear = function(){
 	// return true if the investment is supposed to be cleared automatically
 	// it's useful for lottery ticket for example
 	// avatar should collect reward and/or sell this investment
 	throw('need to override this');
 }
-/*
-Investment.prototype.toString(){
+Investment.prototype.toString = function(){
 	throw('need to override this');
 }
-Investment.prototype.loadAndCreateInstance(){
+Investment.prototype.loadFromJSONString = function(){
 	throw('need to override this');
 }
-*/
+

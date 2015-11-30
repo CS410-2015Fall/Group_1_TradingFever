@@ -5,12 +5,23 @@ window.fbAsyncInit = function() {
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.2'
   });
-
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
 };
 
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id))
+    return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://connect.facebook.net/en_US/all.js";
+  fjs.parentNode.insertBefore(js, fjs);}
+
+  (document,
+  'script', 
+  'facebook-jssdk'));
 
 function statusChangeCallback(response) {
 
@@ -21,33 +32,40 @@ function statusChangeCallback(response) {
     testAPI();
   } else if (response.status === 'not_authorized') {
     document.getElementById('status').innerHTML = 'Please log into this app.';
-  } else {
+  } else if (response.status === 'unknown') {
     document.getElementById('status').innerHTML = 'Please log into Facebook.';
   }
 }
 
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
 
-  function post() {
-    FB.login(function(response) {
+function login() {
+  FB.login(function(response) {
+    if (response.authResponse) {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.');
+      });
+    } else {
+      console.log('User cancelled login or did not fully authorize.');
+    }
+  }, {
+    scope: 'public_profile,email,user_friends',
+    return_scopes: true});
+}
+
+function post() {
+  FB.login(function(response) {
       statusChangeCallback(response);
       FB.api('/me/feed', 'post', {message: 'testing post function'});
     }, {
         scope: 'publish_actions',
         auth_type: 'rerequest'});
   }
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/all.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');

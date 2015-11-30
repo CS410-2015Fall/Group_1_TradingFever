@@ -6,7 +6,8 @@
 		<script src="externalLibrary/jquery.min.js"></script>
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
-		
+		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
+		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		<link rel="stylesheet" href="externalLibrary/bootstrap/css/bootstrap.min.css">
 
 		<!--link rel="stylesheet" href="externalLibrary/jquerymobile/jquery.mobile-1.4.5.min.css"-->
@@ -14,6 +15,7 @@
 
 		<script src="js/modal.js"></script>
 		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="externalLibrary/sweetalert-master/dist/sweetalert.css" />
 
 		<script src="class/Stocks.js"></script>
 		<script src="class/Avatar.js"></script>
@@ -21,14 +23,19 @@
 		<script src="class/Investment.js"></script>
 		<script src="class/StartUp.js"></script>
 		<script src="class/RealEstate.js"></script>
+		<script src="class/LotteryTicket.js"></script>
+		<script src="class/LoanSharks.js"></script>
+		<script src="class/NigerianPrince.js"></script>
+		<script src="class/Bitcoin.js"></script>
+		<script src="class/HedgeFund.js"></script>
 		<script src="js/UIControl/index.js"></script>
 		<script src="json/listofInvestments.json"></script>
 		<script src="js/UIControl/InvestmentPage.js"></script>
 		<script src="js/UIComponent/investmentItemDisplay.js"></script>
 
 		<script src="class/callback.js"></script>
-		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script-->
-
+		<script src="js/camera.js"></script>
+		<script src="js/loadGame.js"></script>
 		<title>Trading Fever</title>
 		<style>
 
@@ -59,16 +66,17 @@
 			shape-rendering: crispEdges;
 		}
 		</style>
+		<script>
+			
+			document.addEventListener("deviceready",onDeviceReady,false);
+			function onDeviceReady() {
+				pictureSource=navigator.camera.PictureSourceType;
+				destinationType=navigator.camera.DestinationType;
+			}
+		</script>
 	</head>
 	<body style="font-size:5vmin;">
-		<script>
-			theAvatar = new Avatar("Daniel");
-			theAvatar.setID(48927123);
-			theAvatar.setCashAmount(10000);
-			theAvatar.setRage(100);
-			
-			theStocks = new Stocks();
-		</script>
+		
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -82,7 +90,8 @@
 						<table><tr>
 							<td>
 								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
-								<input type="file" accept="image/*" style="width:5em;" onchange="gotImage(this)"/>
+								<button onclick="capturePhoto()" style="width:5em;">Take new Photo</button>
+								
 							</td>
 							<td><table>
 								<tr><td id="avatarName_modal">(Name)</td></tr>
@@ -93,34 +102,59 @@
 					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="investmentInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title"><span id="investmentInfo_name">Investment Detail</span></h4>
+					</div>
+					
+					<div class="modal-body">
+						<table><tr>
+							<td>
+								<img id="investmentPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
+							</td>
+							<td><table>
+								<tr><td id="investmentDescription_modal">(description)</td></tr>
+							</table></td>
+						</tr></table>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="newAvatarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title"><span>What is Your Name?</span></h4>
+					</div>
+					
+					<div class="modal-body">
+						<input type="text" name="avatarName" id="txtNewAvatarName"><br />
+						<button onclick="createAvatar()">Submit</button>
+					</div>
+					
+					<div class="modal-footer">
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
-			function gotImage(theImage){
-				if (theImage.files && theImage.files[0]) {
-					var reader = new FileReader();
-					var resultImageData = 0;
-
-					reader.onload = function (e) {
-						resultImageData = e.target.result;
-						document.getElementById('avatarPicture_modal').src =  resultImageData;
-						
-						console.log(resultImageData);
-						
-						// save to local storage
-						localStorage.setItem("profilePicture", resultImageData);
-					
-						// load from local storage
-						document.getElementById('avatarPicture').src = localStorage.getItem('profilePicture');
-					}
-					reader.readAsDataURL(theImage.files[0]);
-				}
-			}
+			theStocks = new Stocks();
+			loadGame();
+			
+			
 		</script>
-		
 		<div id="statusBar" style="height:10vh; background-color:black">
 			<table style="width:100%; height:100%"><tr>
 				<!--td><table data-toggle="modal" data-target="#profileModal"><tr-->
@@ -137,7 +171,6 @@
 				<td id="avatarCash_display" style="height:100%; color:white; text-align:right">
 					(Cash Amount)
 				</td>
-				
 			</tr></table>
 		</div>
 		
@@ -158,51 +191,127 @@
 					<!--p>Content for home page goes here</p-->
 					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
 					<center>
-					<div class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="true" data-auto-logout-link="true" onlogin="checkLoginState();"></div></center>
+						<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>
+					</center>
 					<script>
+						/*
 						theAvatar.updateRemoteCash();
-						theAvatar.setCashAmount(5000);
+						theAvatar.setCashAmount(5000000);
 
 						function updateDatabase(){
 							theAvatar.setRemoteCash();
-							//console.log("update remote cash");
 						}
 						setInterval(updateDatabase,1000);
+						*/
 					</script>
+					
+
+					<!-- animation -->
+					<div id="animation" align="center" onclick = "advisorPopUp()"> 
+
+						<img src="img/setup0_0.jpg" />
+						<img src="img/setup0_2.jpg" />
+						<img src="img/setup0_3.jpg" />
+						<img src="img/setup0_4.jpg" />
+						<img src="img/setup0_5.jpg" />
+						<img src="img/setup0_6.jpg" />
+						<img src="img/setup0_7.jpg" />
+						<img src="img/setup0_8.jpg" />
+						<img src="img/setup0_9.jpg" />
+						<img src="img/setup0_10.jpg" />
+						<img src="img/setup0_11.jpg" />
+						<img src="img/setup0_12.jpg" />
+						<img src="img/setup0_13.jpg" />
+						<img src="img/setup0_14.jpg" />
+						<img src="img/setup0_15.jpg" />
+					</div> 
+
+					<script>
+					/*
+					//music
+					myAudio = new Audio('sound/tradingfever2.wav'); 
+					myAudio.addEventListener('ended', function() {
+						this.currentTime = 0;
+						this.play();
+					}, false);
+					myAudio.play();
+
+					onload = function startAnimation() { 
+						var frames = document.getElementById("animation").children;
+						var frameCount = frames.length;
+						var i = 0;
+						setInterval(function () { 
+							frames[i % frameCount].style.display = "none";
+							frames[++i % frameCount].style.display = "block";
+						}, 100); 
+					} 
+					*/
+					</script>
+
+					<style>
+					#animation img {
+						width: 100%;
+    					height: 22em;
+						display: none;
+					}
+					#animation img:first-child {
+						display: block;
+					} 
+					</style>
+					<!-- end of animation -->
+
+
+
 					<div id="status"></div>
-					<center>
-					<button class="btn" style="width:20%" onclick="post()">post to facebook</button></center>
+
+					<center><button class="btn" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button></center>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>
-						<p id="showReturn" style="font-size:1em" align="center"></p>
+						<p id="showReturn" style="font-size:1em; width:100%" align="center"></p>
 
 
 						<div id = "stocks"></div>
 						<table style="width:100%">
 							<tr>
-								<td><button id = 'buybutton' style="background-color:lightgreen">Buy 100 shares</button></td>
+								<td><button id = 'buybutton' style="background-color:lightgreen; font-size:1m; width:100%;">Buy</button></td>
+								<td>
+									<select style="font-size:1em; width:100%" id="invSize">
+										<option value=100>100 shares</option>
+										<option value=500>500 shares</option>
+										<option value=1000>1,000 shares</option>
+										<option value=5000>5,000 shares</option>
+										<option value=10000>10,000 shares</option>
+									</select>
+								</td>
 								
-								<td><button id = 'sellbutton' style="background-color:red">Sell 100 shares</button></td> 
+								<td><button id = 'sellbutton' style="background-color:red; font-size:1m; width:100%;">Sell</button></td> 
+								<script>
+									function getInvestmentSize(){
+										var selIndex = document.getElementById("invSize").selectedIndex;
+										var toReturn = document.getElementById("invSize").options[selIndex].value;
+										return Number(toReturn);
+									}
+								</script>
 							</tr>
 							
 						</table>
 
-						<div id="stockPrice"></div>
+						<div onclick = "advisorStockPrice()" id="stockPrice"></div>
 
-						<div id="netLiquidation"></div>
+						<div onclick = "advisorNetLiquidation()" id="netLiquidation"></div>
 
-						<div id="shares"></div>
+						<div onclick = "advisorNumberOfShares()" id="shares"></div>
 
-						<div id="securitiesGPV"></div>
+						<div onclick = "advisorSecuritiesGPV()" id="securitiesGPV"></div>
 
-						<div id="cash"></div>
+						<div onclick = "advisorTradingCash()" id="cash"></div>
 
-						<div id="availableFunds"></div>
+						<div onclick = "advisorAvailableFuns()" id="availableFunds"></div>
 
-						<div id="leverage"></div>
+						<div onclick = "advisorLeverage()" id="leverage"></div>
 
-						<div id="transactionFee"></div>
+						<div onclick = "advisorTransactionFeesPaid()" id="transactionFee"></div>
 						<table style = "width:100%">
 							<tr>
 								<td><button id = 'outbutton'>Transfer $10k out</button></td>
@@ -216,52 +325,8 @@
 				<div role="tabpanel" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
 			</div>
 		</div>
-			<!--button class="btn" href="#investment1" onclick='overlay()'>Tech Startup</button-->
-		
 		
 		<script>
-		/*
-			$(document).ready(function(){
-				document.getElementById("gameTabWidget").style.height = "" + $(window).height() + "px";
-				$(window).resize(function(){
-					var currentWindowHeight = $(window).height();
-					var currentWindowWidth = $(window).width();
-					
-					// resize gameTabWidget
-					document.getElementById("gameTabWidget").style.height = "" + currentWindowHeight + "px";
-				})
-			});
-		*/
-		
-		
-		
-		/*
-		<div id="investment1" class="overlay">
-		    <div>
-		        <p>Daniel has a startup idea and needs you to invest $2000.</p>
-		        <button class="option floated" href="" onclick='overlay();invest()' style="width:160px">invest $2000</button>
-				<button class="option floated" href="" onclick='overlay()'>close</button>
-		     </div>
-		</div>
-		*/
-		</script>
-		
-		<script>
-		
-			var aStartUp = new StartUp();
-			aStartUp.setPotentialReturn(100);
-			aStartUp.setInvestmentTitle('Daniel Inc.');
-			aStartUp.setDescription('Daniel has a billion dollar idea');
-			theAvatar.addInvestmentInstance(aStartUp);
-			theAvatar.upgradeInvestment(aStartUp);
-			
-			var aRealEstate = new RealEstate();
-			aRealEstate.setMonthlyReturn(10);
-			aRealEstate.setInvestmentTitle('Waterfront Property');
-			aRealEstate.setDescription('A pricy piece of property');
-			theAvatar.addInvestmentInstance(aRealEstate);
-			theAvatar.upgradeInvestment(aRealEstate);
-			
 			mkInvestmentPage();
 		</script>
 		
@@ -272,7 +337,10 @@
 			}
 			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
 			
-
+			function saveAvatarToFile(){
+				localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
+			}
+			setInterval(saveAvatarToFile,100);
 		</script>
 		
 		<script src = "class/Simulation.js"></script>

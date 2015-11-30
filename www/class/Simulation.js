@@ -21,7 +21,7 @@ var x = d3.scale.linear()
     .range([0, width]);
 
 var y = d3.scale.linear()
-    .domain([0, 20])
+    .domain([0, 40])
     .range([height, 0]);
 
 var line = d3.svg.line()
@@ -59,6 +59,7 @@ var path = svg.append("g")
 // THIS UPDATES ABSOLUTELY EVERYTHING
 function tick() {
 
+
   // push a new data point onto the back
   theStocks.setStocksStockPrice(data[data.length-1]);
 
@@ -77,7 +78,13 @@ function tick() {
 
   // blowup scenarios
   if (theStocks.getStocksNetLiquidation() < minAccount){
-    alert('You blew up your account! Do not worry-you take another "loan" from the bank of dad.')
+
+    swal({title: "Blown Account!", text: "Investment Advisor Kato says: \nGrats, you blew up your account! Don't worry-you can always take another loan from the bank of Dad.",  
+      imageUrl: "img/advisor.jpg",   
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "He's gonna rage...",   closeOnConfirm: false });
+
     theStocks.setStocksSecuritiesGPV(0);
     theStocks.setStocksShares(0);
     theStocks.setStocksLeverage(0);
@@ -86,7 +93,13 @@ function tick() {
     theStocks.setStocksNetLiquidation(theStocks.getStocksCash());
     theStocks.setStocksAvailableFunds(theStocks.getStocksMaxLeverage()*theStocks.getStocksNetLiquidation());
   }else if (theStocks.getStocksLeverage() > theStocks.getStocksMaxLeverage()){
-    alert('You exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker won't allow you to borrow more and you were forced to sell off.")
+    
+    swal({title: "Leverage Exceeded!", text: 'Investment Advisor Kato says: \nDude, you just exceeded the maximum leverage of ' + theStocks.getStocksMaxLeverage() + "! The broker liquidated your entire account! Stop using so much margin!",   
+      imageUrl: "img/advisor.jpg",
+      showCancelButton: true,   
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "Fine.",   closeOnConfirm: false });
+
     theStocks.setStocksStockPrice(data[data.length-1]);
     theStocks.setStocksSecuritiesGPV(theStocks.getStocksShares() * theStocks.getStocksStockPrice());
     theStocks.setStocksCash(theStocks.getStocksCash() + theStocks.getStocksSecuritiesGPV());
@@ -137,13 +150,13 @@ tick();
 
 $(document).ready(function(){
     $("#buybutton").click(function(){
-      
-      transactionFee= 100 * theStocks.getStocksFeeRate();
+      var invSize = getInvestmentSize();
+      transactionFee= invSize * theStocks.getStocksFeeRate();
       theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
-      transaction = 100 * theStocks.getStocksStockPrice() + transactionFee;
-      theStocks.setStocksShares(theStocks.getStocksShares() + 100);
+      transaction = invSize * theStocks.getStocksStockPrice() + transactionFee;
+      theStocks.setStocksShares(theStocks.getStocksShares() + invSize);
       if (theStocks.getStocksShares() > 0){
-        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*(theStocks.getStocksShares()-100) + theStocks.getStocksStockPrice()*100)/(theStocks.getStocksShares()));
+        theStocks.setAvgPurchasePrice((theStocks.getAvgPurchasePrice()*(theStocks.getStocksShares()-invSize) + theStocks.getStocksStockPrice()*invSize)/(theStocks.getStocksShares()));
       }else{
         theStocks.setAvgPurchasePrice(0);
       }
@@ -158,16 +171,17 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#sellbutton").click(function(){
+		var invSize = getInvestmentSize();
       if(theStocks.getStocksShares() >0){
         
-        transactionFee= 100 * theStocks.getStocksFeeRate();
+        transactionFee= invSize * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
-        transaction = 100 * theStocks.getStocksStockPrice() - transactionFee;
-        theStocks.setStocksShares(theStocks.getStocksShares() - 100);
+        transaction = invSize * theStocks.getStocksStockPrice() - transactionFee;
+        theStocks.setStocksShares(theStocks.getStocksShares() - invSize);
         theStocks.setStocksCash(theStocks.getStocksCash() + transaction);
         theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() + transaction);
     }else{
-      alert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
+      sweetAlert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
     }
     });
 });
@@ -175,20 +189,99 @@ $(document).ready(function(){
 
 // handles the RNG
 function setRandom() {
-  if (data[data.length-1]>12){
-    //console.log('case 1');
-    random = d3.random.normal(0.97, 0.15);
-  }else if (data[data.length-1]<4){
-    //console.log('case 2');
-    random = d3.random.normal(1.04, 0.05);
+  if (data[data.length-1]>25){
+    random = d3.random.normal(0.96, 0.20);
+  }else if (data[data.length-1]<7){
+    random = d3.random.normal(1.03, 0.08);
   }else if (Math.random() > 0.5){
-  //console.log('case 3')
-  random = d3.random.normal(1.015, 0.04);
+  random = d3.random.normal(1.01, 0.06);
   }else{
-    //console.log('case 4');
-    random = d3.random.normal(0.99, 0.15);
+    random = d3.random.normal(0.99, 0.20);
   }
 }
+
+// handles kato the advisor
+function advisorPopUp(){
+  swal({title: "", 
+      text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first, until you get the hang of things, and until you make enough to up your size. If you're unsure of some of the words, just click them for an explanation. As for investments, they generate money passively! However, sometimes an investment can backfire and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming. Especially beware of later investment types.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorStockPrice(){
+  swal({title: "What's stock price?", 
+      text: "Investment Advisor Kato says: \nThat's the price of the stock at any given time, duh.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorNetLiquidation(){
+  swal({title: "What's net liquidation?", 
+      text: "Investment Advisor Kato says: \nNet liquidation is how much your trading account is worth, if you liquidated (sold) everything.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorNumberOfShares(){
+  swal({title: "What's number of shares?", 
+      text: "Investment Advisor Kato says: \nThat's how many shares you own!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorSecuritiesGPV(){
+  swal({title: "What's securities GPV?", 
+      text: "Investment Advisor Kato says: \nSecurities Gross Position Value is how much your current shares are worth.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorTradingCash(){
+  swal({title: "What's trading cash?", 
+      text: "Investment Advisor Kato says: \nTrading cash is how much actual cash you have in this account.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorAvailableFunds(){
+  swal({title: "What's available funds?", 
+      text: "Investment Advisor Kato says: \nAvailable cash is how much money you can still buy stocks with, in other words, your cash plus whatever the brokerage is willing to lend you.",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorLeverage(){
+  swal({title: "What's leverage?", 
+      text: "Investment Advisor Kato says: \nLeverage is the ratio of money you can trade with, in relation to your actual worth. By default this is 2, so the brokerage will lend you as much money as you have, effectively doubling your purchasing power. Don't borrow too much, though! If you exceed this bad things will happen!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Acknowledged",   closeOnConfirm: false });
+}
+
+function advisorTransactionFeesPaid(){
+  swal({title: "What's transaction fees paid?", 
+      text: "Investment Advisor Kato says: \nYou didn't think trading would be free, did you? Every buy/sell transaction costs money! Luckily I negotiated a pretty sweet deal with your brokerage in terms of fees. I swear, I'm not taking a cut!",  
+          imageUrl: "img/advisor.jpg",  
+          showCancelButton: true,   
+          confirmButtonColor: "#DD6B55",   
+          confirmButtonText: "Alright...",   closeOnConfirm: false });
+}
+// end of advisor
 
 // handles the return
 function setReturnColour() {
