@@ -8,7 +8,7 @@
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
+		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		
 
 		<script src="js/modal.js"></script>
@@ -244,9 +244,9 @@
 					</div> 
 					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
 					<script>
-					/*
+					
 					//music
-					myAudio = new Audio('sound/tradingfever2.wav'); 
+					myAudio = new Audio('sound/tradingfever2.wav');
 					
 					myAudio.addEventListener('ended', function() {
 						this.currentTime = 0;
@@ -263,7 +263,7 @@
 							frames[++i % frameCount].style.display = "block";
 						}, 100); 
 					} 
-					*/
+					
 					</script>
 
 					<style>
@@ -399,7 +399,10 @@
 			setInterval(adjustFrameSize,100);
 			
 			function uploadNetWorth(){
-				setNetWorth(33,10000);
+				theAvatar.setID(10);
+				if(theAvatar.id != -1){
+					setNetWorth(theAvatar.id,theAvatar.getNetWorth(),theAvatar.getName());
+				}
 			}
 			setInterval(uploadNetWorth,1000);
 			

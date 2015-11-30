@@ -19,13 +19,16 @@ setCash = function(id, newCashAmount){
 	});
 }
 
-setNetWorth = function(id, newNetWorth){
+setNetWorth = function(id, newNetWorth, name){
+	console.log('id=' + id);
 	$.post("http://utoappia.com/Daniel/CS_410_TradingFever/setNetWorth.php", 
 		{
 			avatar_id : id,
 			avatarNetWorth : newNetWorth,
+			avatarName:name,
 		},
 		function(string) {
-			console.log("update succesful");
+			console.log("netWorth update succesful");
+			console.log('id=' + id);
 	});
 }
