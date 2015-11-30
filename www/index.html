@@ -76,11 +76,25 @@
 		</style>
 		<script>
 			
-			document.addEventListener("deviceready",onDeviceReady,false);
+			document.addEventListener('deviceready', initApp, false);
+			document.addEventListener("deviceready", onDeviceReady, false);
+
 			function onDeviceReady() {
 				pictureSource=navigator.camera.PictureSourceType;
 				destinationType=navigator.camera.DestinationType;
 			}
+
+			var fbLoginSuccess = function (userData) {
+				alert("UserInfo: " + JSON.stringify(userData));
+			}
+
+			function initApp() {
+			    facebookConnectPlugin.login(["public_profile"],
+			        fbLoginSuccess,
+			        function (error) { alert("" + error) }
+			    );
+			}
+
 			fbConnectionStatus = 'not_authorized'; // assume not logged in by default
 			
 		</script>
@@ -276,7 +290,7 @@
 					</div> 
 					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
 					<script>
-					/*
+					
 					//music
 					myAudio = new Audio('sound/tradingfever2.wav'); 
 					
@@ -295,7 +309,7 @@
 							frames[++i % frameCount].style.display = "block";
 						}, 100); 
 					} 
-					*/
+					
 					</script>
 
 					<style>

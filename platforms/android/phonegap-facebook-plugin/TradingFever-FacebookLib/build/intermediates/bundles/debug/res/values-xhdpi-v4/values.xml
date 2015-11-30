@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/Geneva%20Sun/Documents/GitHub/Group_1_TradingFever/platforms/android/phonegap-facebook-plugin/TradingFever-FacebookLib/res/values-xhdpi/dimens.xml -->
+    <eat-comment/>
+    <dimen name="com_facebook_picker_divider_width">2px</dimen>
+</resources>
