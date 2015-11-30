@@ -8,7 +8,7 @@
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
+		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
 		
 
 		<script src="js/modal.js"></script>
@@ -101,6 +101,8 @@
 	</head>
 	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
 		<script>
+			//leaderBoardData = [];
+			/*
 			leaderBoardData = [
 			{
 				'avatarName':"PersonC",
@@ -119,6 +121,7 @@
 				'avatarNetWorth':5000
 			}
 			];
+			*/
 		</script>
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -292,7 +295,7 @@
 					<script>
 					
 					//music
-					myAudio = new Audio('sound/tradingfever2.wav'); 
+					myAudio = new Audio('sound/tradingfever2.wav');
 					
 					myAudio.addEventListener('ended', function() {
 						this.currentTime = 0;
@@ -433,10 +436,14 @@
 		</div>
 		
 		<script type="text/javascript">
-			var leaderBoardTable = document.getElementById('leaderBoardTable');
-			for (i = 0; i < leaderBoardData.length; i++) { 
-			    leaderBoardTable.innerHTML = leaderBoardTable.innerHTML + '<tr><td>' + leaderBoardData[i].avatarName + '</td><td>' + leaderBoardData[i].avatarNetWorth + '</td></tr>';
+			function refreshLeaderBoard(leaderBoardData){
+				var leaderBoardTable = document.getElementById('leaderBoardTable');
+				leaderBoardTable.innerHTML = "";
+				for (i = 0; i < leaderBoardData.length; i++) { 
+					leaderBoardTable.innerHTML = leaderBoardTable.innerHTML + '<tr><td>' + leaderBoardData[i].avatarName + '</td><td>' + leaderBoardData[i].avatarNetWorth + '</td></tr>';
+				}
 			}
+			
 		</script>
 
 		<script>
@@ -464,9 +471,17 @@
 			setInterval(adjustFrameSize,100);
 			
 			function uploadNetWorth(){
-				setNetWorth(33,10000);
+				if(theAvatar.id != -1){
+					setNetWorth(theAvatar.id,theAvatar.getNetWorth(),theAvatar.getName());
+				}
 			}
 			setInterval(uploadNetWorth,1000);
+			
+			function downloadLeaderBoard(){
+				getLeaderData();
+			}
+			setInterval(downloadLeaderBoard,120000);
+			downloadLeaderBoard();
 			
 			setInterval(adjustFrameSize,10000);
 		</script>

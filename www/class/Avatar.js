@@ -1,5 +1,5 @@
 function Avatar(name){
-	this.id = null;
+	this.id = -1;
 	this.name = name;
 	this.cash = 0;
 	this.listOfInvestments = [];
