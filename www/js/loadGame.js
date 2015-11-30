@@ -1,5 +1,5 @@
 function loadGame(){
-	localStorage.clear();
+	//localStorage.clear();
 	
 	theAvatar = new Avatar("(Avatar Name)");
 	theAvatar.setCashAmount(50000000);

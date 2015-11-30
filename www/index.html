@@ -87,6 +87,8 @@
 	</head>
 	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
 		<script>
+			//leaderBoardData = [];
+			/*
 			leaderBoardData = [
 			{
 				'avatarName':"PersonC",
@@ -105,6 +107,7 @@
 				'avatarNetWorth':5000
 			}
 			];
+			*/
 		</script>
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -419,10 +422,14 @@
 		</div>
 		
 		<script type="text/javascript">
-			var leaderBoardTable = document.getElementById('leaderBoardTable');
-			for (i = 0; i < leaderBoardData.length; i++) { 
-			    leaderBoardTable.innerHTML = leaderBoardTable.innerHTML + '<tr><td>' + leaderBoardData[i].avatarName + '</td><td>' + leaderBoardData[i].avatarNetWorth + '</td></tr>';
+			function refreshLeaderBoard(leaderBoardData){
+				var leaderBoardTable = document.getElementById('leaderBoardTable');
+				leaderBoardTable.innerHTML = "";
+				for (i = 0; i < leaderBoardData.length; i++) { 
+					leaderBoardTable.innerHTML = leaderBoardTable.innerHTML + '<tr><td>' + leaderBoardData[i].avatarName + '</td><td>' + leaderBoardData[i].avatarNetWorth + '</td></tr>';
+				}
 			}
+			
 		</script>
 
 		<script>
@@ -456,6 +463,12 @@
 				}
 			}
 			setInterval(uploadNetWorth,1000);
+			
+			function downloadLeaderBoard(){
+				getLeaderData();
+			}
+			setInterval(downloadLeaderBoard,120000);
+			downloadLeaderBoard();
 			
 			setInterval(adjustFrameSize,10000);
 		</script>

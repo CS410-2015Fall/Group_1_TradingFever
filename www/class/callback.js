@@ -32,3 +32,10 @@ setNetWorth = function(id, newNetWorth, name){
 			console.log('id=' + id);
 	});
 }
+getLeaderData = function(){
+	$.post("http://utoappia.com/Daniel/CS_410_TradingFever/getTopNetWorth.php",{'stuff':"lol"},
+		function(stringData) {
+			console.log(stringData);
+			refreshLeaderBoard(JSON.parse(stringData));
+	});
+}
