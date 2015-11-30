@@ -10,7 +10,7 @@ function LotteryTicket(){
 	// for income
 	this.monthlyReturn = 0;
 	this.setMonthlyReturn = function(newMonthlyReturn){
-		monthlyReturn = newMonthlyReturn;
+		this.monthlyReturn = newMonthlyReturn;
 	}
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;
@@ -58,8 +58,7 @@ function LotteryTicket(){
 		var toReturn = {};
 		toReturn = {
 			'amount':this.monthlyReturn,
-			'duration':this.rewardDuration,
-			'cashOutMethod':'get cash if successful'
+			'duration':this.rewardDuration
 		}
 		return toReturn;
 	}
@@ -133,8 +132,6 @@ function LotteryTicket(){
 			this.monthlyReturn = 10*Math.pow(1.2, this.currentLevel-1);
 		}	
 	}
-
-
 	}
 	this.sellable = function(){
 		return true;

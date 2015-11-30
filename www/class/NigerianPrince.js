@@ -10,7 +10,7 @@ function NigerianPrince(){
 	// for income
 	this.monthlyReturn = 0;
 	this.setMonthlyReturn = function(newMonthlyReturn){
-		monthlyReturn = newMonthlyReturn;
+		this.monthlyReturn = newMonthlyReturn;
 	}
 	this.setCurrentWorth = function(newWorth){
 		this.currentWorth = newWorth;

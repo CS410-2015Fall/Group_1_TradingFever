@@ -11,7 +11,7 @@ function HedgeFund(){
 	this.monthlyReturn = 0;
 	this.cashOutInterval = 3*1000; 
 	this.setMonthlyReturn = function(newMonthlyReturn){
-		monthlyReturn = newMonthlyReturn;
+		this.monthlyReturn = newMonthlyReturn;
 	}
 	
 	this.setCashOutInterval = function(newInterval){

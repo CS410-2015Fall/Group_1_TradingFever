@@ -21,7 +21,7 @@ function RealEstate(){
 		this.currentWorth = newWorth;
 	}
 	this.setMonthlyReturn = function(newMonthlyReturn){
-		monthlyReturn = newMonthlyReturn;
+		this.monthlyReturn = newMonthlyReturn;
 	}
 	
 	// interface methods
