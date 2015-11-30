@@ -2,6 +2,13 @@ var exit = 0;
 
 var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random), minAccount = 1000, invSize = 100;
 
+historicalStockPrice = JSON.parse(localStorage.getItem("historicalStockPrice"));
+if (historicalStockPrice === null) {
+	// do nothing
+} else {
+	data = historicalStockPrice;
+}
+
 // absolute sizing
 /*var margin = {top: 20, right: 20, bottom: 20, left: 40},
     width = 400 - margin.left - margin.right,
@@ -129,9 +136,8 @@ function tick() {
 
   // pop the old data point off the front
   data.shift();
-
+  localStorage.setItem('historicalStockPrice',JSON.stringify(data));
 }
-
 
 // Using the jQuery library
 setInterval(theStocks.showNetLiquidation, 200);

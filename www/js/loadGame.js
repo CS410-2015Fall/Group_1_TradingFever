@@ -1,5 +1,5 @@
 function loadGame(){
-	localStorage.clear();
+	//localStorage.clear();
 	
 	theAvatar = new Avatar("(Avatar Name)");
 	theAvatar.setCashAmount(50000000);
@@ -12,8 +12,9 @@ function loadGame(){
 		
 	} else {
 		theAvatar.loadFromJSONString(localStorage.getItem("avatar"));
-		console.log(theAvatar);
 		mkInvestmentPage();
+		
+		theStocks.loadFromJSONString(localStorage.getItem("stock"));
 	}
 }
 function createAvatar(){

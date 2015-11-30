@@ -28,11 +28,8 @@ function Avatar(name){
 	}
 
 	// Remote Cash
-	this.updateRemoteCash = function(){
-		this.cash = getCash(this.id);
-	}
-	this.setRemoteCash = function() {
-		setCash(this.id,this.cash);
+	this.setRemoteNetWorth = function() {
+		setNetWorth(this.id,this.getNetWorth());
 	}
 	
 	this.setInvestmentList = function(newList){

@@ -164,4 +164,22 @@ this.showStocksReturn = function(){
   $('#showReturn').html('Return on current shares: 0 %');
 }
 
+this.toJSON = function(){
+	var toReturn = {
+		'numShare':shares,
+		'tradingCash':this.getStocksCash(),
+		'transactionFeePaid':this.getStocksFee(),
+		'securitiesGPV':securitiesGPV,
+		'avgPurchasePrice':this.getAvgPurchasePrice()
+	}
+	return toReturn;
+}
+this.loadFromJSONString = function(aJSONString){
+	console.log('aJSONString: ' + aJSONString);
+	var aJSON = JSON.parse(aJSONString);
+	shares = aJSON.numShare;
+	this.setStocksCash(aJSON.tradingCash);
+	fee = aJSON.transactionFeePaid;
+	avgPurchasePrice = aJSON.avgPurchasePrice;
+}
 }
