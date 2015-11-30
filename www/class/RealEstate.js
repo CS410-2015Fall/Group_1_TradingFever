@@ -6,6 +6,7 @@ function RealEstate(){
 	this.currentWorth = 0;
 	this.monthlyReturn = 0;
 	this.chanceOfSuccess = 1;
+	this.severity = 0;
 	
 	// random events
 	this.setChanceOfSuccess = function(percentage){
@@ -50,6 +51,7 @@ function RealEstate(){
 	}
 	this.upgrade = function(){
 		this.rewardDuration = 8 * 1000;
+		if (this.severity==0){
 		if (Math.random() < this.getChanceOfSuccess()){
 		if (this.currentLevel == 0){
 			swal({title: "The American Dream!", 
@@ -79,15 +81,15 @@ function RealEstate(){
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Sell it all! (dump real estate on the cheap)",   closeOnConfirm: false });
-		theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
-		this.currentLevel = 0;
-		this.setChanceOfSuccess(1);
-		if (this.currentLevel < 1){
-			this.monthlyReturn = 0;
-		}
-		else{
-			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
-		}	
+			theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
+			this.currentLevel = 0;
+			this.setChanceOfSuccess(1);
+			if (this.currentLevel < 1){
+				this.monthlyReturn = 0;
+			}
+			else{
+				this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+			}	
 		}
 
 
@@ -101,13 +103,56 @@ function RealEstate(){
 					confirmButtonText: "Sensible advice",   closeOnConfirm: false });
 		theAvatar.setCashAmount(theAvatar.getCashAmount()+25000);
 		this.currentLevel -= 1;
-		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.95);
+		this.severity += 1;
+		this.setChanceOfSuccess(1);
 		if (this.currentLevel < 1){
 			this.monthlyReturn = 0;
 		}else{
 			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
 		}	
 	}
+}else if (this.severity == 1){
+	if (Math.random() < this.getChanceOfSuccess()){
+		if (this.currentLevel == 0){
+			swal({title: "The American Dream!", 
+			text: "Investment Advisor Kato says: \nInvesting in properties with subprime mortgages is so 2008-we call it nonprime now!",  
+      		imageUrl: "img/advisor.jpg",  
+      		type: "success",
+      		showCancelButton: true,   
+      		confirmButtonColor: "#DD6B55",   
+      		confirmButtonText: "You gotta borrow money to make money",   closeOnConfirm: false });
+		}
+
+		// TODO: improve this implementation
+		this.currentLevel += 1;
+		this.setChanceOfSuccess(this.getChanceOfSuccess()*0.9);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}else{
+			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+
+		else {
+			swal({title: "SUBPRIME MELTDOWN!", 
+					text: "Investment Advisor Kato says: \n Everyone's defaulting on their mortgages! Quick, sell your houses before they turn worthless!!",  
+					imageUrl: "img/advisor.jpg",  
+					type: "error",
+					showCancelButton: true,   
+					confirmButtonColor: "#DD6B55",   
+					confirmButtonText: "Sell it all! (dump real estate on the cheap)",   closeOnConfirm: false });
+		theAvatar.setCashAmount(theAvatar.getCashAmount()+this.currentLevel*25000);
+		this.currentLevel = 0;
+		this.severity = 0;
+		this.setChanceOfSuccess(1);
+		if (this.currentLevel < 1){
+			this.monthlyReturn = 0;
+		}
+		else{
+			this.monthlyReturn = 5000*Math.pow(1.2, this.currentLevel-1);
+		}	
+		}
+}
 	}
 	this.sellable = function(){
 		return true; //Always true for RealEstate

@@ -104,6 +104,8 @@ function HedgeFund(){
 	}
 		
 		else if(this.getChanceOfSuccess() == 0){
+			var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+			policeSiren_Sound.play();
 			swal({title: "PONZI SCHEME!", 
 					text: "Investment Advisor Kato says: \nA giant pyramid scheme all along! His biggest investor just committed suicide! At least we managed to salvage some of your money back...it's SOMETHING!",  
 					imageUrl: "img/advisor.jpg",  

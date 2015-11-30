@@ -94,6 +94,8 @@ function NigerianPrince(){
 		}
 
 		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+		var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+				policeSiren_Sound.play();
 			swal({title: "CAUGHT!", 
 					text: "Investment Advisor Kato says: \nI don't know you, and you don't know me! I never advised you, got that??",  
 					imageUrl: "img/advisor.jpg",  
@@ -116,6 +118,8 @@ function NigerianPrince(){
 
 
 		else{
+		var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+				policeSiren_Sound.play();
 		swal({title: "Busted!", 
 					text: "Investment Advisor Kato says: \nThey caught the Nigerian! Looks like you're hiring again!",  
 					imageUrl: "img/advisor.jpg",  

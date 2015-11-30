@@ -125,6 +125,7 @@ function Avatar(name){
 				progress = 0;
 				targetInvestmentInstance.viewHandler.progress.setPercentage(0);
 				targetInvestmentInstance.viewHandler.setReturnAmountText(0);
+				
 			} else {
 				var currentTime = new Date();
 				currentTime = currentTime.getTime();
@@ -136,9 +137,23 @@ function Avatar(name){
 				
 				// return amount
 				targetInvestmentInstance.viewHandler.setReturnAmountText(Math.floor(targetInvestmentInstance.getIncomeStatement().amount));
+				
+				if(theAvatar.getCashAmount() < targetInvestmentInstance.upgradeCost()){
+					targetInvestmentInstance.viewHandler.upgradeButton.disable();
+				} else {
+					targetInvestmentInstance.viewHandler.upgradeButton.enable();
+				}
 			}
 			// level
 			targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());
+			
+			// box colour
+			if(ind%2){
+				targetInvestmentInstance.viewHandler.setBackgroundColor('rgba(250,250,200,0.6)');
+			} else {
+				targetInvestmentInstance.viewHandler.setBackgroundColor('rgba(200,250,250,0.6)');
+			}
+			
 		}
 	}
 	
