@@ -35,6 +35,12 @@
 		<script src="js/camera.js"></script>
 		<script src="js/loadGame.js"></script>
 		<script src="js/tools.js"></script>
+
+
+		
+		<link rel="stylesheet" type="text/css" href="externalLibrary/jquery.dataTables.min.css">
+  		<script type="text/javascript" charset="utf8" src="externalLibrary/jquery.dataTables.min.js"></script>
+
 		<title>Trading Fever</title>
 		
 
@@ -80,7 +86,26 @@
 		</script>
 	</head>
 	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
-		
+		<script>
+			leaderBoardData = [
+			{
+				'avatarName':"PersonC",
+				'avatarNetWorth':6436
+			},
+			{
+				'avatarName':"PersonD",
+				'avatarNetWorth':5324
+			},
+			{
+				'avatarName':"PersonA",
+				'avatarNetWorth':1000
+			},
+			{
+				'avatarName':"PersonB",
+				'avatarNetWorth':5000
+			}
+			];
+		</script>
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -169,6 +194,10 @@
 		<script>
 			theStocks = new Stocks();
 			loadGame();
+
+			$(document).ready( function () {
+						    $('#table_id').DataTable();
+						} );
 			
 			
 		</script>
@@ -196,11 +225,14 @@
 				<li role="presentation" class="active">
 					<a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="img/home.png" style="height:1.5em;"/></a>
 				</li>
-				<li role="presentation" class=""">
+				<li role="presentation" class="">
 					<a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/stock.png" style="height:1.5em;"/></a>
 				</li>
 				<li role="presentation" class="">
 					<a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/cash.png" style="height:1.5em;"/></a>
+				</li>
+				<li role="presentation" class="">
+					<a href="#leaderBoardPage" role="tab" id="leaderBoardPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/leaderBoard.png" style="height:1.5em;"/></a>
 				</li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
@@ -371,9 +403,28 @@
 					</p>
 				</div>
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="investmentPage" aria-labelledby="investmentPage-tab" href="#investments"></div>
+				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="leaderBoardPage" aria-labelledby="leaderBoardPage-tab">
+					<table id="table_id" class="display">
+					    <thead>
+					        <tr>
+					            <th>Name</th>
+					            <th>Net Worth</th>
+					        </tr>
+					    </thead>
+					    <tbody id="leaderBoardTable">
+					    </tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		
+		<script type="text/javascript">
+			var leaderBoardTable = document.getElementById('leaderBoardTable');
+			for (i = 0; i < leaderBoardData.length; i++) { 
+			    leaderBoardTable.innerHTML = leaderBoardTable.innerHTML + '<tr><td>' + leaderBoardData[i].avatarName + '</td><td>' + leaderBoardData[i].avatarNetWorth + '</td></tr>';
+			}
+		</script>
+
 		<script>
 			mkInvestmentPage();
 		</script>
