@@ -1,8 +1,8 @@
 function loadGame(){
-	//localStorage.clear();
+	localStorage.clear();
 	
 	theAvatar = new Avatar("(Avatar Name)");
-	theAvatar.setCashAmount(5000000);
+	theAvatar.setCashAmount(50000000);
 	if(localStorage.getItem("avatar") === null){
 		// if first time loaded
 		$('#newAvatarModal').modal({

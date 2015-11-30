@@ -179,22 +179,22 @@
 		</div>
 		
 		<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs" id="gameTabWidget">
-			<ul id="gameTabs" class="nav nav-tabs" role="tablist">
+			<ul id="gameTabs" class="nav nav-tabs" role="tablist" style="background-color:white; color:black;">
 				<li role="presentation" class="active">
-					<a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+					<a href="#gameHome" id="game-home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="img/home.png" style="height:1.5em;"/></a>
+				</li>
+				<li role="presentation" class=""">
+					<a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/stock.png" style="height:1.5em;"/></a>
 				</li>
 				<li role="presentation" class="">
-					<a href="#stockPage" role="tab" id="stockPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Stock</a>
-				</li>
-				<li role="presentation" class="">
-					<a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Investments</a>
+					<a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/cash.png" style="height:1.5em;"/></a>
 				</li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
 					<!--p>Content for home page goes here</p-->
 					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
-					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
+					
 					<script>
 						/*
 						theAvatar.updateRemoteCash();
@@ -227,7 +227,7 @@
 						<img src="img/setup0_14.jpg" />
 						<img src="img/setup0_15.jpg" />
 					</div> 
-
+					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
 					<script>
 
 					//music
