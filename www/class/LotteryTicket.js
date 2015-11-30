@@ -93,6 +93,8 @@ function LotteryTicket(){
 		}
 
 		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+		var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+				policeSiren_Sound.play();
 			swal({title: "CAUGHT!", 
 					text: "Investment Advisor Kato says: \nI don't know you, and you don't know me! I never advised you, got that??",  
 					imageUrl: "img/advisor.jpg",  
@@ -113,6 +115,8 @@ function LotteryTicket(){
 		}
 
 		else{
+		var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+				policeSiren_Sound.play();
 		swal({title: "Busted!", 
 					text: "Investment Advisor Kato says: \n$!@#! They found out your clerk was cheating lottery winners! Thank god they didn't link it to you!",  
 					imageUrl: "img/advisor.jpg",  

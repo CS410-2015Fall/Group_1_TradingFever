@@ -99,6 +99,7 @@ function StartUp(){
 		} 
 
 		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.7){
+			
 			swal({title: "BUSTED!", 
 					text: "Investment Advisor Kato says: \nI'm sure we can talk our way out of this??",  
 					imageUrl: "img/advisor.jpg",  
@@ -106,6 +107,9 @@ function StartUp(){
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Diplomatic negotiation (lose 1 level)",   closeOnConfirm: false });
+					
+					var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+					policeSiren_Sound.play();
 		this.currentLevel -= 1;
 		this.potentialReturn *= 2;
 		this.setChanceOfSuccess(1);

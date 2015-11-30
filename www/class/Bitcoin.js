@@ -105,6 +105,8 @@ function Bitcoin(){
 		}
 
 		else if(Math.random() < this.getChanceOfSuccess() && this.getChanceOfSuccess() < 0.5){
+			var policeSiren_Sound= new Audio('sound/policeSiren.wav');
+			policeSiren_Sound.play();
 			swal({title: "GT.MOX HACKED!", 
 					text: "Investment Advisor Kato says: \nHow did the largest virtual currencies exchange get hacked?? Where's my money, Kark Marpeles??",  
 					imageUrl: "img/advisor.jpg",  
@@ -112,6 +114,7 @@ function Bitcoin(){
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Heavy losses (lose all bitcoin)",   closeOnConfirm: false });
+					
 		this.currentLevel = 0;
 		this.potentialReturn *= 2;
 		this.setChanceOfSuccess(1);
