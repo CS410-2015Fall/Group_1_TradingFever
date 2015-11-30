@@ -1,6 +1,6 @@
 var exit = 0;
 
-var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random), minAccount = 1000;
+var n = 51, random = d3.random.normal(1.2, 0.2), data = d3.range(n).map(random), minAccount = 1000, invSize = 100;
 
 // absolute sizing
 /*var margin = {top: 20, right: 20, bottom: 20, left: 40},
@@ -150,7 +150,13 @@ tick();
 
 $(document).ready(function(){
     $("#buybutton").click(function(){
-      var invSize = getInvestmentSize();
+      buyStock();
+        //$("div").animate({left: '250px'});
+    });
+});
+
+function buyStock(){
+      invSize = getInvestmentSize();
       transactionFee= invSize * theStocks.getStocksFeeRate();
       theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
       transaction = invSize * theStocks.getStocksStockPrice() + transactionFee;
@@ -162,17 +168,18 @@ $(document).ready(function(){
       }
       theStocks.setStocksCash(theStocks.getStocksCash() - transaction);
       theStocks.setStocksAvailableFunds(theStocks.getStocksAvailableFunds() - transaction);
-
-
-        //$("div").animate({left: '250px'});
-    });
-});
+}
 
 
 $(document).ready(function(){
     $("#sellbutton").click(function(){
-		var invSize = getInvestmentSize();
-      if(theStocks.getStocksShares() >invSize){
+		sellStock(); 
+    });
+});
+
+function sellStock(){
+      invSize = getInvestmentSize();
+      if(theStocks.getStocksShares() >=invSize){
         
         transactionFee= invSize * theStocks.getStocksFeeRate();
         theStocks.setStocksFee(theStocks.getStocksFee() + transactionFee);
@@ -183,9 +190,7 @@ $(document).ready(function(){
     }else{
       sweetAlert('You are attempting to short sell. Unfortunately, the brokerage failed to locate enough shares to borrow.');
     }
-    });
-});
-
+}
 
 // handles the RNG
 function setRandom() {
