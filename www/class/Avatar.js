@@ -4,6 +4,7 @@ function Avatar(name){
 	this.cash = 0;
 	this.listOfInvestments = [];
 	this.rage = 0;
+	this.facebookID = 0;
 	
 	this.setID = function(id){
 		this.id = id;
@@ -30,6 +31,13 @@ function Avatar(name){
 	// Remote Cash
 	this.setRemoteNetWorth = function() {
 		setNetWorth(this.id,this.getNetWorth());
+	}
+
+	this.setFacebookID = function(facebookID){
+		this.facebookID = facebookID;
+	}
+	this.getFacebookID = function(){
+		return this.facebookID;
 	}
 	
 	this.setInvestmentList = function(newList){

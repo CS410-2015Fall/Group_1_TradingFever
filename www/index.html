@@ -51,7 +51,6 @@
 	   	 	margin-right: auto;
 		}	
 
-
 		svg {
 			font: 10px sans-serif;
 		}
@@ -208,8 +207,20 @@
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane active in" id="gameHome" aria-labelledby="game-home-tab">
 					<!--p>Content for home page goes here</p-->
 					<!--img src="img/room.jpg" style="width:100%; height:80vh"/-->
-					
-					
+					<center>
+						<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>
+					</center>
+					<script>
+						/*
+						theAvatar.updateRemoteCash();
+						theAvatar.setCashAmount(5000000);
+
+						function updateDatabase(){
+							theAvatar.setRemoteCash();
+						}
+						setInterval(updateDatabase,1000);
+						*/
+					</script>
 					
 
 					<!-- animation -->
@@ -233,7 +244,7 @@
 					</div> 
 					<fb:login-button autologoutlink="true" scope="public_profile,email,user_friends" onlogin="checkLoginState();"></fb:login-button>
 					<script>
-
+					/*
 					//music
 					myAudio = new Audio('sound/tradingfever2.wav'); 
 					
@@ -252,6 +263,7 @@
 							frames[++i % frameCount].style.display = "block";
 						}, 100); 
 					} 
+					*/
 					</script>
 
 					<style>
@@ -269,6 +281,7 @@
 
 
 					<div id="status"></div>
+
 					<div style="width:100%; text-align:center;">
 						<button class="btn btn-warning" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
 					</div>
