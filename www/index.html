@@ -8,7 +8,7 @@
 		<script src="externalLibrary/bootstrap/js/bootstrap.min.js"></script>
 		<script src="externalLibrary/resizer/jquery.resize.js"></script>
 		<script src="externalLibrary/sweetalert-master/dist/sweetalert.min.js"></script>
-		<!--script type="text/javascript" charset="utf-8" src="cordova.js"></script-->  <!-- Include this line for mobile build-->
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  <!-- Include this line for mobile build-->
 		
 
 		<script src="js/modal.js"></script>
@@ -249,7 +249,7 @@
 					<a href="#investmentPage" role="tab" id="investmentPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/cash.png" style="height:1.5em;"/></a>
 				</li>
 				<li role="presentation" class="">
-					<a href="#leaderBoardPage" role="tab" id="leaderBoardPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/leaderBoard.png" style="height:1.5em;"/></a>
+					<a href="#leaderBoardPage" role="tab" id="leaderBoardPage-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false"><img src="img/leaderboard2.png" style="height:1.5em;"/></a>
 				</li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
@@ -480,7 +480,7 @@
 			function downloadLeaderBoard(){
 				getLeaderData();
 			}
-			setInterval(downloadLeaderBoard,120000);
+			setInterval(downloadLeaderBoard,10000);
 			downloadLeaderBoard();
 			
 			setInterval(adjustFrameSize,10000);

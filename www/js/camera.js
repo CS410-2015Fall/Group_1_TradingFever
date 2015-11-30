@@ -1,5 +1,4 @@
 function onPhotoDataSuccess(imageData) {
-				
 	var smallImage = document.getElementById('avatarPicture_modal');
 	smallImage.src = "data:image/jpeg;base64," + imageData;
 	
