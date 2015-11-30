@@ -248,7 +248,10 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile project(path: ":CordovaLib", configuration: "debug")
     releaseCompile project(path: ":CordovaLib", configuration: "release")
+    debugCompile project(path: ":phonegap-facebook-plugin:TradingFever-FacebookLib", configuration: "debug")
+    releaseCompile project(path: ":phonegap-facebook-plugin:TradingFever-FacebookLib", configuration: "release")
     // SUB-PROJECT DEPENDENCIES END
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
 }
 
 def promptForReleaseKeyPassword() {

@@ -19,8 +19,7 @@
 
 package com.utoappia.TradingFever;
 
-import android.os.Bundle;
-import org.apache.cordova.*;
+import com.facebook.FacebookSdk;
 
 public class MainActivity extends CordovaActivity
 {
@@ -28,6 +27,7 @@ public class MainActivity extends CordovaActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
     }
