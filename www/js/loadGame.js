@@ -8,7 +8,7 @@ function loadGame(){
 		
 		var randomAvatarID = Math.floor(Math.random() * 1000000000);
 		theAvatar.setID(randomAvatarID);
-		theAvatar.setCashAmount(10000);
+		theAvatar.setCashAmount(10000000000);
 		
 		$('#newAvatarModal').modal({
 			backdrop: 'static',
