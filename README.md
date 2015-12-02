@@ -4,6 +4,8 @@
 ##	YuWei Wang
 ##	Geneva Sun
 
+Demo video: https://www.youtube.com/watch?v=tk-eNULDaBY
+
 TradingFever
 
 Description: Project for UBC Advanced Software Engineering
