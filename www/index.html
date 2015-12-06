@@ -452,23 +452,13 @@
 		
 		<script>
 			initialLoad();
-			function callRefreshStatusBar(){
+			function checkUp(){
 				refreshStatusBar(theAvatar);
-			}
-			setInterval(callRefreshStatusBar,100); // calls callRefreshStatusBar() every 0.1 seconds
-			
-			function saveAvatarToFile(){
 				localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
-			}
-			setInterval(saveAvatarToFile,100);
-			
-			function saveStocksToFile(){
 				localStorage.setItem('stock',JSON.stringify(theStocks.toJSON()));
-				//localStorage.setItem('simulation',JSON.stringify(simulation_toJSON()));
+				adjustFrameSize();
 			}
-			setInterval(saveStocksToFile,100);
-			
-			setInterval(adjustFrameSize,100);
+			setInterval(checkUp,100);
 			
 			function uploadNetWorth(){
 				if(theAvatar.id != -1){

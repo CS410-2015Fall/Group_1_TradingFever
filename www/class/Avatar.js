@@ -64,6 +64,8 @@ function Avatar(name){
 		if(investmentInstance.upgradeable()){
 			// check upgrade cost
 			var cost = investmentInstance.upgradeCost();
+			console.log('cost: ' + cost);
+			console.log('avatarCash: ' + this.cash);
 			if(this.cash >= cost){
 				// deduct cash
 				this.cash = this.cash - cost;
@@ -72,7 +74,18 @@ function Avatar(name){
 				this.assignInvestmentIDIfNone(investmentInstance);
 				
 				// level up the investment
+				if(investmentInstance.currentLevel == 0){
+					
+					var currentTime = new Date();
+					currentTime = currentTime.getTime();
+					investmentInstance.lastCashedTime = currentTime;
+					console.log('checkpoint A');
+				}
 				investmentInstance.upgrade();
+				
+				
+				
+				console.log('avatarCash: ' + this.cash);
 			} else {
 				throw("You do not have enough cash");
 			}
@@ -111,7 +124,11 @@ function Avatar(name){
 		for(var ind=0; ind < this.listOfInvestments.length; ind ++){
 			var targetInvestmentInstance = this.listOfInvestments[ind];
 			
-			this.setCashAmount(this.getCashAmount() + targetInvestmentInstance.grabCollectableReward());
+			var collectedReward = targetInvestmentInstance.grabCollectableReward();
+			this.setCashAmount(this.getCashAmount() + collectedReward);
+			if(collectedReward > 0){
+				console.log('got a reward of ' + collectedReward + ' from ' + targetInvestmentInstance.investmentTitle);
+			}
 			
 			// progress bar
 			var lastTime = targetInvestmentInstance.getLastCashedTime();
