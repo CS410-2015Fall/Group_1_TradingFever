@@ -152,11 +152,11 @@ function Avatar(name){
 				// return amount
 				targetInvestmentInstance.viewHandler.setReturnAmountText(Math.floor(targetInvestmentInstance.getIncomeStatement().amount));
 				
-				if(theAvatar.getCashAmount() < targetInvestmentInstance.upgradeCost()){
-					targetInvestmentInstance.viewHandler.upgradeButton.disable();
-				} else {
-					targetInvestmentInstance.viewHandler.upgradeButton.enable();
-				}
+			}
+			if(theAvatar.getCashAmount() < targetInvestmentInstance.upgradeCost()){
+				targetInvestmentInstance.viewHandler.upgradeButton.disable();
+			} else {
+				targetInvestmentInstance.viewHandler.upgradeButton.enable();
 			}
 			// level
 			targetInvestmentInstance.viewHandler.setLevel(targetInvestmentInstance.getCurrentLevel());

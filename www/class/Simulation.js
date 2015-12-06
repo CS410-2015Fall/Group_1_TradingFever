@@ -307,16 +307,18 @@ function setReturnColour() {
 // buttons
 $(document).ready(function(){
     $("#outbutton").click(function(){
-      theStocks.subtractStocksCash(getTransferSize());
-      theAvatar.setCashAmount(theAvatar.getCashAmount()+getTransferSize());
+      var transferredAmount = theStocks.subtractStocksCash(getTransferSize());
+      theAvatar.setCashAmount(theAvatar.getCashAmount()+transferredAmount);
 
     });
 });
 
 $(document).ready(function(){
     $("#inbutton").click(function(){
-		theStocks.addStocksCash(getTransferSize());
-		theAvatar.setCashAmount(theAvatar.getCashAmount()-getTransferSize());
+		if(theAvatar.getCashAmount() > getTransferSize()){
+			theStocks.addStocksCash(getTransferSize());
+			theAvatar.setCashAmount(theAvatar.getCashAmount()-getTransferSize());
+		}
     });
 });
 

@@ -1,5 +1,5 @@
 function loadGame(){
-	localStorage.clear();
+	//localStorage.clear();
 	
 	theAvatar = new Avatar("(Avatar Name)");
 	
@@ -8,7 +8,7 @@ function loadGame(){
 		
 		var randomAvatarID = Math.floor(Math.random() * 1000000000);
 		theAvatar.setID(randomAvatarID);
-		theAvatar.setCashAmount(10000000000);
+		theAvatar.setCashAmount(1000);
 		
 		$('#newAvatarModal').modal({
 			backdrop: 'static',

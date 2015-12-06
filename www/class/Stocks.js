@@ -1,7 +1,7 @@
 
 function Stocks(){
 
-var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 4000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation, stocksReturn = 0, avgPurchasePrice = 0;
+var fee = 0, feeRate = 0.6, stockPrice = 0, shares = 0, securitiesGPV = 0, cash = 1000, maxLeverage = 2, netLiquidation = securitiesGPV+cash, availableFunds = maxLeverage*netLiquidation, leverage = securitiesGPV/netLiquidation, stocksReturn = 0, avgPurchasePrice = 0;
 
 // fee
 this.getStocksFee = function(){
@@ -61,13 +61,16 @@ this.addStocksCash = function(newCash) {
   cash = cash + newCash;
 }
 
-this.subtractStocksCash = function(newCash) {
-  if (cash - newCash > 1000){
-    cash = cash - newCash;
+this.subtractStocksCash = function(transferSize) {
+	var transferredCash = 0;
+  if (cash - transferSize >= 0 ){
+    cash = cash - transferSize;
+	transferredCash = transferSize;
   }
   else{
     alert("You can't take that much money or you'll go below minimum trading account size.");
   }
+  return transferredCash;
 }
 
 // maxLeverage
