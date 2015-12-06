@@ -28,4 +28,5 @@ function adjustFrameSize(){
 	$('#gameHome').height(windowHeight-h-5);
 	$('#stockPage').height(windowHeight-h-5);
 	$('#investmentPage').height(windowHeight-h-5);
+	$('#leaderBoardPage').height(windowHeight-h-5);
 }

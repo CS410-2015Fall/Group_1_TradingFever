@@ -29,8 +29,19 @@ setNetWorth = function(id, newNetWorth, name){
 	});
 }
 getLeaderData = function(){
+	/*
 	$.post("http://utoappia.com/Daniel/CS_410_TradingFever/getTopNetWorth.php",{'stuff':"lol"},
 		function(stringData) {
-			refreshLeaderBoard(JSON.parse(stringData));
+			//refreshLeaderBoard(JSON.parse(stringData));
+			console.log(JSON.parse(stringData));
+			
+			$('#leaderBoardTable').DataTable({
+				data:JSON.parse(stringData),
+				columns:[
+					{data: 'avatarName'},
+					{data: 'avatarNetWorth'}
+				]
+			})
 	});
+	*/
 }
