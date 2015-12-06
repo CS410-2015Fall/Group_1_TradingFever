@@ -100,29 +100,7 @@
 		</script>
 	</head>
 	<body style="font-size:5vmin; background-image: url(img/money_bag.png);background-color:#dddddd">
-		<script>
-			//leaderBoardData = [];
-			/*
-			leaderBoardData = [
-			{
-				'avatarName':"PersonC",
-				'avatarNetWorth':6436
-			},
-			{
-				'avatarName':"PersonD",
-				'avatarNetWorth':5324
-			},
-			{
-				'avatarName':"PersonA",
-				'avatarNetWorth':1000
-			},
-			{
-				'avatarName':"PersonB",
-				'avatarNetWorth':5000
-			}
-			];
-			*/
-		</script>
+		
 		
 		<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -146,8 +124,11 @@
 						</tr></table>
 					</div>
 					
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<div class="modal-footer" style="text-align:left;">
+						<table style="width:100%;"><tr>
+							<td><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetGame()">Restart the Game</button></td>
+							<td style="text-align:right;"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></td>
+						</tr></table>
 					</div>
 				</div>
 			</div>
@@ -477,5 +458,12 @@
 		</script>
 		
 		<script src = "class/Simulation.js"></script>
+		<script>
+			function resetGame(){
+				theAvatar = new Avatar();
+				localStorage.removeItem("avatar");
+				location.reload();
+			}
+		</script>
 	</body>
 </html>
