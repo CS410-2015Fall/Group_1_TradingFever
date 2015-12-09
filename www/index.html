@@ -444,20 +444,20 @@
 					localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
 					localStorage.setItem('stock',JSON.stringify(theStocks.toJSON()));
 					adjustFrameSize();
-					uploadNetWorth();
 				}
 				$('#leaderBoardTable_paginate').addClass('hide');
 				$('#leaderBoardTable_length').addClass('hide');
 				
 			}
-			setInterval(checkUp,1000);
+			setInterval(checkUp,100);
 			
+
 			function uploadNetWorth(){
 				if(theAvatar.id != -1){
 					setNetWorth(theAvatar.id,theAvatar.getNetWorth(),theAvatar.getName());
 				}
 			}
-			
+			setInterval(uploadNetWorth,10000);
 			function downloadLeaderBoard(){
 				//getLeaderData();
 				$('#leaderBoardTable').DataTable().ajax.reload();
