@@ -1,21 +1,16 @@
 function loadGame(){
 	//localStorage.clear();
 	
-	theAvatar = new Avatar("(Avatar Name)");
-	
-	
 	if(localStorage.getItem("avatar") === null){ // if first time loaded
-		
-		var randomAvatarID = Math.floor(Math.random() * 1000000000);
-		theAvatar.setID(randomAvatarID);
-		theAvatar.setCashAmount(3000);
-		
+		console.log('avatar not retrieved');
 		$('#newAvatarModal').modal({
 			backdrop: 'static',
 			keyboard: false
 		});
 		
 	} else {
+		console.log('avatar retrieved');
+		theAvatar = new Avatar();
 		theAvatar.loadFromJSONString(localStorage.getItem("avatar"));
 		mkInvestmentPage();
 		
@@ -23,6 +18,11 @@ function loadGame(){
 	}
 }
 function createAvatar(){
+	theAvatar = new Avatar("(Avatar Name)");
+	var randomAvatarID = Math.floor(Math.random() * 1000000000);
+	theAvatar.setID(randomAvatarID);
+	theAvatar.setCashAmount(3000);
+		
 	$('#newAvatarModal').modal('hide');
 	theAvatar.setName($('#txtNewAvatarName').val());
 	

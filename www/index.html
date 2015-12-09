@@ -75,7 +75,7 @@
 		}
 		</style>
 		<script>
-			
+			var requestReset = false;
 			document.addEventListener('deviceready', initApp, false);
 			document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -126,7 +126,7 @@
 					
 					<div class="modal-footer" style="text-align:left;">
 						<table style="width:100%;"><tr>
-							<td><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetGame()">Restart the Game</button></td>
+							<td><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="requestReset_Handle()">Restart the Game</button></td>
 							<td style="text-align:right;"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></td>
 						</tr></table>
 					</div>
@@ -431,10 +431,16 @@
 		<script>
 			initialLoad();
 			function checkUp(){
-				refreshStatusBar(theAvatar);
-				localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
-				localStorage.setItem('stock',JSON.stringify(theStocks.toJSON()));
-				adjustFrameSize();
+				if (typeof theAvatar !== 'undefined') {
+					if(requestReset){
+						resetGame();
+						return;
+					}
+					refreshStatusBar(theAvatar);
+					localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
+					localStorage.setItem('stock',JSON.stringify(theStocks.toJSON()));
+					adjustFrameSize();
+				}
 			}
 			setInterval(checkUp,100);
 			
@@ -455,9 +461,12 @@
 		<script src = "class/Simulation.js"></script>
 		<script>
 			function resetGame(){
-				theAvatar = new Avatar();
-				localStorage.removeItem("avatar");
+				//localStorage.removeItem("avatar");
+				localStorage.clear();
 				location.reload();
+			}
+			function requestReset_Handle(){
+				requestReset = true;
 			}
 		</script>
 	</body>
