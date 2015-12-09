@@ -113,8 +113,8 @@
 					<div class="modal-body">
 						<table><tr>
 							<td>
-								<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
-								<button onclick="capturePhoto()" style="width:5em;">Take new Photo</button>
+								<!--<img id="avatarPicture_modal" src="img/profile_empty.jpg" style="width:5em"/><br />
+								<button onclick="capturePhoto()" style="width:5em;">Take new Photo</button>-->
 								
 							</td>
 							<td><table>
@@ -309,8 +309,8 @@
 					<div id="status"></div>
 <!-- facebook
 					<div style="width:100%; text-align:center;">
-						<button class="btn btn-warning" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>-->
-					</div>
+						<button class="btn btn-warning" style="width:80%; font-size:1em;" onclick="post()">post to facebook</button>
+					</div>-->
 				</div>
 				<div role="tabpanel" style="overflow:scroll;" class="tab-pane" id="stockPage" aria-labelledby="stockPage-tab">
 					<p>
@@ -416,6 +416,10 @@
 				$('#leaderBoardTable').DataTable({
 					'serverSide': true,
 					'ajax':'http://utoappia.com/Daniel/CS_410_TradingFever/getTopNetWorth.php',
+					"bInfo":false,
+					"sPaginationType": "full_numbers",
+					'bFilter': false,
+					"bSearchable":false,
 					"columns": [
 						{ "data": "avatarName" },
 						{ "data": "avatarNetWorth" }
@@ -440,16 +444,19 @@
 					localStorage.setItem('avatar',JSON.stringify(theAvatar.toJSON()));
 					localStorage.setItem('stock',JSON.stringify(theStocks.toJSON()));
 					adjustFrameSize();
+					uploadNetWorth();
 				}
+				$('#leaderBoardTable_paginate').addClass('hide');
+				$('#leaderBoardTable_length').addClass('hide');
+				
 			}
-			setInterval(checkUp,100);
+			setInterval(checkUp,1000);
 			
 			function uploadNetWorth(){
 				if(theAvatar.id != -1){
 					setNetWorth(theAvatar.id,theAvatar.getNetWorth(),theAvatar.getName());
 				}
 			}
-			setInterval(uploadNetWorth,1000);
 			
 			function downloadLeaderBoard(){
 				//getLeaderData();

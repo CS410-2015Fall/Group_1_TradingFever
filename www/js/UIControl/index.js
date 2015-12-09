@@ -20,7 +20,7 @@ function initialLoad(avatarInstance){
 	
 	var imageData = localStorage.getItem('profilePicture');
 	document.getElementById('avatarPicture').src = imageData;
-	document.getElementById('avatarPicture_modal').src = imageData;
+	//document.getElementById('avatarPicture_modal').src = imageData;
 }
 function adjustFrameSize(){
 	var h = $('#statusBar').height() + $('#gameTabs').height();
