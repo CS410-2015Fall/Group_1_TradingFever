@@ -12,11 +12,6 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.utoappia.TradingFever"
-        },
-        "phonegap-facebook-plugin": {
-            "APP_ID": "715380275264110",
-            "APP_NAME": "TradingFever",
-            "PACKAGE_NAME": "com.utoappia.TradingFever"
         }
     },
     "dependent_plugins": {}
