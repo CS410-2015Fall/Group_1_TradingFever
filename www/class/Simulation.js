@@ -214,7 +214,7 @@ function setRandom() {
 // handles kato the advisor
 function advisorPopUp(){
   swal({title: "", 
-      text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first, until you get the hang of things, and until you make enough to up your size. If you're unsure of some of the words, just click them for an explanation. As for investments, they generate money passively! However, sometimes an investment can backfire and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming. Especially beware of later investment types.",  
+      text: "Investment Advisor Kato says: \nThere are two ways to make money in this game: trading stocks and making totally legitimate investments. As your financial advisor, I recommend trading with 100 shares at first. Investments generate money passively! However, they can fail and you'll lose a level in that investment. If you see a string of successful investments, it could mean a disaster is looming..",  
           imageUrl: "img/advisor.jpg",  
           showCancelButton: true,   
           confirmButtonColor: "#DD6B55",   
